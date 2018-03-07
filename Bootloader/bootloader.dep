@@ -6,63 +6,6 @@
   <configuration>
     <name>Debug</name>
     <outputs>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg330f128.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_pcnt.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_adc.__cstat.et</file>
-      <file>$TOOLKIT_DIR$\inc\c\math.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_opamp.__cstat.et</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_acmp.o</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\CMSIS\Include\core_cmInstr.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_aes.__cstat.et</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_burtc.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_ldma.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_letimer.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_lcd.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_int.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_leuart.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_mpu.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_lesense.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_prs.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_msc.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_rmu.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_rtc.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_rtcc.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_efm32hg.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_vcmp.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_wdog.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_efm32hg.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\limits.h</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_efm32hg.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ezr32hg.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_efm32hg.pbi</file>
-      <file>$PROJ_DIR$\Debug\Exe\bootloader.out</file>
-      <file>$PROJ_DIR$\Debug\Obj\startup_ezr32hg.o</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.c</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\system_ezr32hg.c</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Include\em_device.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_gpcrc.o</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.s</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_lcd.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_idac.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_i2c.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_opamp.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_gpio.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_ldma.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_ezr32hg.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\system_ezr32hg.o</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_dbg.o</file>
-      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_pcnt.__cstat.et</file>
-      <file>$PROJ_DIR$\..\Libs\Delay\Delay.c</file>
-      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_burtc.pbi</file>
-      <file>$TOOLKIT_DIR$\inc\c\xtgmath.h</file>
-      <file>$PROJ_DIR$\..\Libs\Delay\Delay.h</file>
-      <file>$PROJ_DIR$\..\Libs\Delay\Delay_hw.h</file>
       <file>$TOOLKIT_DIR$\lib\shb_l.a</file>
       <file>$PROJ_DIR$\Debug\List\bootloader.map</file>
       <file>$TOOLKIT_DIR$\inc\c\ystdio.h</file>
@@ -93,9 +36,9 @@
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_cmu.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_devinfo.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dma.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dma_ch.h</file>
       <file>$PROJ_DIR$\bootloader.icf</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg322f64.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dma_ch.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dma_descriptor.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dmactrl.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Include\efm32hg_dmareq.h</file>
@@ -198,7 +141,6 @@
       <file>$PROJ_DIR$\Debug\Obj\em_letimer.__cstat.et</file>
       <file>$PROJ_DIR$\Debug\Obj\em_lesense.__cstat.et</file>
       <file>$PROJ_DIR$\Debug\Obj\em_assert.__cstat.et</file>
-      <file>$PROJ_DIR$\Debug\Obj\bootloader.pbd</file>
       <file>$PROJ_DIR$\Debug\Obj\em_ebi.__cstat.et</file>
       <file>$PROJ_DIR$\Debug\Obj\startup_efm32hg.__cstat.et</file>
       <file>$PROJ_DIR$\Debug\Obj\em_lcd.__cstat.et</file>
@@ -233,10 +175,13 @@
       <file>$PROJ_DIR$\Debug\Obj\em_lesense.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\em_letimer.pbi</file>
       <file>$PROJ_DIR$\Debug\Obj\em_leuart.pbi</file>
-      <file>$PROJ_DIR$\..\Drivers\I2C\I2C.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_msc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_mpu.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_opamp.pbi</file>
+      <file>$PROJ_DIR$\..\Drivers\I2C\I2C.h</file>
       <file>$PROJ_DIR$\Delay\Delay.h</file>
       <file>$PROJ_DIR$\Delay\Delay.c</file>
-      <file>$PROJ_DIR$\..\Drivers\I2C\I2C.h</file>
+      <file>$PROJ_DIR$\..\Drivers\I2C\I2C.c</file>
       <file>$PROJ_DIR$\..\Drivers\Flash\EXT_Flash.c</file>
       <file>$PROJ_DIR$\..\Drivers\Flash\EXT_Flash.h</file>
       <file>$PROJ_DIR$\..\InitDevice.c</file>
@@ -245,27 +190,6 @@
       <file>$PROJ_DIR$\..\Libs\CRC8\CRC8.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\CMSIS\Include\arm_math.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\CMSIS\Include\core_cm3.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dmactrl.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dmareq.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_emu.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_etm.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_gpio.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_gpio_p.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_i2c.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_buf.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_ch.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_st.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_letimer.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_leuart.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_msc.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_pcnt.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_prs_ch.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_rmu.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_romtable.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_rtc.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_timer.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_timer_cc.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_usart.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_usb.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_usb_diep.h</file>
@@ -293,11 +217,7 @@
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_ebi.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_emu.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_gpcrc.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_gpio.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_i2c.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_idac.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_int.h</file>
-      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_lcd.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg330f128.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_acmp.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_adc.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_aes.h</file>
@@ -310,6 +230,32 @@
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_devinfo.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dma_ch.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dma_descriptor.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dmactrl.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_dmareq.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_emu.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_etm.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_gpio_p.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_i2c.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_buf.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_ch.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_lesense_st.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_letimer.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_leuart.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_msc.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_pcnt.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_prs_ch.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_rmu.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_romtable.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_rtc.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_timer.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include\efm32lg_timer_cc.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_gpio.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_i2c.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_idac.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_int.h</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_lcd.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_ldma.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_lesense.h</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\inc\em_mpu.h</file>
@@ -364,139 +310,97 @@
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_usart.c</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_vcmp.c</file>
       <file>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_wdog.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_mpu.pbi</file>
       <file>$PROJ_DIR$\main.c</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_msc.pbi</file>
-      <file>$PROJ_DIR$\Debug\Obj\em_opamp.pbi</file>
-      <file>$PROJ_DIR$\..\main.c</file>
-      <file>$PROJ_DIR$\..\Tasks\Tracker_task\Tracker_task.c</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_adc.__cstat.et</file>
+      <file>$TOOLKIT_DIR$\inc\c\intrinsics.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_pcnt.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_aes.__cstat.et</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\CMSIS\Include\core_cmInstr.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_acmp.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_burtc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_opamp.__cstat.et</file>
+      <file>$TOOLKIT_DIR$\inc\c\math.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_ldma.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_letimer.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_lcd.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_int.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_leuart.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_mpu.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_lesense.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_prs.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_msc.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_rmu.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\stddef.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_rtc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_rtcc.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_efm32hg.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_vcmp.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_wdog.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_efm32hg.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\limits.h</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdbool.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_efm32hg.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ezr32hg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_efm32hg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Exe\bootloader.out</file>
+      <file>$PROJ_DIR$\Debug\Obj\startup_ezr32hg.o</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.c</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\system_ezr32hg.c</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Include\em_device.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_gpcrc.o</file>
+      <file>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.s</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_lcd.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_idac.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\stdio.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_i2c.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_opamp.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_gpio.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_ldma.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_ezr32hg.pbi</file>
+      <file>$PROJ_DIR$\Debug\Obj\system_ezr32hg.o</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_dbg.o</file>
+      <file>$TOOLKIT_DIR$\inc\c\ysizet.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_pcnt.__cstat.et</file>
+      <file>$PROJ_DIR$\..\Libs\Delay\Delay.c</file>
+      <file>$TOOLKIT_DIR$\inc\c\string.h</file>
+      <file>$PROJ_DIR$\Debug\Obj\em_burtc.pbi</file>
+      <file>$TOOLKIT_DIR$\inc\c\xtgmath.h</file>
+      <file>$PROJ_DIR$\..\Libs\Delay\Delay.h</file>
+      <file>$PROJ_DIR$\..\Libs\Delay\Delay_hw.h</file>
     </outputs>
     <file>
       <name>[ROOT_NODE]</name>
       <outputs>
         <tool>
           <name>ILINK</name>
-          <file> 32 58</file>
+          <file> 336 1</file>
         </tool>
       </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\Debug\Exe\bootloader.out</name>
-      <outputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 58</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ILINK</name>
-          <file> 87 76 115 6 116 177 185 9 172 174 187 114 48 117 112 61 37 44 42 40 13 12 10 16 11 14 15 18 43 77 138 140 141 144 216 214 139 94 93 111 74 159 98 137 134 57 145 151 147</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 33</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 30</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 36</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 86 106 109 163 80 110 158 107 88 131 89 161 108 130 126</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\system_ezr32hg.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 47</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 46</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 110 106 163 109 161 108 158 107 36</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 106 158 109 107 163 80 130 86 110 161 108 88 131 89 126</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.s</name>
-      <outputs>
-        <tool>
-          <name>AARM</name>
-          <file> 33</file>
-        </tool>
-      </outputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Libs\Delay\Delay.c</name>
-      <outputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 115</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 60</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 55 110 106 163 109 161 108 158 107 318 130 88 237 95 7 171 2 75 52 49 170 4 167 54 131 80 89 86 126 127 125 181 157 119 84 123 122 142 124 182 183 180 154 155 128 79 179 178 156 121 129 184 90 85 120 83 118 92 91 82 81 28 274</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 180 80 81 109 106 119 121 92 4 108 28 127 142 79 85 163 167 158 161 95 86 181 123 182 155 178 184 83 7 2 110 318 107 130 274 88 237 131 89 126 125 157 84 122 124 183 154 128 179 156 129 90 120 118 91 82 52 75 171 49 170 54 55</file>
-        </tool>
-      </inputs>
     </file>
     <file>
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Source\IAR\startup_efm32hg.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 194</file>
+          <name>BICOMP</name>
+          <file> 335</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 23</file>
+          <file> 327</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 31</file>
+          <name>__cstat</name>
+          <file> 136</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 130</file>
+          <name>BICOMP</name>
+          <file> 73</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 130</file>
+          <name>ICCARM</name>
+          <file> 73</file>
         </tool>
       </inputs>
     </file>
@@ -504,26 +408,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Source\system_efm32hg.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 196</file>
+          <name>BICOMP</name>
+          <file> 330</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 29</file>
+          <file> 333</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 26</file>
+          <name>__cstat</name>
+          <file> 138</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 110 106 163 109 161 108 158 107 130</file>
+          <name>BICOMP</name>
+          <file> 106 52 101 50 53 49 104 51 73</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 163 109 158 107 110 106 161 108 130</file>
+          <name>ICCARM</name>
+          <file> 53 49 106 52 104 51 101 50 73</file>
         </tool>
       </inputs>
     </file>
@@ -531,12 +435,12 @@
       <name>$PROJ_DIR$\..\Drivers\PCA9536\PCA9536.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 146</file>
+          <name>BICOMP</name>
+          <file> 16</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 73</file>
+          <name>__cstat</name>
+          <file> 89</file>
         </tool>
       </outputs>
     </file>
@@ -545,7 +449,7 @@
       <outputs>
         <tool>
           <name>AARM</name>
-          <file> 137</file>
+          <file> 80</file>
         </tool>
       </outputs>
     </file>
@@ -553,53 +457,26 @@
       <name>$PROJ_DIR$\..\Libs\Delay\Delay_hw.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 200</file>
+          <name>BICOMP</name>
+          <file> 48</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 101</file>
+          <file> 44</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 105</file>
+          <name>__cstat</name>
+          <file> 142</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 56 110 106 163 109 161 108 158 107 318 130 88 237 95 7 171 2 75 52 49 170 4 167 54 131 80 89 86 126 127 125 181 157 119 84 123 122 142 124 182 183 180 154 155 128 79 179 178 156 121 129 184 90 85 120 83 118 92 91 82 81 28 274</file>
-        </tool>
-        <tool>
           <name>BICOMP</name>
-          <file> 180 80 81 109 106 119 121 92 4 108 28 127 142 79 85 163 167 158 161 95 86 181 123 182 155 178 184 83 7 2 110 318 107 130 274 88 237 131 89 126 125 157 84 122 124 183 154 128 179 156 129 90 120 118 91 82 52 75 171 49 170 54 56</file>
-        </tool>
-      </inputs>
-    </file>
-    <file>
-      <name>$PROJ_DIR$\..\Drivers\I2C\I2C.c</name>
-      <outputs>
-        <tool>
-          <name>__cstat</name>
-          <file> 150</file>
+          <file> 123 23 24 52 49 62 64 35 313 51 332 70 85 22 28 106 110 101 104 38 29 124 66 125 98 121 127 26 309 306 53 264 50 73 198 32 182 74 30 69 68 100 27 65 67 126 97 71 122 99 72 33 63 61 34 25 356 18 114 353 113 358 360</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 74</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 78</file>
-        </tool>
-      </outputs>
-      <inputs>
-        <tool>
-          <name>ICCARM</name>
-          <file> 230 110 106 163 109 161 108 158 107 148 49 288 267 0 238 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 285 275 228</file>
-        </tool>
-        <tool>
-          <name>BICOMP</name>
-          <file> 268 262 265 109 106 267 0 292 297 110 108 158 163 241 246 253 301 295 75 288 161 294 261 247 259 257 244 300 242 299 239 171 148 285 228 107 49 28 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 2 275 230</file>
+          <file> 360 53 49 106 52 104 51 101 50 264 73 32 182 38 309 114 306 18 356 353 113 313 110 358 74 23 30 29 69 70 68 124 100 62 27 66 65 85 67 125 126 123 97 98 71 22 122 121 99 64 72 127 33 28 63 26 61 35 34 25 24 332 198</file>
         </tool>
       </inputs>
     </file>
@@ -607,26 +484,53 @@
       <name>$PROJ_DIR$\Delay\Delay.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 149</file>
+          <name>BICOMP</name>
+          <file> 3</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 115</file>
+          <file> 58</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 60</file>
+          <name>__cstat</name>
+          <file> 92</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 228 110 106 163 109 161 108 158 107 318 267 0 238 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274</file>
+          <name>BICOMP</name>
+          <file> 235 223 50 106 191 237 233 216 309 198 183 188 243 228 218 114 264 53 49 222 187 240 234 184 236 230 239 213 190 241 225 306 52 101 104 51 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 173</file>
         </tool>
         <tool>
+          <name>ICCARM</name>
+          <file> 173 53 49 106 52 104 51 101 50 264 191 211 183 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Drivers\I2C\I2C.c</name>
+      <outputs>
+        <tool>
           <name>BICOMP</name>
-          <file> 250 303 107 163 267 252 248 296 7 274 238 264 258 243 298 171 318 110 106 302 263 255 249 260 251 245 254 293 266 256 240 2 109 158 161 108 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 228</file>
+          <file> 21</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 17</file>
+        </tool>
+        <tool>
+          <name>__cstat</name>
+          <file> 93</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 192 186 189 52 49 191 211 212 217 53 51 101 106 226 231 238 221 215 18 246 104 214 185 232 244 242 229 220 227 219 224 114 91 209 173 50 353 332 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 306 199 172</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 172 53 49 106 52 104 51 101 50 91 353 246 191 211 183 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 209 199 173</file>
         </tool>
       </inputs>
     </file>
@@ -634,26 +538,26 @@
       <name>$PROJ_DIR$\..\Drivers\Flash\EXT_Flash.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 165</file>
+          <name>BICOMP</name>
+          <file> 56</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 111</file>
+          <file> 54</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 113</file>
+          <name>__cstat</name>
+          <file> 108</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 232 110 106 163 109 161 108 158 107 234 52 49 170 267 0 238 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 287 28 275 274 228</file>
+          <name>BICOMP</name>
+          <file> 52 49 238 221 226 231 215 18 245 51 211 192 186 212 189 217 53 332 356 101 104 106 214 185 232 244 242 229 220 227 219 224 114 191 173 179 50 353 113 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 306 198 177 199</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 109 106 253 301 241 246 295 75 287 108 0 268 262 292 265 297 110 28 52 158 161 163 294 261 247 259 257 244 300 242 299 239 171 267 228 234 107 49 170 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 2 274 232 275</file>
+          <name>ICCARM</name>
+          <file> 177 53 49 106 52 104 51 101 50 179 356 353 113 191 211 183 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 245 332 199 198 173</file>
         </tool>
       </inputs>
     </file>
@@ -661,26 +565,26 @@
       <name>$PROJ_DIR$\..\InitDevice.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 160</file>
+          <name>BICOMP</name>
+          <file> 47</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 159</file>
+          <file> 102</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 104</file>
+          <name>__cstat</name>
+          <file> 103</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 234 317 28 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 285 275 278 274 277 287 272 273 276 315 288 314 318 308 319 322</file>
+          <name>BICOMP</name>
+          <file> 186 192 265 189 197 211 212 217 53 50 106 191 246 332 226 231 238 221 215 18 49 263 209 198 261 264 214 185 232 244 242 229 220 227 219 224 114 199 202 201 196 200 245 260 254 268 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 179</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 262 268 319 265 273 0 292 297 110 107 163 267 288 28 241 246 253 301 295 75 106 317 285 274 315 318 294 261 247 259 257 244 300 242 299 239 171 275 278 277 272 276 287 314 308 322 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 234</file>
+          <name>ICCARM</name>
+          <file> 179 263 332 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 209 199 202 198 201 245 196 197 200 261 246 260 264 254 265 268</file>
         </tool>
       </inputs>
     </file>
@@ -688,26 +592,26 @@
       <name>$PROJ_DIR$\..\Libs\CRC8\CRC8.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 152</file>
+          <name>BICOMP</name>
+          <file> 15</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 76</file>
+          <file> 19</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 72</file>
+          <name>__cstat</name>
+          <file> 95</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 236 110 106 163 109 161 108 158 107</file>
+          <name>BICOMP</name>
+          <file> 49 51 53 104 106 52 101 50 181</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 106 108 110 161 163 109 158 107 236</file>
+          <name>ICCARM</name>
+          <file> 181 53 49 106 52 104 51 101 50</file>
         </tool>
       </inputs>
     </file>
@@ -715,22 +619,22 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR\startup_efm32lg.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 137</file>
+          <name>BICOMP</name>
+          <file> 79</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 136</file>
+          <name>ICCARM</name>
+          <file> 80</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 51 243 223 237 228 216 309 222 188 233 235 218 52 49 114 183 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 191</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 108 258 303 252 243 296 7 302 264 248 250 298 109 106 171 238 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 267</file>
+          <name>ICCARM</name>
+          <file> 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -738,22 +642,22 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\system_efm32lg.c</name>
       <outputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 134</file>
+          <name>BICOMP</name>
+          <file> 78</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 135</file>
+          <name>ICCARM</name>
+          <file> 77</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 110 106 163 109 161 108 158 107 267 0 238 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 211 217 101 104 212 53 49 192 186 189 226 231 238 221 215 18 52 51 214 185 232 244 242 229 220 227 219 224 114 191 106 50 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 306</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 0 297 158 161 292 110 106 268 262 265 241 246 253 301 295 75 109 108 294 261 247 259 257 244 300 242 299 239 171 267 163 107 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 2</file>
+          <name>ICCARM</name>
+          <file> 53 49 106 52 104 51 101 50 191 211 183 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -761,26 +665,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_acmp.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 215</file>
+          <name>BICOMP</name>
+          <file> 46</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 6</file>
+          <file> 310</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 103</file>
+          <name>__cstat</name>
+          <file> 157</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 271 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 275 274</file>
+          <name>BICOMP</name>
+          <file> 243 218 52 49 183 188 228 114 199 237 233 235 223 216 309 51 191 332 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 198 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 195</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 258 298 109 106 238 264 243 171 275 252 248 250 303 296 7 108 267 28 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 274 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 271</file>
+          <name>ICCARM</name>
+          <file> 195 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 199 198</file>
         </tool>
       </inputs>
     </file>
@@ -788,26 +692,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_adc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 3</file>
+          <name>BICOMP</name>
+          <file> 39</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 116</file>
+          <file> 59</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 96</file>
+          <name>__cstat</name>
+          <file> 305</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 272 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274 278 275 20 49</file>
+          <name>BICOMP</name>
+          <file> 230 241 306 240 184 213 202 222 187 234 236 239 190 225 49 101 104 53 332 106 191 183 188 237 233 243 235 228 218 223 216 309 52 51 114 198 324 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 50 199 196 353</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 245 256 2 255 260 293 278 302 263 249 251 254 266 240 106 158 161 110 28 163 267 238 264 252 248 258 250 243 298 303 296 7 109 108 171 274 20 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 107 275 272 49</file>
+          <name>ICCARM</name>
+          <file> 196 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198 202 199 324 353</file>
         </tool>
       </inputs>
     </file>
@@ -815,26 +719,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_aes.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 8</file>
+          <name>BICOMP</name>
+          <file> 43</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 177</file>
+          <file> 120</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 100</file>
+          <name>__cstat</name>
+          <file> 308</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 273 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274</file>
+          <name>BICOMP</name>
+          <file> 229 214 219 244 220 185 232 242 227 224 106 49 114 332 211 192 186 226 231 212 238 189 217 221 215 53 18 50 198 191 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 197</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 244 294 299 259 300 261 247 257 242 239 163 106 171 28 0 268 262 241 246 292 253 265 297 301 295 110 75 107 274 267 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 273</file>
+          <name>ICCARM</name>
+          <file> 197 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198</file>
         </tool>
       </inputs>
     </file>
@@ -842,26 +746,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_assert.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 191</file>
+          <name>BICOMP</name>
+          <file> 45</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 185</file>
+          <file> 128</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 102</file>
+          <name>__cstat</name>
+          <file> 134</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 274 28</file>
+          <name>BICOMP</name>
+          <file> 198 332</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 274 28</file>
+          <name>ICCARM</name>
+          <file> 198 332</file>
         </tool>
       </inputs>
     </file>
@@ -869,26 +773,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_burtc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 201</file>
+          <name>BICOMP</name>
+          <file> 357</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 9</file>
+          <file> 311</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 53</file>
+          <name>__cstat</name>
+          <file> 143</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 276 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274 275</file>
+          <name>BICOMP</name>
+          <file> 238 49 221 191 226 231 215 18 199 211 192 186 212 189 217 53 50 106 332 214 185 232 244 242 229 220 227 219 224 114 198 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 200</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 253 106 301 267 241 246 295 75 275 0 268 262 292 265 297 110 107 163 28 294 261 247 259 257 244 300 242 299 239 171 274 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 276</file>
+          <name>ICCARM</name>
+          <file> 200 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -896,26 +800,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_cmu.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 205</file>
+          <name>BICOMP</name>
+          <file> 164</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 172</file>
+          <file> 115</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 222</file>
+          <name>__cstat</name>
+          <file> 147</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 278 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274 275 20 49 27 285 317 279</file>
+          <name>BICOMP</name>
+          <file> 191 211 217 50 106 212 53 203 192 186 189 199 198 226 231 238 221 215 18 49 324 209 332 214 185 232 244 242 229 220 227 219 224 114 331 263 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 353 202</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 267 0 297 107 163 292 110 279 268 262 265 275 274 241 246 253 301 295 75 106 20 285 28 294 261 247 259 257 244 300 242 299 239 171 27 317 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 49 278</file>
+          <name>ICCARM</name>
+          <file> 202 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198 199 324 353 331 209 263 203</file>
         </tool>
       </inputs>
     </file>
@@ -923,26 +827,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_cryotimer.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 203</file>
+          <name>BICOMP</name>
+          <file> 163</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 174</file>
+          <file> 117</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 221</file>
+          <name>__cstat</name>
+          <file> 145</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 280 28 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 275</file>
+          <name>BICOMP</name>
+          <file> 235 51 223 237 233 216 309 191 183 188 243 228 218 52 49 114 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 199 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 204</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 250 108 303 252 248 296 7 267 238 264 258 243 298 109 106 171 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 275 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 280</file>
+          <name>ICCARM</name>
+          <file> 204 332 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 199</file>
         </tool>
       </inputs>
     </file>
@@ -950,26 +854,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_dac.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 206</file>
+          <name>BICOMP</name>
+          <file> 5</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 114</file>
+          <file> 57</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 62</file>
+          <name>__cstat</name>
+          <file> 148</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 281 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274 28 278 275</file>
+          <name>BICOMP</name>
+          <file> 188 183 228 114 191 243 218 52 49 199 198 332 237 233 235 223 216 309 51 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 202 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 205</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 264 238 243 171 267 258 298 109 106 275 274 28 252 248 250 303 296 7 108 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 278 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 281</file>
+          <name>ICCARM</name>
+          <file> 205 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198 332 202 199</file>
         </tool>
       </inputs>
     </file>
@@ -977,26 +881,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_crypto.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 198</file>
+          <name>BICOMP</name>
+          <file> 11</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 187</file>
+          <file> 130</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 68</file>
+          <name>__cstat</name>
+          <file> 140</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 213 240 184 230 241 306 222 187 234 236 239 190 225 49 101 104 53 183 188 237 233 243 235 228 218 223 216 309 52 51 114 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 191</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 293 255 260 245 256 2 302 263 249 251 254 266 240 106 158 161 110 238 264 252 248 258 250 243 298 303 296 7 109 108 171 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 267</file>
+          <name>ICCARM</name>
+          <file> 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1004,26 +908,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_dbg.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 188</file>
+          <name>BICOMP</name>
+          <file> 6</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 48</file>
+          <file> 352</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 63</file>
+          <name>__cstat</name>
+          <file> 131</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 282 28 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274 278 275 287</file>
+          <name>BICOMP</name>
+          <file> 220 332 244 191 214 229 219 245 185 232 242 227 224 106 49 114 198 211 192 186 226 231 212 238 189 217 221 215 53 18 50 199 202 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 206</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 300 28 259 267 294 244 299 287 261 247 257 242 239 163 106 171 274 0 268 262 241 246 292 253 265 297 301 295 110 75 107 275 278 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 282</file>
+          <name>ICCARM</name>
+          <file> 206 332 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198 202 199 245</file>
         </tool>
       </inputs>
     </file>
@@ -1031,26 +935,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_dma.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 199</file>
+          <name>BICOMP</name>
+          <file> 7</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 117</file>
+          <file> 60</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 64</file>
+          <name>__cstat</name>
+          <file> 141</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 283 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 41 49 59 28 278 274 275</file>
+          <name>BICOMP</name>
+          <file> 225 190 236 101 104 222 187 234 239 49 53 199 240 184 230 213 241 306 353 202 332 183 188 237 233 243 235 228 218 223 216 309 52 51 114 198 191 345 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 207 2</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 240 266 251 158 161 302 263 249 254 106 110 275 255 260 245 293 256 2 49 278 28 238 264 252 248 258 250 243 298 303 296 7 109 108 171 274 267 41 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 283 59</file>
+          <name>ICCARM</name>
+          <file> 207 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 345 353 2 332 202 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1058,26 +962,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_ebi.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 193</file>
+          <name>BICOMP</name>
+          <file> 8</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 112</file>
+          <file> 55</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 65</file>
+          <name>__cstat</name>
+          <file> 135</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 284 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 183 188 243 228 218 52 49 114 191 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 208</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 238 264 258 243 298 109 106 171 267 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 284</file>
+          <name>ICCARM</name>
+          <file> 208 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1085,26 +989,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_emu.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 169</file>
+          <name>BICOMP</name>
+          <file> 9</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 61</file>
+          <file> 4</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 66</file>
+          <name>__cstat</name>
+          <file> 112</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 27 106 163 109 161 108 158 107 285 267 0 238 110 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 275 278 274 317 279</file>
+          <name>BICOMP</name>
+          <file> 51 239 49 199 222 187 234 236 190 225 306 202 52 240 184 230 213 241 53 198 203 101 104 183 188 237 233 243 235 228 218 223 216 309 114 191 209 263 106 50 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 331</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 108 254 106 275 302 263 249 251 266 240 2 278 109 255 260 245 293 256 110 274 279 158 161 238 264 252 248 258 250 243 298 303 296 7 171 267 285 317 163 107 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 27</file>
+          <name>ICCARM</name>
+          <file> 331 49 106 52 104 51 101 50 209 191 211 183 53 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 199 202 198 263 203</file>
         </tool>
       </inputs>
     </file>
@@ -1112,26 +1016,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_gpcrc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 212</file>
+          <name>BICOMP</name>
+          <file> 10</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 37</file>
+          <file> 341</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 67</file>
+          <name>__cstat</name>
+          <file> 154</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 286 275 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274</file>
+          <name>BICOMP</name>
+          <file> 223 235 51 237 233 216 309 191 183 188 243 228 218 52 49 114 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 198 199 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 210</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 303 250 108 252 248 296 7 267 238 264 258 243 298 109 106 171 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 274 275 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 286</file>
+          <name>ICCARM</name>
+          <file> 210 199 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198</file>
         </tool>
       </inputs>
     </file>
@@ -1139,26 +1043,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_gpio.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 211</file>
+          <name>BICOMP</name>
+          <file> 12</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 44</file>
+          <file> 348</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 69</file>
+          <name>__cstat</name>
+          <file> 153</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 287 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 275 274</file>
+          <name>BICOMP</name>
+          <file> 332 229 214 219 244 220 185 232 242 227 224 106 49 114 198 211 192 186 226 231 212 238 189 217 221 215 53 18 50 191 199 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 245</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 28 244 294 299 259 300 261 247 257 242 239 163 106 171 274 0 268 262 241 246 292 253 265 297 301 295 110 75 107 267 275 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 287</file>
+          <name>ICCARM</name>
+          <file> 245 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 199 198</file>
         </tool>
       </inputs>
     </file>
@@ -1166,26 +1070,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_i2c.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 168</file>
+          <name>BICOMP</name>
+          <file> 13</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 42</file>
+          <file> 346</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 70</file>
+          <name>__cstat</name>
+          <file> 111</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 288 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 278 274 275 27</file>
+          <name>BICOMP</name>
+          <file> 231 215 226 18 238 221 49 191 199 211 192 186 212 189 217 53 50 106 331 214 185 232 244 242 229 220 227 219 224 114 202 198 332 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 246</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 246 295 241 75 253 301 106 267 275 0 268 262 292 265 297 110 107 163 27 294 261 247 259 257 244 300 242 299 239 171 278 274 28 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 288</file>
+          <name>ICCARM</name>
+          <file> 246 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 202 198 199 331</file>
         </tool>
       </inputs>
     </file>
@@ -1193,26 +1097,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_idac.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 164</file>
+          <name>BICOMP</name>
+          <file> 14</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 40</file>
+          <file> 344</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 71</file>
+          <name>__cstat</name>
+          <file> 107</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 289 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 183 188 243 228 218 52 49 114 191 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 247</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 238 264 258 243 298 109 106 171 267 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 289</file>
+          <name>ICCARM</name>
+          <file> 247 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1220,26 +1124,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_int.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 204</file>
+          <name>BICOMP</name>
+          <file> 162</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 13</file>
+          <file> 317</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 220</file>
+          <name>__cstat</name>
+          <file> 146</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 110 106 163 109 161 108 158 107 290 267 0 238 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 49 231 215 226 18 238 221 101 104 211 192 186 212 189 217 53 52 51 214 185 232 244 242 229 220 227 219 224 114 248 106 50 191 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 306</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 106 246 295 241 75 253 301 158 161 0 268 262 292 265 297 110 109 108 294 261 247 259 257 244 300 242 299 239 171 290 163 107 267 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 2</file>
+          <name>ICCARM</name>
+          <file> 53 49 106 52 104 51 101 50 248 191 211 183 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1247,26 +1151,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_lcd.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 195</file>
+          <name>BICOMP</name>
+          <file> 343</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 12</file>
+          <file> 316</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 39</file>
+          <name>__cstat</name>
+          <file> 137</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 291 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 183 188 243 228 218 52 49 114 191 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 249</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 238 264 258 243 298 109 106 171 267 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 291</file>
+          <name>ICCARM</name>
+          <file> 249 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1274,26 +1178,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_ldma.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 209</file>
+          <name>BICOMP</name>
+          <file> 349</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 10</file>
+          <file> 314</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 45</file>
+          <name>__cstat</name>
+          <file> 151</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 304 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 183 188 243 228 218 52 49 114 191 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 250</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 238 264 258 243 298 109 106 171 267 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 304</file>
+          <name>ICCARM</name>
+          <file> 250 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1301,26 +1205,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_lesense.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 190</file>
+          <name>BICOMP</name>
+          <file> 166</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 16</file>
+          <file> 320</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 224</file>
+          <name>__cstat</name>
+          <file> 133</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 305 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274 275 278</file>
+          <name>BICOMP</name>
+          <file> 212 53 211 217 50 106 192 186 189 199 226 231 238 221 215 18 49 214 185 232 244 242 229 220 227 219 224 114 191 332 198 202 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 251</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 292 110 0 297 107 163 268 262 265 275 241 246 253 301 295 75 106 294 261 247 259 257 244 300 242 299 239 171 267 28 274 278 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 305</file>
+          <name>ICCARM</name>
+          <file> 251 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198 199 202</file>
         </tool>
       </inputs>
     </file>
@@ -1328,26 +1232,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_mpu.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 186</file>
+          <name>BICOMP</name>
+          <file> 170</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 15</file>
+          <file> 319</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 358</file>
+          <name>__cstat</name>
+          <file> 129</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 306 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274 28</file>
+          <name>BICOMP</name>
+          <file> 188 183 228 114 243 218 52 49 237 233 235 223 216 309 51 191 332 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 198 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 252</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 264 238 243 171 258 298 109 106 252 248 250 303 296 7 108 267 28 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 274 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 306</file>
+          <name>ICCARM</name>
+          <file> 252 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198 332</file>
         </tool>
       </inputs>
     </file>
@@ -1355,26 +1259,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_letimer.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 189</file>
+          <name>BICOMP</name>
+          <file> 167</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 11</file>
+          <file> 315</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 225</file>
+          <name>__cstat</name>
+          <file> 132</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 307 28 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 278 274 275</file>
+          <name>BICOMP</name>
+          <file> 53 239 49 222 187 234 236 190 225 101 104 198 240 184 230 213 241 306 191 183 188 237 233 243 235 228 218 223 216 309 52 51 114 332 202 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 199 253</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 110 254 106 302 263 249 251 266 240 158 161 274 255 260 245 293 256 2 267 238 264 252 248 258 250 243 298 303 296 7 109 108 171 28 278 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 275 307</file>
+          <name>ICCARM</name>
+          <file> 253 332 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 202 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1382,26 +1286,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_leuart.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 197</file>
+          <name>BICOMP</name>
+          <file> 168</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 14</file>
+          <file> 318</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 226</file>
+          <name>__cstat</name>
+          <file> 139</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 308 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 278 274 275</file>
+          <name>BICOMP</name>
+          <file> 106 185 232 49 191 242 227 224 114 198 214 244 229 220 219 211 192 186 226 231 212 238 189 217 221 215 53 18 50 332 202 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 199 254</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 163 261 247 106 267 257 242 239 171 274 294 259 244 300 299 0 268 262 241 246 292 253 265 297 301 295 110 75 107 28 278 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 275 308</file>
+          <name>ICCARM</name>
+          <file> 254 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 202 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1409,26 +1313,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_msc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 208</file>
+          <name>BICOMP</name>
+          <file> 169</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 18</file>
+          <file> 322</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 360</file>
+          <name>__cstat</name>
+          <file> 150</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 309 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 275 313 317 290 278 274</file>
+          <name>BICOMP</name>
+          <file> 244 220 191 214 229 219 248 199 185 232 242 227 224 106 49 114 202 53 211 192 186 226 231 212 238 189 217 221 215 18 50 263 198 332 259 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 255</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 259 300 267 294 244 299 290 275 261 247 257 242 239 163 106 171 278 110 0 268 262 241 246 292 253 265 297 301 295 75 107 317 274 28 313 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 309</file>
+          <name>ICCARM</name>
+          <file> 255 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 199 259 263 248 202 198</file>
         </tool>
       </inputs>
     </file>
@@ -1436,26 +1340,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_opamp.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 5</file>
+          <name>BICOMP</name>
+          <file> 171</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 43</file>
+          <file> 347</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 361</file>
+          <name>__cstat</name>
+          <file> 312</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 310 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 281 274 317</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 198 205 183 188 243 228 218 52 49 114 53 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 191 263 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 256</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 274 281 238 264 258 243 298 109 106 171 110 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 267 317 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 310</file>
+          <name>ICCARM</name>
+          <file> 256 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 205 198 263</file>
         </tool>
       </inputs>
     </file>
@@ -1463,26 +1367,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_pcnt.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 50</file>
+          <name>BICOMP</name>
+          <file> 307</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 77</file>
+          <file> 20</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 1</file>
+          <name>__cstat</name>
+          <file> 354</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 311 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 278 274 275</file>
+          <name>BICOMP</name>
+          <file> 184 240 213 230 241 306 198 222 187 234 236 239 190 225 49 101 104 53 332 183 188 237 233 243 235 228 218 223 216 309 52 51 114 202 199 191 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 257</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 260 255 293 245 256 2 274 302 263 249 251 254 266 240 106 158 161 110 28 238 264 252 248 258 250 243 298 303 296 7 109 108 171 278 275 267 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 311</file>
+          <name>ICCARM</name>
+          <file> 257 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 202 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1490,26 +1394,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_prs.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 166</file>
+          <name>BICOMP</name>
+          <file> 321</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 138</file>
+          <file> 81</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 17</file>
+          <name>__cstat</name>
+          <file> 109</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 312 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274</file>
+          <name>BICOMP</name>
+          <file> 220 244 214 229 219 185 232 242 227 224 106 49 114 191 211 192 186 226 231 212 238 189 217 221 215 53 18 50 198 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 258</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 300 259 294 244 299 261 247 257 242 239 163 106 171 267 0 268 262 241 246 292 253 265 297 301 295 110 75 107 274 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 312</file>
+          <name>ICCARM</name>
+          <file> 258 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198</file>
         </tool>
       </inputs>
     </file>
@@ -1517,26 +1421,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_rmu.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 202</file>
+          <name>BICOMP</name>
+          <file> 323</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 140</file>
+          <file> 83</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 19</file>
+          <name>__cstat</name>
+          <file> 144</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 315 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274 28 279 285 275</file>
+          <name>BICOMP</name>
+          <file> 223 235 51 237 233 216 309 209 198 183 188 243 228 218 52 49 114 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 332 203 199 191 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 261</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 303 250 108 252 248 296 7 285 274 238 264 258 243 298 109 106 171 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 28 279 275 267 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 315</file>
+          <name>ICCARM</name>
+          <file> 261 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198 332 203 209 199</file>
         </tool>
       </inputs>
     </file>
@@ -1544,26 +1448,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_rtc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 217</file>
+          <name>BICOMP</name>
+          <file> 325</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 141</file>
+          <file> 84</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 21</file>
+          <name>__cstat</name>
+          <file> 159</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 314 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274 275</file>
+          <name>BICOMP</name>
+          <file> 239 49 53 222 187 234 236 190 225 101 104 199 240 184 230 213 241 306 191 183 188 237 233 243 235 228 218 223 216 309 52 51 114 198 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 260</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 254 106 110 302 263 249 251 266 240 158 161 275 255 260 245 293 256 2 267 238 264 252 248 258 250 243 298 303 296 7 109 108 171 274 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 314</file>
+          <name>ICCARM</name>
+          <file> 260 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1571,26 +1475,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_rtcc.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 210</file>
+          <name>BICOMP</name>
+          <file> 326</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 144</file>
+          <file> 87</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 22</file>
+          <name>__cstat</name>
+          <file> 152</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 316 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295</file>
+          <name>BICOMP</name>
+          <file> 309 237 233 216 235 223 51 183 188 243 228 218 52 49 114 191 222 187 240 234 184 236 230 239 213 190 241 225 101 104 306 53 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 262</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 7 252 248 296 250 303 108 238 264 258 243 298 109 106 171 267 302 263 255 249 260 251 245 254 293 266 256 240 158 161 2 110 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 316</file>
+          <name>ICCARM</name>
+          <file> 262 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215</file>
         </tool>
       </inputs>
     </file>
@@ -1598,26 +1502,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_system.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 213</file>
+          <name>BICOMP</name>
+          <file> 165</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 216</file>
+          <file> 158</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 223</file>
+          <name>__cstat</name>
+          <file> 155</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 317 28 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 274</file>
+          <name>BICOMP</name>
+          <file> 18 226 231 215 332 238 221 49 211 192 186 212 189 217 53 50 106 214 185 232 244 242 229 220 227 219 224 114 198 191 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 263</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 75 241 246 295 28 253 301 106 0 268 262 292 265 297 110 107 163 294 261 247 259 257 244 300 242 299 239 171 274 267 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 317</file>
+          <name>ICCARM</name>
+          <file> 263 332 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 198</file>
         </tool>
       </inputs>
     </file>
@@ -1625,26 +1529,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_timer.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 176</file>
+          <name>BICOMP</name>
+          <file> 40</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 214</file>
+          <file> 156</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 97</file>
+          <name>__cstat</name>
+          <file> 119</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 318 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274</file>
+          <name>BICOMP</name>
+          <file> 213 240 184 230 241 306 222 187 234 236 239 190 225 49 101 104 53 191 198 183 188 237 233 243 235 228 218 223 216 309 52 51 114 332 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 264</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 293 255 260 245 256 2 302 263 249 251 254 266 240 106 158 161 110 267 274 238 264 252 248 258 250 243 298 303 296 7 109 108 171 28 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 318</file>
+          <name>ICCARM</name>
+          <file> 264 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198</file>
         </tool>
       </inputs>
     </file>
@@ -1652,26 +1556,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_usart.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 175</file>
+          <name>BICOMP</name>
+          <file> 42</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 139</file>
+          <file> 82</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 99</file>
+          <name>__cstat</name>
+          <file> 118</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 319 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 278 274 275</file>
+          <name>BICOMP</name>
+          <file> 213 240 184 230 241 306 199 222 187 234 236 239 190 225 49 101 104 53 332 183 188 237 233 243 235 228 218 223 216 309 52 51 114 202 198 191 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 106 50 265</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 293 255 260 245 256 2 275 302 263 249 251 254 266 240 106 158 161 110 28 238 264 252 248 258 250 243 298 303 296 7 109 108 171 278 274 267 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 163 107 319</file>
+          <name>ICCARM</name>
+          <file> 265 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 202 198 199</file>
         </tool>
       </inputs>
     </file>
@@ -1679,26 +1583,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_vcmp.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 207</file>
+          <name>BICOMP</name>
+          <file> 328</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 94</file>
+          <file> 37</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 24</file>
+          <name>__cstat</name>
+          <file> 149</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 320 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 274</file>
+          <name>BICOMP</name>
+          <file> 238 49 191 221 226 231 215 18 332 211 192 186 212 189 217 53 50 106 214 185 232 244 242 229 220 227 219 224 114 198 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 266</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 253 106 267 301 241 246 295 75 28 0 268 262 292 265 297 110 107 163 294 261 247 259 257 244 300 242 299 239 171 274 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 320</file>
+          <name>ICCARM</name>
+          <file> 266 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 198</file>
         </tool>
       </inputs>
     </file>
@@ -1706,26 +1610,26 @@
       <name>$PROJ_DIR$\..\..\..\library\EFM32\emlib\src\em_wdog.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 173</file>
+          <name>BICOMP</name>
+          <file> 329</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 93</file>
+          <file> 36</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 25</file>
+          <name>__cstat</name>
+          <file> 116</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 322 267 0 238 110 106 163 109 161 108 158 107 7 171 2 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 28 275</file>
+          <name>BICOMP</name>
+          <file> 185 232 49 106 242 227 224 114 332 214 244 229 220 219 211 192 186 226 231 212 238 189 217 221 215 53 18 50 199 191 183 222 188 187 237 240 234 233 184 243 236 235 230 228 239 213 218 190 223 241 225 216 309 52 101 104 51 306 268</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 261 247 106 163 257 242 239 171 28 294 259 244 300 299 0 268 262 241 246 292 253 265 297 301 295 110 75 107 275 267 238 302 264 263 252 255 249 248 260 258 251 250 245 243 254 293 298 266 303 256 240 296 7 109 158 161 108 2 322</file>
+          <name>ICCARM</name>
+          <file> 268 191 211 183 53 49 106 52 104 51 101 50 309 114 306 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 332 199</file>
         </tool>
       </inputs>
     </file>
@@ -1733,37 +1637,122 @@
       <name>$PROJ_DIR$\main.c</name>
       <outputs>
         <tool>
-          <name>__cstat</name>
-          <file> 218</file>
+          <name>BICOMP</name>
+          <file> 105</file>
         </tool>
         <tool>
           <name>ICCARM</name>
-          <file> 98</file>
+          <file> 41</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 162</file>
+          <name>__cstat</name>
+          <file> 160</file>
         </tool>
       </outputs>
       <inputs>
         <tool>
-          <name>ICCARM</name>
-          <file> 110 106 163 109 161 108 158 107 234 232 2 290 267 0 238 7 171 75 268 302 294 264 262 263 261 252 241 255 249 247 248 246 260 259 258 292 251 257 250 253 245 244 243 265 254 293 300 298 297 266 242 303 301 256 299 240 239 296 295 287 28 275 274 236 309 313 228</file>
+          <name>BICOMP</name>
+          <file> 239 106 49 222 187 234 199 255 236 190 225 306 240 184 230 213 241 177 245 50 53 191 183 188 237 233 243 235 228 218 223 216 309 179 248 181 173 52 101 104 51 211 192 214 186 185 226 232 231 244 212 242 238 229 189 220 217 227 221 219 224 215 18 114 332 198 259</file>
         </tool>
         <tool>
-          <name>BICOMP</name>
-          <file> 254 163 106 302 263 249 275 309 251 266 240 2 255 260 245 293 256 232 287 107 110 267 238 264 252 248 258 250 243 298 303 296 7 234 290 236 228 109 158 161 108 0 268 294 262 261 241 247 246 259 292 257 253 244 265 300 297 242 301 299 239 295 75 171 28 274 313</file>
+          <name>ICCARM</name>
+          <file> 53 49 106 52 104 51 101 50 179 177 306 248 191 211 183 309 114 18 192 222 214 188 186 187 185 237 226 240 234 232 233 231 184 244 243 212 236 242 235 238 230 229 228 189 239 213 220 218 217 190 227 223 221 241 219 225 224 216 215 245 332 199 198 181 255 259 173</file>
         </tool>
       </inputs>
     </file>
-    <forcedrebuild>
+    <file>
+      <name>$PROJ_DIR$\Debug\Exe\bootloader.out</name>
+      <outputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 1</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>ILINK</name>
+          <file> 31 19 58 310 59 120 128 311 115 117 130 57 352 60 55 4 341 348 346 344 317 316 314 320 315 318 319 322 347 20 81 83 84 87 158 156 82 37 36 54 17 102 41 80 77 0 88 94 90</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.c</name>
-      <tool>ICCARM</tool>
-    </forcedrebuild>
-    <forcedrebuild>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 334</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 337</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 29 49 52 106 23 53 101 50 32 74 30 104 51 73 69</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 340</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\system_ezr32hg.c</name>
-      <tool>ICCARM</tool>
-    </forcedrebuild>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 350</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 351</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 49 101 52 50 106 23 73 29 53 104 51 32 74 30 69</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 53 49 106 52 104 51 101 50 340</file>
+        </tool>
+      </inputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.s</name>
+      <outputs>
+        <tool>
+          <name>AARM</name>
+          <file> 337</file>
+        </tool>
+      </outputs>
+    </file>
+    <file>
+      <name>$PROJ_DIR$\..\Libs\Delay\Delay.c</name>
+      <outputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 3</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 58</file>
+        </tool>
+      </outputs>
+      <inputs>
+        <tool>
+          <name>BICOMP</name>
+          <file> 123 23 24 52 49 62 64 35 313 51 332 70 85 22 28 106 110 101 104 38 29 124 66 125 98 121 127 26 309 306 53 264 50 73 198 32 182 74 30 69 68 100 27 65 67 126 97 71 122 99 72 33 63 61 34 25 356 18 114 353 113 358 359</file>
+        </tool>
+        <tool>
+          <name>ICCARM</name>
+          <file> 359 53 49 106 52 104 51 101 50 264 73 32 182 38 309 114 306 18 356 353 113 313 110 358 74 23 30 29 69 70 68 124 100 62 27 66 65 85 67 125 126 123 97 98 71 22 122 121 99 64 72 127 33 28 63 26 61 35 34 25 24 332 198</file>
+        </tool>
+      </inputs>
+    </file>
     <forcedrebuild>
       <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EFM32HG\Source\IAR\startup_efm32hg.c</name>
       <tool>ICCARM</tool>
@@ -1774,6 +1763,14 @@
     </forcedrebuild>
     <forcedrebuild>
       <name>$PROJ_DIR$\..\Drivers\PCA9536\PCA9536.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\IAR\startup_ezr32hg.c</name>
+      <tool>ICCARM</tool>
+    </forcedrebuild>
+    <forcedrebuild>
+      <name>$PROJ_DIR$\..\..\..\library\EFM32\Device\SiliconLabs\EZR32HG\Source\system_ezr32hg.c</name>
       <tool>ICCARM</tool>
     </forcedrebuild>
   </configuration>

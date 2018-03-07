@@ -34,8 +34,8 @@
 #include "Device_ctrl.h"
 #include "Clock.h"
 #include "cdc.h"
-#include "1Wire.h"
-#include "DS18B20.h"
+#include "onewire.h"
+#include "ds18b20.h"
 
 //RTOS variables
 extern xSemaphoreHandle ADC_mutex;
@@ -903,8 +903,7 @@ void Tracker_IDLE_subTask()
       DC_debugOut("***First start***\r\n");
       
       SWITCH_1WIRE_ON;
-      ONEW_init(); //init
-      DS18B20_init(DS18B20_Resolution_9_bit);
+
       
       temperature = DS18B20_getTemperature();
       

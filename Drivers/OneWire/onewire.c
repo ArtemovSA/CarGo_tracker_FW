@@ -18,71 +18,62 @@
  */
 #include "onewire.h"
 #include "ds18b20Config.h"
-#include "tim.h"
+#include "em_gpio.h"
+#include "Delay.h"
+#include "FreeRTOS.h"
+#include "task.h"
 
-void ONEWIRE_DELAY(uint16_t time_us)
-{
-	_DS18B20_TIMER.Instance->CNT = 0;
-	while(_DS18B20_TIMER.Instance->CNT <= time_us);
-}
 void ONEWIRE_LOW(OneWire_t *gp)
 {
-	gp->GPIOx->BSRR = gp->GPIO_Pin<<16;
+  GPIO_PinOutClear(gp->GPIO_Port, gp->GPIO_Pin);
 }	
+
 void ONEWIRE_HIGH(OneWire_t *gp)
 {
-	gp->GPIOx->BSRR = gp->GPIO_Pin;
-}	
+  GPIO_PinOutSet(gp->GPIO_Port, gp->GPIO_Pin);
+}
+
 void ONEWIRE_INPUT(OneWire_t *gp)
 {
-	GPIO_InitTypeDef	gpinit;
-	gpinit.Mode = GPIO_MODE_INPUT;
-	gpinit.Pull = GPIO_NOPULL;
-	gpinit.Speed = GPIO_SPEED_FREQ_MEDIUM;
-	gpinit.Pin = gp->GPIO_Pin;
-	HAL_GPIO_Init(gp->GPIOx,&gpinit);
+  GPIO_PinModeSet(gp->GPIO_Port, gp->GPIO_Pin, gpioModeInput, 0);
 }	
+
 void ONEWIRE_OUTPUT(OneWire_t *gp)
 {
-	GPIO_InitTypeDef	gpinit;
-	gpinit.Mode = GPIO_MODE_OUTPUT_OD;
-	gpinit.Pull = GPIO_NOPULL;
-	gpinit.Speed = GPIO_SPEED_FREQ_MEDIUM;
-	gpinit.Pin = gp->GPIO_Pin;
-	HAL_GPIO_Init(gp->GPIOx,&gpinit);
-
+  GPIO_PinModeSet(gp->GPIO_Port, gp->GPIO_Pin, gpioModeWiredAnd, 0);
+  
 }
-void OneWire_Init(OneWire_t* OneWireStruct, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin) 
-{	
-	HAL_TIM_Base_Start(&_DS18B20_TIMER);
 
-	OneWireStruct->GPIOx = GPIOx;
-	OneWireStruct->GPIO_Pin = GPIO_Pin;
-	ONEWIRE_OUTPUT(OneWireStruct);
-	ONEWIRE_HIGH(OneWireStruct);
-	osDelay(1000);
-	ONEWIRE_LOW(OneWireStruct);
-	osDelay(1000);
-	ONEWIRE_HIGH(OneWireStruct);
-	osDelay(2000);
+void OneWire_Init(OneWire_t* OneWireStruct, GPIO_Port_TypeDef GPIO_Port, uint16_t GPIO_Pin) 
+{	
+  OneWireStruct->GPIO_Port = GPIO_Port;
+  OneWireStruct->GPIO_Pin = GPIO_Pin;
+  ONEWIRE_OUTPUT(OneWireStruct);
+  ONEWIRE_HIGH(OneWireStruct);
+  vTaskDelay(1000);
+  ONEWIRE_LOW(OneWireStruct);
+  vTaskDelay(1000);
+  ONEWIRE_HIGH(OneWireStruct);
+  vTaskDelay(2000);
 }
 
 uint8_t OneWire_Reset(OneWire_t* OneWireStruct) {
-	uint8_t i;
+  uint8_t i;
 	
 	/* Line low, and wait 480us */
 	ONEWIRE_LOW(OneWireStruct);
 	ONEWIRE_OUTPUT(OneWireStruct);
-	ONEWIRE_DELAY(480);
-	ONEWIRE_DELAY(20);
+	_delay_us(480);
+	_delay_us(20);
 	/* Release line and wait for 70us */
 	ONEWIRE_INPUT(OneWireStruct);
-	ONEWIRE_DELAY(70);
+	_delay_us(70);
 	/* Check bit value */
-	i = HAL_GPIO_ReadPin(OneWireStruct->GPIOx, OneWireStruct->GPIO_Pin);
+        
+        i = GPIO_PinInGet(OneWireStruct->GPIO_Port, OneWireStruct->GPIO_Pin);
 	
 	/* Delay for 410 us */
-	ONEWIRE_DELAY(410);
+	_delay_us(410);
 	/* Return value of presence pulse, 0 = OK, 1 = ERROR */
 	return i;
 }
@@ -93,13 +84,13 @@ void OneWire_WriteBit(OneWire_t* OneWireStruct, uint8_t bit) {
 		/* Set line low */
 		ONEWIRE_LOW(OneWireStruct);
 		ONEWIRE_OUTPUT(OneWireStruct);
-		ONEWIRE_DELAY(10);
+		_delay_us(10);
 		
 		/* Bit high */
 		ONEWIRE_INPUT(OneWireStruct);
 		
 		/* Wait for 55 us and release the line */
-		ONEWIRE_DELAY(55);
+		_delay_us(55);
 		ONEWIRE_INPUT(OneWireStruct);
 	} 
 	else 
@@ -107,13 +98,13 @@ void OneWire_WriteBit(OneWire_t* OneWireStruct, uint8_t bit) {
 		/* Set line low */
 		ONEWIRE_LOW(OneWireStruct);
 		ONEWIRE_OUTPUT(OneWireStruct);
-		ONEWIRE_DELAY(65);
+		_delay_us(65);
 		
 		/* Bit high */
 		ONEWIRE_INPUT(OneWireStruct);
 		
 		/* Wait for 5 us and release the line */
-		ONEWIRE_DELAY(5);
+		_delay_us(5);
 		ONEWIRE_INPUT(OneWireStruct);
 	}
 
@@ -126,20 +117,20 @@ uint8_t OneWire_ReadBit(OneWire_t* OneWireStruct)
 	/* Line low */
 	ONEWIRE_LOW(OneWireStruct);
 	ONEWIRE_OUTPUT(OneWireStruct);
-	ONEWIRE_DELAY(2);
+	_delay_us(2);
 	
 	/* Release line */
 	ONEWIRE_INPUT(OneWireStruct);
-	ONEWIRE_DELAY(10);
+	_delay_us(10);
 	
 	/* Read line value */
-	if (HAL_GPIO_ReadPin(OneWireStruct->GPIOx, OneWireStruct->GPIO_Pin)) {
+	if (GPIO_PinInGet(OneWireStruct->GPIO_Port, OneWireStruct->GPIO_Pin)) {
 		/* Bit is HIGH */
 		bit = 1;
 	}
 	
 	/* Wait 50us to complete 60us period */
-	ONEWIRE_DELAY(50);
+	_delay_us(50);
 	
 	/* Return bit value */
 	return bit;

@@ -1,20 +1,19 @@
 
 #ifndef	_DS18B20_H
 #define	_DS18B20_H
-//	2017/05/06
 
-#include "cmsis_os.h"
 #include "onewire.h"
 #include "ds18b20Config.h"
-#include <stdbool.h>
+#include "stdbool.h"
+#include "em_gpio.h"
 
 //###################################################################################
 typedef struct
 {
-	uint8_t 	Address[8];
-	float 		Temperature;
-	bool			DataIsValid;	
-	
+  uint8_t 	Address[8];
+  float 	Temperature;
+  bool		DataIsValid;	
+  
 }Ds18b20Sensor_t;
 //###################################################################################
 
@@ -46,15 +45,16 @@ extern Ds18b20Sensor_t	ds18b20[_DS18B20_MAX_SENSORS];
 
 //###################################################################################
 typedef enum {
-	DS18B20_Resolution_9bits = 9,   /*!< DS18B20 9 bits resolution */
-	DS18B20_Resolution_10bits = 10, /*!< DS18B20 10 bits resolution */
-	DS18B20_Resolution_11bits = 11, /*!< DS18B20 11 bits resolution */
-	DS18B20_Resolution_12bits = 12  /*!< DS18B20 12 bits resolution */
+  DS18B20_Resolution_9bits = 9,   /*!< DS18B20 9 bits resolution */
+  DS18B20_Resolution_10bits = 10, /*!< DS18B20 10 bits resolution */
+  DS18B20_Resolution_11bits = 11, /*!< DS18B20 11 bits resolution */
+  DS18B20_Resolution_12bits = 12  /*!< DS18B20 12 bits resolution */
 } DS18B20_Resolution_t;
 
 //###################################################################################
-void			Ds18b20_Init(osPriority Priority);
-bool			Ds18b20_ManualConvert(void);
+void Ds18b20_Init(GPIO_Port_TypeDef GPIO_Port, uint16_t GPIO_Pin);
+bool Ds18b20_ManualConvert();
+void Ds18b20_Search();
 //###################################################################################
 uint8_t 	DS18B20_Start(OneWire_t* OneWireStruct, uint8_t* ROM);
 void 			DS18B20_StartAll(OneWire_t* OneWireStruct);
@@ -69,6 +69,6 @@ uint8_t 	DS18B20_AlarmSearch(OneWire_t* OneWireStruct);
 uint8_t 	DS18B20_AllDone(OneWire_t* OneWireStruct);
 //###################################################################################
 
- 
+
 #endif
 

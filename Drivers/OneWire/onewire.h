@@ -2,21 +2,17 @@
 #ifndef ONEWIRE_H
 #define ONEWIRE_H 
 
-/* C++ detection */
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-#include "gpio.h"
-#include "cmsis_os.h"
+#include "stdint.h"
+#include "em_gpio.h"
+#include "InitDevice.h"
 
 typedef struct {
-	GPIO_TypeDef* GPIOx;           /*!< GPIOx port to be used for I/O functions */
-	uint16_t GPIO_Pin;             /*!< GPIO Pin to be used for I/O functions */
-	uint8_t LastDiscrepancy;       /*!< Search private */
-	uint8_t LastFamilyDiscrepancy; /*!< Search private */
-	uint8_t LastDeviceFlag;        /*!< Search private */
-	uint8_t ROM_NO[8];             /*!< 8-bytes address of last search device */
+  GPIO_Port_TypeDef GPIO_Port;           /*!< GPIOx port to be used for I/O functions */
+  uint16_t GPIO_Pin;             /*!< GPIO Pin to be used for I/O functions */
+  uint8_t LastDiscrepancy;       /*!< Search private */
+  uint8_t LastFamilyDiscrepancy; /*!< Search private */
+  uint8_t LastDeviceFlag;        /*!< Search private */
+  uint8_t ROM_NO[8];             /*!< 8-bytes address of last search device */
 } OneWire_t;
 
 /* OneWire delay */
@@ -40,7 +36,7 @@ void ONEWIRE_OUTPUT(OneWire_t *gp);
 #define ONEWIRE_CMD_SKIPROM				0xCC
 
 //#######################################################################################################
-void OneWire_Init(OneWire_t* OneWireStruct, GPIO_TypeDef* GPIOx, uint16_t GPIO_Pin);
+void OneWire_Init(OneWire_t* OneWireStruct, GPIO_Port_TypeDef GPIO_Port, uint16_t GPIO_Pin);
 uint8_t OneWire_Reset(OneWire_t* OneWireStruct);
 uint8_t OneWire_ReadByte(OneWire_t* OneWireStruct);
 void OneWire_WriteByte(OneWire_t* OneWireStruct, uint8_t byte);
@@ -55,7 +51,7 @@ void OneWire_Select(OneWire_t* OneWireStruct, uint8_t* addr);
 void OneWire_SelectWithPointer(OneWire_t* OneWireStruct, uint8_t* ROM);
 uint8_t OneWire_CRC8(uint8_t* addr, uint8_t len);
 //#######################################################################################################
- 
+
 /* C++ detection */
 #ifdef __cplusplus
 }
