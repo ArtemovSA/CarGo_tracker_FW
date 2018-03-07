@@ -1,0 +1,152 @@
+[Stack]
+FillEnabled=0
+OverflowWarningsEnabled=1
+WarningThreshold=90
+SpWarningsEnabled=1
+WarnLogOnly=1
+UseTrigger=1
+TriggerName=main
+LimitSize=0
+ByteLimit=50
+[Interrupts]
+Enabled=1
+[MemConfig]
+Base=1
+Manual=0
+Ddf=1
+TypeViol=0
+Stop=1
+[Simulator]
+Freq=10000000
+MultiCoreRunAll=1
+[JLinkDriver]
+CStepIntDis=_ 0
+LeaveTargetRunning=_ 1
+TraceBufferSize=0x00010000
+TraceStallIfFIFOFull=0x00000000
+TracePortSize=0x00000004
+[DebugChecksum]
+Checksum=948997883
+[Exceptions]
+StopOnUncaught=_ 0
+StopOnThrow=_ 0
+[CodeCoverage]
+Enabled=_ 0
+[CallStack]
+ShowArgs=0
+[Disassembly]
+MixedMode=1
+[SWOTraceHWSettings]
+OverrideDefaultClocks=0
+CpuClock=16000000
+ClockAutoDetect=0
+ClockWanted=7500000
+JtagSpeed=5454545
+Prescaler=3
+TimeStampPrescIndex=0
+TimeStampPrescData=0
+PcSampCYCTAP=1
+PcSampPOSTCNT=14
+PcSampIndex=1
+DataLogMode=0
+ITMportsEnable=0
+ITMportsTermIO=0
+ITMportsLogFile=0
+ITMlogFile=$PROJ_DIR$\ITM.log
+[struct_types]
+Fmt0=DC_log_t-Cell_quality	3	0
+Fmt1=DC_taskCtrl_t-DC_status	1	0
+[watch_formats]
+Fmt0={W}1:((msb<<8 | lsb))	4	0
+Fmt1={W}1:(~raw_data+ 1)*(-1)	4	0
+Fmt2={W}1:DC_params.DC_PARAM_power	3	0
+Fmt3={W}1:acel_level	4	0
+Fmt4={W}1:addresEndLog	4	0
+Fmt5={W}1:gpio_int	1	0
+Fmt6={W}1:raw_data	4	0
+Fmt7={W}1:rtc_int	1	0
+Fmt8={W}1:~raw_data	3	0
+Fmt9={W}1:~raw_data+1	4	0
+[Trace1]
+Enabled=0
+ShowSource=1
+[Trace2]
+Enabled=1
+ShowSource=0
+[SWOTraceWindow]
+PcSampling=0
+InterruptLogs=0
+ForcedTimeStamps=0
+EventCPI=0
+EventEXC=0
+EventFOLD=0
+EventLSU=0
+EventSLEEP=0
+[PowerLog]
+Title_0=I0
+Symbol_0=0 4 0
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+LiveEnabled=0
+LiveFile=PowerLogLive.log
+[DataLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+[EventLog]
+Title_0=Ch3
+Symbol_0=0 4 1
+Title_1=Ch2
+Symbol_1=0 4 1
+Title_2=Ch1
+Symbol_2=0 4 1
+Title_3=Ch0
+Symbol_3=0 4 1
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[InterruptLog]
+LogEnabled=0
+GraphEnabled=0
+ShowTimeLog=1
+SumEnabled=0
+ShowTimeSum=1
+SumSortOrder=0
+[Disassemble mode]
+mode=0
+[Breakpoints2]
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR\startup_efm32lg.c}.59.3" 0 0 1 "" 0 "" 0
+Bp1=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Tasks\Main_task\Main_task.c}.561.7" 0 0 1 "" 0 "" 0
+Bp2=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Libs\Device_ctrl\Device_ctrl.c}.544.7" 0 0 1 "" 0 "" 0
+Bp3=_ 0 "EMUL_CODE" "{$PROJ_DIR$\Libs\USB_ctrl\USB_ctrl.c}.169.1" 0 0 1 "" 0 "" 0
+Count=4
+[Log file]
+LoggingEnabled=_ 0
+LogFile=_ ""
+Category=_ 0
+[TermIOLog]
+LoggingEnabled=_ 0
+LogFile=_ ""
+[Aliases]
+Count=0
+SuppressDialog=0
+[DriverProfiling]
+Enabled=0
+Mode=1
+Graph=0
+Symbiont=0
+Exclusions=
+[CallStackLog]
+Enabled=0
+[CallStackStripe]
+ShowTiming=1
+[PowerProbe]
+Frequency=10000
+Probe0=I0
+ProbeSetup0=2 1 1 2 0 0

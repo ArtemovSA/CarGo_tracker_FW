@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1861</ColumnWidth1></Debug-Log>
+      <Build>
+        <ColumnWidth0>20</ColumnWidth0>
+        <ColumnWidth1>1395</ColumnWidth1>
+        <ColumnWidth2>372</ColumnWidth2>
+        <ColumnWidth3>93</ColumnWidth3>
+      </Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>249</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        <col-names>
+          
+          
+        <item>Disassembly</item><item>_I0</item></col-names>
+        <col-widths>
+          
+          
+        <item>500</item><item>20</item></col-widths>
+        <DisasmHistory/>
+        
+        
+      <PreferedWindows><Position>2</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><ShowCodeCoverage>1</ShowCodeCoverage><ShowInstrProfiling>1</ShowInstrProfiling></Disassembly>
+      <WATCH_1>
+        <expressions>
+          
+          
+          
+          
+          
+          
+          
+        <item>DC_log</item><item>data</item><item>DC_params</item><item>addresEndLog</item><item>ep</item><item></item></expressions>
+        <col-names>
+          
+          
+          
+          
+        <item>Expression</item><item>Location</item><item>Type</item><item>Value</item></col-names>
+        <col-widths>
+          
+          
+          
+          
+        <item>193</item><item>150</item><item>100</item><item>211</item></col-widths>
+      </WATCH_1>
+      <CallStack>
+        <col-names>
+          
+          
+        <item>Frame</item><item>_I0</item></col-names>
+        <col-widths>
+          
+          
+        <item>3500</item><item>20</item></col-widths>
+      </CallStack>
+      <Find-in-Files>
+        
+        
+        
+        
+      <ColumnWidth0>569</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>854</ColumnWidth2><ColumnWidth3>379</ColumnWidth3></Find-in-Files>
+      <Select-Ambiguous-Definitions>
+        
+        
+        
+      <ColumnWidth0>664</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>1138</ColumnWidth2></Select-Ambiguous-Definitions>
+    <Register><PreferedWindows><Position>4</Position><ScreenPosX>417</ScreenPosX><ScreenPosY>132</ScreenPosY><Windows/></PreferedWindows></Register><TerminalIO><InputSource>1</InputSource><InputMode>10</InputMode><Filename>$PROJ_DIR$\TermIOInput.txt</Filename><InputEcho>1</InputEcho><ShowReset>0</ShowReset></TerminalIO><PROJECT_GUI_CALL_GRAPH><PreferedWindows><Position>3</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><col-names><item>File</item><item>Function</item><item>Line</item></col-names><col-widths><item>200</item><item>700</item><item>100</item></col-widths></PROJECT_GUI_CALL_GRAPH><Extra-Trace><col-names><item>Comment</item><item>Cycles</item><item>Event</item><item>Index</item><item>SWO Packet</item><item>Trace</item><item>Value</item></col-names><col-widths><item>400</item><item>100</item><item>200</item><item>70</item><item>100</item><item>300</item><item>100</item></col-widths></Extra-Trace><CORES_WINDOW><PreferedWindows><Position>0</Position><ScreenPosX>0</ScreenPosX><ScreenPosY>0</ScreenPosY><Windows/></PreferedWindows><col-names><item> </item><item>Core</item><item>Cycles</item><item>PC</item><item>Status</item></col-names><col-widths><item>30</item><item>100</item><item>150</item><item>150</item><item>100</item></col-widths></CORES_WINDOW><PROJECT_GUI_CSTAT><col-names><item>Check</item><item>File</item><item>Line</item><item>Message</item><item>Severity</item></col-names><col-widths><item>200</item><item>200</item><item>100</item><item>500</item><item>100</item></col-widths></PROJECT_GUI_CSTAT><Find-In-Trace-Extra><col-names><item>Comment</item><item>Cycles</item><item>Event</item><item>Index</item><item>SWO Packet</item><item>Trace</item><item>Value</item></col-names><col-widths><item>400</item><item>100</item><item>200</item><item>70</item><item>100</item><item>300</item><item>100</item></col-widths></Find-In-Trace-Extra><Find-All-Declarations><ColumnWidth0>664</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>1138</ColumnWidth2></Find-All-Declarations></Static>
+    <Windows>
+      
+      
+      
+      
+      
+    <Wnd2>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-11061-18168</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-10538-18178</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-9310-20025</Identity>
+            <TabName>Find in Files</TabName>
+            <Factory>Find-in-Files</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-31582-32154</Identity>
+            <TabName>Ambiguous Definitions</TabName>
+            <Factory>Select-Ambiguous-Definitions</Factory>
+            <Session/>
+          </Tab>
+        <Tab><Identity>TabID-29510-31356</Identity><TabName>SWO Trace</TabName><Factory>Extra-Trace</Factory></Tab><Tab><Identity>TabID-27127-3545</Identity><TabName>C-STAT Messages</TabName><Factory>PROJECT_GUI_CSTAT</Factory></Tab><Tab><Identity>TabID-403-3637</Identity><TabName>Find In SWO Trace</TabName><Factory>Find-In-Trace-Extra</Factory></Tab><Tab><Identity>TabID-6818-32606</Identity><TabName>Declarations</TabName><Factory>Find-All-Declarations</Factory><Session/></Tab></Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd2><Wnd5>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-21810-18172</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>MicroGo_tracker</ExpandedNode><ExpandedNode>MicroGo_tracker/Device ctrl</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers/USB_VCP</ExpandedNode><ExpandedNode>MicroGo_tracker/Libs</ExpandedNode><ExpandedNode>MicroGo_tracker/Libs/Clock</ExpandedNode><ExpandedNode>MicroGo_tracker/System</ExpandedNode><ExpandedNode>MicroGo_tracker/System/InitDevice</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/I2C_gate?_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Main_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Modem_gate_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Monitor_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Tracker_task</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd5><Wnd6>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-2971-4383</Identity>
+            <TabName>Watch 1</TabName>
+            <Factory>WATCH_1</Factory>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd6><Wnd7>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-24909-12364</Identity>
+            <TabName>Call Stack</TabName>
+            <Factory>CallStack</Factory>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd7><Wnd10><Tabs><Tab><Identity>TabID-11557-30603</Identity><TabName>Disassembly</TabName><Factory>Disassembly</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd10><Wnd11><Tabs><Tab><Identity>TabID-11641-5467</Identity><TabName>Terminal I/O</TabName><Factory>TerminalIO</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd11></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Libs\Device_ctrl\Device_ctrl.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>49</YPos2><SelStart2>1815</SelStart2><SelEnd2>1815</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\cdc.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>94</YPos2><SelStart2>4879</SelStart2><SelEnd2>4879</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>64</YPos2><SelStart2>1672</SelStart2><SelEnd2>1672</SelEnd2></Tab><ActiveTab>2</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\usb\src\em_usbd.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>829</YPos2><SelStart2>24567</SelStart2><SelEnd2>24567</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\usb\inc\em_usb.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>605</YPos2><SelStart2>40381</SelStart2><SelEnd2>40381</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FreeRTOSConfig.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>70</YPos2><SelStart2>4730</SelStart2><SelEnd2>4730</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Tasks\Tracker_task\Tracker_task.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>463</YPos2><SelStart2>14638</SelStart2><SelEnd2>14638</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00859470><key>iaridepm.enu1</key></Toolbar-00859470></Sizes></Row0><Row1><Sizes><Toolbar-2588C160><key>debuggergui.enu1</key></Toolbar-2588C160><Toolbar-2588CF70><key>armjlink2.enu1</key></Toolbar-2588CF70></Sizes></Row1></Top><Left><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>628</Bottom><Right>340</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>178125</sizeVertCX><sizeVertCY>606936</sizeVertCY></Rect></Wnd5></Sizes></Row0><Row1><Sizes><Wnd7><Rect><Top>-2</Top><Left>338</Left><Bottom>628</Bottom><Right>638</Right><x>338</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>156250</sizeVertCX><sizeVertCY>606936</sizeVertCY></Rect></Wnd7></Sizes></Row1></Left><Right><Row0><Sizes><Wnd6><Rect><Top>-2</Top><Left>-2</Left><Bottom>628</Bottom><Right>487</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>254688</sizeVertCX><sizeVertCY>606936</sizeVertCY></Rect></Wnd6></Sizes></Row0><Row1><Sizes><Wnd10><Rect><Top>-2</Top><Left>485</Left><Bottom>628</Bottom><Right>549</Right><x>485</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>104167</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>33333</sizeVertCX><sizeVertCY>606936</sizeVertCY></Rect></Wnd10></Sizes></Row1></Right><Bottom><Row0><Sizes><Wnd2><Rect><Top>-2</Top><Left>-2</Left><Bottom>341</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>343</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>330443</sizeHorzCY><sizeVertCX>104167</sizeVertCX><sizeVertCY>192678</sizeVertCY></Rect></Wnd2></Sizes></Row0></Bottom><Float><Sizes><Wnd11><Rect><Top>0</Top><Left>0</Left><Bottom>0</Bottom><Right>0</Right><x>-2</x><y>-2</y><FloatX>2517</FloatX><FloatY>39</FloatY><FloatWidth>513</FloatWidth><FloatHeight>852</FloatHeight><xscreen>224</xscreen><yscreen>200</yscreen><sizeHorzCX>116667</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>116667</sizeVertCX><sizeVertCY>697495</sizeVertCY></Rect></Wnd11></Sizes></Float></Positions>
+  </Desktop>
+</Project>
+
+

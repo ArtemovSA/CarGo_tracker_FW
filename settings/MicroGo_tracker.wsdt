@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Workspace>
+  <ConfigDictionary>
+    
+    
+    
+  <CurrentConfigs><Project>bootloader/Debug</Project><Project>MicroGo_tracker/Debug</Project></CurrentConfigs><CurrentProj>MicroGo_tracker</CurrentProj><OverviewSelected>0</OverviewSelected></ConfigDictionary>
+  <Desktop>
+    <Static>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>335</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1085</ColumnWidth1></Debug-Log>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1395</ColumnWidth1><ColumnWidth2>372</ColumnWidth2><ColumnWidth3>93</ColumnWidth3></Build>
+      <TerminalIO><PreferedWindows><Position>4</Position><ScreenPosX>2526</ScreenPosX><ScreenPosY>68</ScreenPosY><Windows/></PreferedWindows></TerminalIO>
+      <Select-Ambiguous-Definitions>
+        
+        
+        
+      <ColumnWidth0>664</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>1138</ColumnWidth2></Select-Ambiguous-Definitions>
+      <PROJECT_GUI_CALL_GRAPH>
+        <col-names>
+          
+          
+          
+        <item>File</item><item>Function</item><item>Line</item></col-names>
+        <col-widths>
+          
+          
+          
+        <item>200</item><item>700</item><item>100</item></col-widths>
+      </PROJECT_GUI_CALL_GRAPH>
+      <Find-in-Files>
+        
+        
+        
+        
+      <ColumnWidth0>681</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>854</ColumnWidth2><ColumnWidth3>379</ColumnWidth3></Find-in-Files>
+      <Find-All-Declarations>
+        
+        
+        
+      <ColumnWidth0>664</ColumnWidth0><ColumnWidth1>94</ColumnWidth1><ColumnWidth2>1138</ColumnWidth2></Find-All-Declarations>
+    <Memory><PreferedWindows><Position>4</Position><ScreenPosX>430</ScreenPosX><ScreenPosY>182</ScreenPosY><Windows/></PreferedWindows></Memory></Static>
+    <Windows>
+      
+      
+    <Wnd0>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-5977-456</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>MicroGo_tracker</ExpandedNode><ExpandedNode>MicroGo_tracker/Device ctrl</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers/Ext flash</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers/MMA8452Q</ExpandedNode><ExpandedNode>MicroGo_tracker/Drivers/UART</ExpandedNode><ExpandedNode>MicroGo_tracker/Libs</ExpandedNode><ExpandedNode>MicroGo_tracker/Libs/Date time</ExpandedNode><ExpandedNode>MicroGo_tracker/Libs/USB_ctrl</ExpandedNode><ExpandedNode>MicroGo_tracker/Output</ExpandedNode><ExpandedNode>MicroGo_tracker/RTOS</ExpandedNode><ExpandedNode>MicroGo_tracker/System</ExpandedNode><ExpandedNode>MicroGo_tracker/System/InitDevice</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/I2C_gate?_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Main_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Modem_gate_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Monitor_task</ExpandedNode><ExpandedNode>MicroGo_tracker/TASKS/Tracker_task</ExpandedNode><ExpandedNode>bootloader</ExpandedNode><ExpandedNode>bootloader/Drivers</ExpandedNode><ExpandedNode>bootloader/EXT_Flash</ExpandedNode><ExpandedNode>bootloader/Init</ExpandedNode><ExpandedNode>bootloader/Libs</ExpandedNode><ExpandedNode>bootloader/Output</ExpandedNode><ExpandedNode>bootloader/System</ExpandedNode><ExpandedNode>bootloader/System/CMSIS</ExpandedNode><ExpandedNode>bootloader/System/Perefery lib</ExpandedNode><ExpandedNode>bootloader/System/device</ExpandedNode><ExpandedNode>bootloader/System/device/src</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd0><Wnd1>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-11497-557</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-30213-1230</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-18506-18848</Identity>
+            <TabName>Ambiguous Definitions</TabName>
+            <Factory>Select-Ambiguous-Definitions</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-17442-4726</Identity>
+            <TabName>Call Graph</TabName>
+            <Factory>PROJECT_GUI_CALL_GRAPH</Factory>
+          </Tab>
+          <Tab>
+            <Identity>TabID-16397-4746</Identity>
+            <TabName>Find in Files</TabName>
+            <Factory>Find-in-Files</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-13825-8478</Identity>
+            <TabName>Declarations</TabName>
+            <Factory>Find-All-Declarations</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd1></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Libs\Device_ctrl\Device_ctrl.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>49</YPos2><SelStart2>1815</SelStart2><SelEnd2>1815</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\cdc.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>94</YPos2><SelStart2>4879</SelStart2><SelEnd2>4879</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>53</YPos2><SelStart2>1776</SelStart2><SelEnd2>1776</SelEnd2></Tab><ActiveTab>2</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\usb\src\em_usbd.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>829</YPos2><SelStart2>24567</SelStart2><SelEnd2>24567</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\USB_VCP\usb\inc\em_usb.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>605</YPos2><SelStart2>40381</SelStart2><SelEnd2>40381</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\FreeRTOSConfig.h</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>70</YPos2><SelStart2>4730</SelStart2><SelEnd2>4730</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Tasks\Tracker_task\Tracker_task.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>21</YPos2><SelStart2>638</SelStart2><SelEnd2>638</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\..\library\EFM32\emlib\src\em_i2c.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>756</YPos2><SelStart2>25957</SelStart2><SelEnd2>25957</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\I2C\I2C.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>68</YPos2><SelStart2>2303</SelStart2><SelEnd2>2303</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-00859470><key>iaridepm.enu1</key></Toolbar-00859470></Sizes></Row0></Top><Left><Row0><Sizes><Wnd0><Rect><Top>-2</Top><Left>-2</Left><Bottom>694</Bottom><Right>426</Right><x>-2</x><y>-2</y><xscreen>29</xscreen><yscreen>150</yscreen><sizeHorzCX>15104</sizeHorzCX><sizeHorzCY>144509</sizeHorzCY><sizeVertCX>222917</sizeVertCX><sizeVertCY>670520</sizeVertCY></Rect></Wnd0></Sizes></Row0></Left><Right><Row0><Sizes/></Row0></Right><Bottom><Row0><Sizes><Wnd1><Rect><Top>-2</Top><Left>-2</Left><Bottom>299</Bottom><Right>1922</Right><x>-2</x><y>-2</y><xscreen>1924</xscreen><yscreen>301</yscreen><sizeHorzCX>1002083</sizeHorzCX><sizeHorzCY>289981</sizeHorzCY><sizeVertCX>15104</sizeVertCX><sizeVertCY>144509</sizeVertCY></Rect></Wnd1></Sizes></Row0></Bottom><Float><Sizes/></Float></Positions>
+  </Desktop>
+</Workspace>
+
+

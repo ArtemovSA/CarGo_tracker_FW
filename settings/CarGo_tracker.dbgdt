@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<Project>
+  <Desktop>
+    <Static>
+      <Debug-Log>
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1656</ColumnWidth1></Debug-Log>
+      <Build>
+        
+        
+        
+        
+      <ColumnWidth0>20</ColumnWidth0><ColumnWidth1>1242</ColumnWidth1><ColumnWidth2>331</ColumnWidth2><ColumnWidth3>82</ColumnWidth3></Build>
+      <Workspace>
+        <ColumnWidths>
+          
+          
+          
+          
+        <Column0>297</Column0><Column1>27</Column1><Column2>27</Column2><Column3>27</Column3></ColumnWidths>
+      </Workspace>
+      <Disassembly>
+        <col-names>
+          
+          
+        <item>Disassembly</item><item>_I0</item></col-names>
+        <col-widths>
+          
+          
+        <item>500</item><item>20</item></col-widths>
+        <DisasmHistory/>
+        
+        
+      <ShowCodeCoverage>1</ShowCodeCoverage><ShowInstrProfiling>1</ShowInstrProfiling></Disassembly>
+    <TerminalIO><InputSource>1</InputSource><InputMode>10</InputMode><Filename>$PROJ_DIR$\TermIOInput.txt</Filename><InputEcho>1</InputEcho><ShowReset>0</ShowReset></TerminalIO></Static>
+    <Windows>
+      
+      
+      
+    <Wnd4>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-14477-1783</Identity>
+            <TabName>Debug Log</TabName>
+            <Factory>Debug-Log</Factory>
+            <Session/>
+          </Tab>
+          <Tab>
+            <Identity>TabID-13954-1793</Identity>
+            <TabName>Build</TabName>
+            <Factory>Build</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd4><Wnd5>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-25226-1786</Identity>
+            <TabName>Workspace</TabName>
+            <Factory>Workspace</Factory>
+            <Session>
+              
+            <NodeDict><ExpandedNode>CarGo_tracker</ExpandedNode><ExpandedNode>CarGo_tracker/TASKS</ExpandedNode><ExpandedNode>CarGo_tracker/TASKS/Tracker_task</ExpandedNode></NodeDict></Session>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd5><Wnd6>
+        <Tabs>
+          <Tab>
+            <Identity>TabID-3206-1790</Identity>
+            <TabName>Disassembly</TabName>
+            <Factory>Disassembly</Factory>
+            <Session/>
+          </Tab>
+        </Tabs>
+        
+      <SelectedTab>0</SelectedTab></Wnd6><Wnd7><Tabs><Tab><Identity>TabID-24268-29642</Identity><TabName>Terminal I/O</TabName><Factory>TerminalIO</Factory><Session/></Tab></Tabs><SelectedTab>0</SelectedTab></Wnd7></Windows>
+    <Editor>
+      
+      
+      
+      
+    <Pane><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Libs\Device_ctrl\Device_ctrl.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>454</YPos2><SelStart2>15484</SelStart2><SelEnd2>15485</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\InitDevice.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>942</YPos2><SelStart2>31234</SelStart2><SelEnd2>31234</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>49</YPos2><SelStart2>1420</SelStart2><SelEnd2>1420</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\MicroGo_tracker_v1.1\RTOS\tasks.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>2778</YPos2><SelStart2>94426</SelStart2><SelEnd2>94426</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Drivers\Flash\EXT_Flash.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>0</YPos2><SelStart2>760</SelStart2><SelEnd2>760</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Bootloader\main.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>15</YPos2><SelStart2>551</SelStart2><SelEnd2>551</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\MicroGo_tracker_v1.1\RTOS\queue.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>1213</YPos2><SelStart2>45172</SelStart2><SelEnd2>45172</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Tasks\Tracker_task\Tracker_task.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>881</YPos2><SelStart2>27587</SelStart2><SelEnd2>27587</SelEnd2></Tab><ActiveTab>7</ActiveTab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\MicroGo_tracker_v1.1\RTOS\portable\portasm.s</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>88</YPos2><SelStart2>4570</SelStart2><SelEnd2>4570</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\..\MicroGo_tracker_v1.1\Drivers\ADC\ADC.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>85</YPos2><SelStart2>3508</SelStart2><SelEnd2>3508</SelEnd2></Tab><Tab><Factory>TextEditor</Factory><Filename>$WS_DIR$\Tasks\Modem_gate_task\Modem_gate_task.c</Filename><XPos>0</XPos><YPos>0</YPos><SelStart>0</SelStart><SelEnd>0</SelEnd><XPos2>0</XPos2><YPos2>230</YPos2><SelStart2>8013</SelStart2><SelEnd2>8013</SelEnd2></Tab></Pane><ActivePane>0</ActivePane><Sizes><Pane><X>1000000</X><Y>1000000</Y></Pane></Sizes><SplitMode>1</SplitMode></Editor>
+    <Positions>
+      
+      
+      
+      
+      
+    <Top><Row0><Sizes><Toolbar-01089470><key>iaridepm.enu1</key></Toolbar-01089470></Sizes></Row0><Row1><Sizes><Toolbar-1DADAA10><key>debuggergui.enu1</key></Toolbar-1DADAA10><Toolbar-1DADA880><key>armjlink2.enu1</key></Toolbar-1DADA880></Sizes></Row1></Top><Left><Row0><Sizes><Wnd5><Rect><Top>-2</Top><Left>-2</Left><Bottom>771</Bottom><Right>371</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>116618</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>217493</sizeVertCX><sizeVertCY>744701</sizeVertCY></Rect></Wnd5></Sizes></Row0></Left><Right><Row0><Sizes><Wnd6><Rect><Top>-2</Top><Left>-2</Left><Bottom>771</Bottom><Right>198</Right><x>-2</x><y>-2</y><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>116618</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>116618</sizeVertCX><sizeVertCY>744701</sizeVertCY></Rect></Wnd6></Sizes></Row0></Right><Bottom><Row0><Sizes><Wnd4><Rect><Top>-2</Top><Left>-2</Left><Bottom>198</Bottom><Right>1717</Right><x>-2</x><y>-2</y><xscreen>1719</xscreen><yscreen>200</yscreen><sizeHorzCX>1002332</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>116618</sizeVertCX><sizeVertCY>192678</sizeVertCY></Rect></Wnd4></Sizes></Row0></Bottom><Float><Sizes><Wnd7><Rect><Top>0</Top><Left>0</Left><Bottom>469435532</Bottom><Right>-2147483648</Right><x>-2</x><y>-2</y><FloatX>2488</FloatX><FloatY>13</FloatY><FloatWidth>665</FloatWidth><FloatHeight>904</FloatHeight><xscreen>200</xscreen><yscreen>200</yscreen><sizeHorzCX>116618</sizeHorzCX><sizeHorzCY>192678</sizeHorzCY><sizeVertCX>116618</sizeVertCX><sizeVertCY>744701</sizeVertCY></Rect></Wnd7></Sizes></Float></Positions>
+  </Desktop>
+</Project>
+
+
