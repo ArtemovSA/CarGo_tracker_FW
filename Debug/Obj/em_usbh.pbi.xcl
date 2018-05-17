@@ -1,98 +1,102 @@
-"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\usb\src\em_usbh.c"
+"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\usb\src\em_usbh.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\inc
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS\include
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS\portable
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\CMSIS\Include
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS\include
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS\portable
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\CMSIS\Include
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\emlib\inc
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\emlib\src
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\..\..\library\EFM32\Device\SiliconLabs\EFM32LG
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\I2C
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\I2C
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Delay
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Delay
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\MMA8452Q
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\MMA8452Q
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Task_tranfer
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Task_tranfer
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Device_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Device_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\CRC16
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\CRC16
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\CRC8
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\CRC8
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\ADD_func
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\ADD_func
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\Flash
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\Flash
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\I2C_gate_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\I2C_gate_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\ADC
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\ADC
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Date_time
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Date_time
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\USB_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\USB_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\bsp
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\bsp
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\usb\inc
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\usb\inc
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\usb\src
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\usb\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Modem_gate_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Modem_gate_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\MC60_lib
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\MC60_lib
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\UART
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\UART
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Main_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Main_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Monitor_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Monitor_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\GNSS
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\GNSS
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Wialon_IPS2
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Wialon_IPS2
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Service_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Service_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Tracker_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Tracker_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Clock
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Clock
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Monitor_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Monitor_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\DS18B20
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\DS18B20
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\OneWire
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\OneWire
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc\c
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS
+D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS\include
+D:\JOB\ARM\EFM32\library\EFM32\emlib\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\RTOS\portable
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS
+-I
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS\include
+-I
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS\portable
 -I
 D:\JOB\ARM\EFM32\library\EFM32\CMSIS\Include
 -I
@@ -100,71 +104,67 @@ D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
 -I
-D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
--I
-D:\JOB\ARM\EFM32\library\EFM32\emlib\src
--I
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\I2C
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\I2C
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Delay
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Delay
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\MMA8452Q
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\MMA8452Q
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Task_tranfer
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Task_tranfer
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Device_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Device_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\CRC16
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\CRC16
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\CRC8
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\CRC8
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\ADD_func
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\ADD_func
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\Flash
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\Flash
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\I2C_gate_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\I2C_gate_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\ADC
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\ADC
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Date_time
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Date_time
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\USB_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\USB_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\bsp
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\bsp
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\usb\inc
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\usb\inc
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP\usb\src
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP\usb\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\USB_VCP
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\USB_VCP
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Modem_gate_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Modem_gate_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\MC60_lib
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\MC60_lib
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\UART
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\UART
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Main_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Main_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Monitor_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Monitor_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\GNSS
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\GNSS
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Wialon_IPS2
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Wialon_IPS2
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Service_ctrl
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Service_ctrl
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Tracker_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Tracker_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\Clock
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Clock
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Tasks\Monitor_task
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Monitor_task
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\DS18B20
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\DS18B20
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\OneWire
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\OneWire
 -DEFM32LG330F128=1
 -DRTOS_DELAY=1
 -D__CHAR_BITS__=8

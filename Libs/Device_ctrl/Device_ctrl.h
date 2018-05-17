@@ -197,12 +197,13 @@ extern DC_taskCtrl_t DC_taskCtrl; //Task control
 #define DEBUG 1 //Debug version
 #define DEBUG_OUT 1
 
-#define DC_SET_MAGIC_CODE               0x82
-#define DC_PARAMS_MAGIC_CODE            0x82
+#define DC_SET_MAGIC_CODE               0x01
+#define DC_PARAMS_MAGIC_CODE            0x01
 
-#define DC_SET_DATA_SEND_PERIOD         60
-#define DC_SET_DATA_GNSS_PERIOD         30
-#define DC_SET_AGPS_SYNCH_PERIOD        45
+#define DC_SET_DATA_SEND_PERIOD         600
+#define DC_SET_DATA_GNSS_PERIOD         500
+#define DC_SET_AGPS_SYNCH_PERIOD        1600
+#define DC_SET_REPEAT_PERIOD            60
 #define DC_SET_ACCEL_LEVEL              7.5
 #define DC_SET_GNSS_TRY_COUNT           3
 #define DC_SET_GNSS_TRY_TIME            10
@@ -266,6 +267,8 @@ typedef struct {
   uint64_t      power;                  //Power consumtion
   float         MCU_temper;             //Internal temperature
   float         BAT_voltage;            //Battery voltage
+  uint8_t       countTempSensors;       //Count temperature sensors
+  float         TempSensors[5];         //Temperature sensors
   uint8_t       Cell_quality;           //Cell quality
   uint8_t       Status;                 //Global status
   uint32_t      log_len;                //Len
@@ -278,9 +281,6 @@ extern DC_log_t DC_log; //Log sample;
 extern DC_settings_t DC_settings;//Settings
 extern DC_params_t DC_params; //Params
 extern EXT_FLASH_image_t DC_fw_image; //Image descriptor
-
-void DC_saveLog(DC_log_t log_data); //Save log data
-void DC_readLog(uint32_t log_num ,DC_log_t *log_data); //Read log data
 
 //**********************************Common work*****************************************************
 
@@ -331,9 +331,12 @@ uint8_t DC_get_GSM_VDD_sense(); //Get GSM VDD SENSE
 float DC_get_bat_voltage(); //Get bat voltage
 float DC_get_bat_current(); //Get bat current
 float DC_get_chip_temper(); //Get chip temper
+uint8_t DC_get_sensor_temper(float *pTempers); //Get sensor temper
 
 //**********************************Save and log****************************************************
 
+void DC_saveLog(DC_log_t log_data); //Save log data
+void DC_readLog(uint32_t log_num ,DC_log_t *log_data); //Read log data
 void DC_save_params(); //Save params
 void DC_read_params(); //Read params
 void DC_save_settings(); //Save settings
@@ -345,5 +348,6 @@ void DC_save_pack(uint8_t num, char* pack); //Save save FW pack by index
 //**********************************Global Timers****************************************************
 
 void DC_startSampleTimer(uint16_t period); //Sample timer
+void DC_startMonitorTimer(uint16_t period); //Start monitor timer
 
 #endif

@@ -43,11 +43,12 @@ QueueHandle_t Tracker_con_Queue;
 TaskHandle_t xHandle_Tracker;
 
 USBReceiveHandler USB_Handler;
+uint8_t firsStart = 1;
 
 //Try counts
-#define TRY_COUNT_ERROR_AGPS          3
+#define TRY_COUNT_ERROR_AGPS          2
 #define TRY_COUNT_ERROR_GNSS          3
-//#define TRY_COUNT_ERROR_SENDDATA      3
+//#define TRY_COUNT_ERROR_SENDDATA    3
 
 //Counters
 uint8_t tryCounter_AGPS;
@@ -99,14 +100,13 @@ time_t Tracker_cal_wakeUpTime(time_t wake_up_before, uint32_t period)
 //arg: mode - next mode
 uint32_t Tracker_getNextPeriodAndMode(DC_mode_t *mode)
 {
-  UTC_repeat_time_next = UTC_repeat_time_before + 20;
   UTC_gnss_time_next = UTC_gnss_time_before + DC_settings.data_gnss_period;
   UTC_send_time_next = UTC_send_time_before + DC_settings.data_send_period;
   UTC_AGPS_time_next = UTC_AGPS_time_before + DC_settings.AGPS_synch_period;
 
   
   //If send data next mode
-  if ((UTC_send_time_next <= UTC_gnss_time_next) && (UTC_send_time_next <= UTC_AGPS_time_next) && (UTC_send_time_next <= UTC_repeat_time_next))
+  if ((UTC_send_time_next <= UTC_gnss_time_next) && (UTC_send_time_next <= UTC_AGPS_time_next))
   {
     //If not executed
     if (UTC_send_time_next < globalUTC_time)
@@ -120,7 +120,7 @@ uint32_t Tracker_getNextPeriodAndMode(DC_mode_t *mode)
   }  
   
   //If gnss data next mode
-  if ((UTC_gnss_time_next <= UTC_AGPS_time_next) && (UTC_gnss_time_next <= UTC_send_time_next) && (UTC_gnss_time_next <= UTC_repeat_time_next))
+  if ((UTC_gnss_time_next <= UTC_AGPS_time_next) && (UTC_gnss_time_next <= UTC_send_time_next))
   {
     
     //If not executed
@@ -133,23 +133,9 @@ uint32_t Tracker_getNextPeriodAndMode(DC_mode_t *mode)
     *mode = DC_MODE_GNSS_DATA;
     return UTC_gnss_time_next - globalUTC_time;
   }
-  
-  //If repeated next mode
-  if ((UTC_repeat_time_next <= UTC_gnss_time_next) && (UTC_repeat_time_next <= UTC_AGPS_time_next) && (UTC_repeat_time_next <= UTC_send_time_next))
-  {
-    //If not executed
-    if (UTC_repeat_time_next < globalUTC_time)
-    {
-      *mode = DC_MODE_REPEATED;
-      return 0;
-    }
-    
-    *mode = DC_MODE_REPEATED;
-    return UTC_repeat_time_next - globalUTC_time;
-  }  
-  
+
   //If AGPS sunch next mode
-  if ((UTC_AGPS_time_next <= UTC_send_time_next) && (UTC_AGPS_time_next <= UTC_gnss_time_next) && (UTC_AGPS_time_next <= UTC_repeat_time_next))
+  if ((UTC_AGPS_time_next <= UTC_send_time_next) && (UTC_AGPS_time_next <= UTC_gnss_time_next))
   {
     //If not executed
     if (UTC_AGPS_time_next < globalUTC_time)
@@ -168,7 +154,7 @@ uint32_t Tracker_getNextPeriodAndMode(DC_mode_t *mode)
 //On modem sequence
 DC_return_t Tracker_seq_modem_on()
 {
-  uint8_t try_on_counter = 10;
+  uint8_t try_on_counter = 5;
   uint8_t try_set_counter = 3;
 
   NVIC_EnableIRQ(USART1_RX_IRQn);
@@ -193,6 +179,7 @@ DC_return_t Tracker_seq_modem_on()
       if (!DC_getStatus(DC_FLAG_AT_OK))
       {
         if (MGT_modem_check() == MC60_STD_OK) //Check AT
+        {
           if (MGT_switch_Sleep_mode(1) == MC60_STD_OK) //Switch SLEEP in
           {
             DC_debugOut("AT OK\r\n");
@@ -203,12 +190,21 @@ DC_return_t Tracker_seq_modem_on()
               DC_debugOut("GSM time synch setted\r\n");
             return DC_OK;
           }
+        }
           
       }else{
         return DC_OK;
       }
     }
     
+    if (try_on_counter < 3)
+    {
+      DC_setModemMode(DC_MODEM_ONLY_GNSS_ON); //Set mode all in one
+      vTaskDelay(5000);
+      DC_setModemMode(DC_MODEM_ALL_IN_ONE); //Set mode all in one
+      vTaskDelay(1000);
+    }
+      
     try_set_counter = 3;
     MGT_reset(); //Reset gate task
     UART_RxDisable(); //Disable RX data
@@ -235,8 +231,8 @@ DC_return_t Tracker_cellReg_seq()
     if (modem_ans == MC60_STD_OK) //Check registration in net
     {
       switch(reg) {
-      case MC60_CREG_Q_REGISTERED: DC_debugOut("Reg OK\r\n"); DC_setStatus(DC_FLAG_REG_OK); return DC_OK;
-      case MC60_CREG_Q_ROAMING: DC_debugOut("Reg roaming\r\n"); DC_setStatus(DC_FLAG_REG_OK); return DC_OK;
+      case MC60_CREG_Q_REGISTERED: DC_debugOut("Reg OK\r\n"); return DC_OK;
+      case MC60_CREG_Q_ROAMING: DC_debugOut("Reg roaming\r\n"); return DC_OK;
       case MC60_CREG_Q_SEARCH: DC_debugOut("Reg Search\r\n"); break;
       case MC60_CREG_Q_NOT_REG: DC_debugOut("Reg NOT\r\n"); return DC_ERROR;
       case MC60_CREG_Q_UNKNOWN: DC_debugOut("Reg UKN\r\n"); return DC_ERROR;
@@ -267,9 +263,10 @@ DC_return_t Tracker_GPRS_con_seq()
   }
   
   //Set APN if registration and AT OK
-  if ((!DC_getStatus(DC_FLAG_APN_OK)) && (DC_getStatus(DC_FLAG_REG_OK)))
+  if (!DC_getStatus(DC_FLAG_APN_OK))
   {
     modem_ans = MGT_setAPN(MC60_DEFAUL_APN, &error_n);
+    
     if (modem_ans == MC60_STD_OK)
     {
       //Check APN setted
@@ -280,6 +277,9 @@ DC_return_t Tracker_GPRS_con_seq()
         {
           DC_params.APN_setted = true;
           DC_debugOut("Setted APN settings, wait reboot\r\n");
+          DC_save_params(); //Save params
+          NVIC_SystemReset();
+          
           DC_reset_system(); //Reset system
         }
       }else{
@@ -299,8 +299,14 @@ DC_return_t Tracker_GPRS_con_seq()
     }
   }
   
+  if (MGT_setMUX_TCP(1)) //Setting multiple TCP/IP
+  {
+    DC_setStatus(DC_FLAG_APN_OK);
+    DC_debugOut("Check APN: OK\r\n");
+  }
+  
   //Make GPRS connection
-  if (!DC_getStatus(DC_FLAG_GPRS_ACTIVE) && DC_getStatus(DC_FLAG_APN_OK) && DC_getStatus(DC_FLAG_REG_OK))
+  if (!DC_getStatus(DC_FLAG_GPRS_ACTIVE) && DC_getStatus(DC_FLAG_APN_OK))
   {
     if (MGT_getGPRS(&GPRS_status) == MC60_STD_OK) //Get status
       if (GPRS_status == 0)
@@ -494,7 +500,12 @@ DC_return_t Tracker_sleep_sec(uint32_t sleep_period)
       case DC_MODE_GNSS_DATA: DC_debugOut("Next Function: DC_MODE_GNSS_DATA\r\n"); break;
       };
 
-      vTaskDelay(sleep_period*1000);
+      while (sleep_period--)
+      {
+        if (DC_taskCtrl.DC_mes_status & (1<<DC_MES_INT_ACC))
+          break;
+        vTaskDelay(1000);
+      }
       
     }else{
       EMU_EnterEM2(true);
@@ -510,12 +521,18 @@ DC_return_t Tracker_sleep_sec(uint32_t sleep_period)
 }
 //--------------------------------------------------------------------------------------------------
 //Go to Sleep
-DC_return_t Tracker_sleep(DC_mode_t next_mode, uint32_t sleep_period)
+DC_return_t Tracker_sleep(DC_modemMode_t modemMode, uint32_t sleep_period)
 {
-  DC_setModemMode(DC_MODEM_GSM_SAVE_POWER_ON); //Set Modem mode DC_MODEM_ALL_IN_ONE
+  DC_setModemMode(modemMode); //Set Modem mode DC_MODEM_ALL_IN_ONE
   
   globalSleepPeriod = sleep_period;
-  return Tracker_sleep_sec(sleep_period);
+  
+  Tracker_sleep_sec(sleep_period);
+  
+  if (DC_taskCtrl.DC_mes_status & (1<<DC_MES_INT_ACC))
+    DC_taskCtrl.DC_modeCurrent = DC_MODE_SEND_DATA;
+  
+  return DC_OK;
 }
 //--------------------------------------------------------------------------------------------------
 //Read sensors
@@ -528,9 +545,15 @@ void Tracker_readSensors()
     DC_log.BAT_voltage = DC_get_bat_voltage();
     xSemaphoreGive( ADC_mutex );
   }
+  DC_debugOut("Tmcu=%.2f; Vbat=%.2f; mA/h=%.3lf\r\n", DC_log.MCU_temper, DC_log.BAT_voltage, DC_getPower());
   
-  sprintf(gStr_buf,"Tmcu=%.2f; Vbat=%.2f; mA/h=%.3lf\r\n", DC_log.MCU_temper, (float)DC_log.BAT_voltage/1000, DC_getPower());
-  DC_debugOut(gStr_buf);
+  //Temperature sensors
+  DC_params.countTempSensors = DC_get_sensor_temper(DC_params.TempSensors);
+  
+  for (int i=0; i<DC_params.countTempSensors; i++)
+  {
+    DC_debugOut("Temp sensor #%d = %.2f\r\n", i, DC_params.TempSensors[i]);
+  }
 }
 //--------------------------------------------------------------------------------------------------
 //Get GNSS data
@@ -661,10 +684,10 @@ DC_return_t Tracker_wialonLogin()
   char ansver[20];
   WL_ansvers_t wialon_ansver = WL_ANS_UNKNOWN;
   
-  if (!DC_getStatus(DC_WL_LOGIN_OK) && (DC_getStatus(DC_FLAG_IMEI_OK)))
+  if (!DC_getStatus(DC_WL_LOGIN_OK))
   {
     WL_prepare_LOGIN(gStr_buf, DC_settings.IMEI, DC_settings.dataPass);
-    if (Tracker_sendWialonPack(1, gStr_buf, ansver, 8000) == DC_OK)
+    if (Tracker_sendWialonPack(1, gStr_buf, ansver, 5000) == DC_OK)
     {
       WL_parce_LOGIN_ANS(ansver, &wialon_ansver);
       if (wialon_ansver == WL_ANS_SUCCESS)
@@ -678,7 +701,7 @@ DC_return_t Tracker_wialonLogin()
       }
     }
   }else{
-    return DC_OK;
+    return DC_ERROR;
   }
   
   DC_resetStatus(DC_FLAG_MAIN_TCP);
@@ -784,11 +807,47 @@ DC_return_t Tracker_timeSynch()
     return DC_ERROR;
   }else{
     CL_setDateTime(globalGNSS_data.date, globalGNSS_data.time);
-    DC_ledStatus_flash(7, 800);
     DC_params.UTC_time = globalUTC_time;
     DC_debugOut("Time synch OK: %d\r\n", (uint64_t)DC_params.UTC_time);
     return DC_OK;
   }
+}
+//--------------------------------------------------------------------------------------------------
+//Send event
+DC_return_t Tracker_wialonSendEvent()
+{
+  char ansver[20];
+  WL_ansvers_t wialon_ansver = WL_ANS_UNKNOWN;
+  uint8_t tryCounter = 2;
+
+  Tracker_readSensors();
+  DC_log.Status |= (1<<DC_MES_INT_ACC);
+  
+  if (DC_log.GNSS_data.date == 0)  
+    CL_getDateTime(&DC_log.GNSS_data.date, &DC_log.GNSS_data.time);
+  
+  if (DC_log.GNSS_data.date == 0)  
+    return DC_OK;
+    
+  WL_prepare_DATA(gStr_buf, &DC_log.GNSS_data, DC_log.MCU_temper, DC_log.BAT_voltage, DC_log.power, DC_log.Cell_quality, DC_log.Status, DC_params.countTempSensors, DC_params.TempSensors); //Create package DATA
+  
+  while (tryCounter--)
+  {
+    Tracker_sendWialonPack(1, gStr_buf, ansver, 5000);
+    WL_parce_DATA_ANS(ansver, &wialon_ansver);
+    
+    if(wialon_ansver == WL_ANS_SUCCESS )//data
+    {
+      DC_debugOut("Event sended\r\n");
+      return DC_OK;
+    }else{
+      DC_debugOut("Event not sended\r\n");
+    }
+  }
+  
+  DC_resetStatus(DC_WL_LOGIN_OK);
+  
+  return DC_ERROR;
 }
 //--------------------------------------------------------------------------------------------------
 //Send data
@@ -807,8 +866,8 @@ DC_return_t Tracker_wialonSend()
     while (sendCounter--)
     {
       DC_readLog(DC_params.log_len - DC_params.notsended_log_len, &logData);
-      WL_prepare_DATA(gStr_buf, &logData.GNSS_data, logData.MCU_temper, logData.BAT_voltage, logData.power, logData.Cell_quality, logData.Status); //Create package DATA
-      Tracker_sendWialonPack(1, gStr_buf, ansver, 8000);
+      WL_prepare_DATA(gStr_buf, &logData.GNSS_data, logData.MCU_temper, logData.BAT_voltage, logData.power, logData.Cell_quality, logData.Status, DC_params.countTempSensors, DC_params.TempSensors); //Create package DATA
+      Tracker_sendWialonPack(1, gStr_buf, ansver, 5000);
       WL_parce_DATA_ANS(ansver, &wialon_ansver);
       
       if(wialon_ansver == WL_ANS_SUCCESS )//data
@@ -822,7 +881,7 @@ DC_return_t Tracker_wialonSend()
         DC_resetStatus(DC_FLAG_GNSS_NOT_RECEIVED);
         DC_resetStatus(DC_FLAG_CELL_LOC_OK);
         DC_resetStatus(DC_FLAG_GNSS_RECEIVED);
-        DC_params.notsended_log_len -= (DC_params.notsended_log_len - sendCounter);
+        DC_params.notsended_log_len -= sendCounter;
         
         return DC_ERROR;
       }
@@ -888,7 +947,36 @@ DC_return_t Tracker_BT_switchOn()
   DC_resetStatus(DC_FLAG_BT_POWER_ON);
   return DC_ERROR;
 }
-uint16_t temperature;
+//--------------------------------------------------------------------------------------------------
+//Go next mode
+void goToNextMode(DC_modemMode_t modemMode)
+{
+  if (firsStart)
+  {
+    if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_OK)
+    {
+      if (DC_taskCtrl.DC_modeBefore== DC_MODE_AGPS_UPDATE)
+      {      
+        DC_taskCtrl.DC_modeCurrent = DC_MODE_GNSS_DATA;
+      }
+      
+      if (DC_taskCtrl.DC_modeBefore== DC_MODE_GNSS_DATA)
+      {      
+        DC_taskCtrl.DC_modeCurrent = DC_MODE_SEND_DATA;
+      }
+      
+      if (DC_taskCtrl.DC_modeBefore== DC_MODE_SEND_DATA)
+      {      
+        firsStart = 0;
+        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
+        Tracker_sleep(modemMode, DC_nextPeriod); //Go to Sleep
+      }
+    }
+  }else{
+    DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
+    Tracker_sleep(modemMode, DC_nextPeriod); //Go to Sleep
+  }
+}
 //--------------------------------------------------------------------------------------------------
 //IDLE subTask
 void Tracker_IDLE_subTask()
@@ -897,79 +985,15 @@ void Tracker_IDLE_subTask()
   {
     WDOG_Feed(); //Watch dog
 
-    //If first start
-    if (DC_taskCtrl.DC_modeBefore== DC_MODE_IDLE)
+    if (DC_taskCtrl.DC_modeBefore == DC_MODE_IDLE)
     {
-      DC_debugOut("***First start***\r\n");
-      
-      SWITCH_1WIRE_ON;
-
-      
-      temperature = DS18B20_getTemperature();
-      
-      
-      DC_setModemMode(DC_MODEM_ALL_IN_ONE); //Set mode all in one
-      
-      //Try on modem
-      if(Tracker_seq_modem_on() == DC_OK) //On modem sequence
-      {
-        
-        //Tracker_BT_switchOn(); //On modem sequence
-        
-        //Registration sequence
-        Tracker_cellReg_seq();
-        
-        //if (MGT_setCharacterSet("IRA") == MC60_STD_OK) //Set charecter set
-          //if (MGT_setUSSD_mode("1") == MC60_STD_OK) //Set USSD mode
-            MGT_returnUSSD("*105#", gStr_buf); //Get USSD query
-        
-        MGT_setUSSD_mode("2"); //Set USSD mode
-        
-        
-//        if (MGT_setGSM_time_synch() == MC60_STD_OK) // Set GSM time
-//          if(MGT_get_time_network(&globalGNSS_data.time, &globalGNSS_data.date) == MC60_STD_OK) // Get time synch from cell
-//          {
-//            //CL_setDateTime(globalGNSS_data.date, globalGNSS_data.time); //Set cell time
-//          }
-      }
-      
       DC_taskCtrl.DC_modeCurrent = DC_MODE_AGPS_UPDATE;
-      
-      //      DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-      //      Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
-    }
-    
-    //If was before repeated subtask
-    if (DC_taskCtrl.DC_modeBefore== DC_MODE_REPEATED)
-    {
-      //Timeout
-      if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_TIMEOUT)
-      {
-        UTC_repeat_time_next = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
-      }
-      
-       //Error
-      if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_ERROR)
-      {
-        UTC_repeat_time_next = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
-      }
-      
-      //OK
-      if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_OK)
-      {
-        UTC_repeat_time_next = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
-      }
     }
     
     //If was before AGPS mode
     if (DC_taskCtrl.DC_modeBefore== DC_MODE_AGPS_UPDATE)
     {
+      
       //Timeout
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_TIMEOUT)
       {
@@ -980,10 +1004,10 @@ void Tracker_IDLE_subTask()
         }else{
           tryCounter_AGPS = 0;
           UTC_AGPS_time_before = globalUTC_time;
-          DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+          goToNextMode(DC_MODEM_ALL_OFF);
         }
       }
+      
       //Error
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_ERROR)
       {
@@ -993,16 +1017,17 @@ void Tracker_IDLE_subTask()
           tryCounter_AGPS++;
         }else{
           tryCounter_AGPS = 0;
-          DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+          UTC_AGPS_time_before = globalUTC_time;
+          goToNextMode(DC_MODEM_ALL_OFF);
         }
       }
+      
       //OK
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_OK)
       {
+        tryCounter_AGPS = 0;
         UTC_AGPS_time_before = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+        goToNextMode(DC_MODEM_ALL_OFF);
       }
     }
     
@@ -1020,8 +1045,7 @@ void Tracker_IDLE_subTask()
         }else{
           tryCounter_GNSS = 0;
           UTC_gnss_time_before = globalUTC_time;
-          DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+          goToNextMode(DC_MODEM_ALL_OFF);
         }
       }
       //Error
@@ -1034,22 +1058,24 @@ void Tracker_IDLE_subTask()
           Tracker_sleep_sec(DC_settings.gnss_try_sleep);
         }else{
           tryCounter_GNSS = 0;
-          DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+          UTC_gnss_time_before = globalUTC_time;
+          goToNextMode(DC_MODEM_ALL_OFF);
         } 
       }
+      
       //OK
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_OK)
       {
+        tryCounter_GNSS = 0;
         UTC_gnss_time_before = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+        goToNextMode(DC_MODEM_ALL_OFF);       
       }
     }
     
     //If was before Send data mode
     if (DC_taskCtrl.DC_modeBefore == DC_MODE_SEND_DATA)
     {
+      
       //Timeout
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_TIMEOUT)
       {
@@ -1057,43 +1083,48 @@ void Tracker_IDLE_subTask()
         {
           DC_taskCtrl.DC_modeCurrent = DC_MODE_SEND_DATA;
           tryCounter_SendData++;
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_settings.gsm_try_sleep); //Go to Sleep
+          Tracker_sleep(DC_MODEM_ALL_OFF, DC_nextPeriod); //Go to Sleep
         }else{
           tryCounter_SendData = 0;
           UTC_send_time_before = globalUTC_time;
-          DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-          Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+          goToNextMode(DC_MODEM_ALL_OFF);
         }
       }
+      
       //Error
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_ERROR)
       {
         //If before not found GNSS
-        if (DC_taskCtrl.DC_exec.DC_error == DC_ERROR_GNSS_NOT_FOUND)
+        if (DC_taskCtrl.DC_exec.DC_error == DC_ERROR_NOTHING)
         {
+
           DC_taskCtrl.DC_modeCurrent = DC_MODE_GNSS_DATA; //Go to GNSS mode and try get GNSS
+          DC_setModemMode(DC_MODEM_ALL_OFF); //Set mode all in one
+          Tracker_sleep_sec(30);
+          
         }else{
+          
           DC_resetStatus(DC_FLAG_GPRS_ACTIVE);
           if (tryCounter_SendData < DC_settings.gsm_try_count-1)
           {
             DC_taskCtrl.DC_modeCurrent = DC_MODE_SEND_DATA;
             tryCounter_SendData++;
-            Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_settings.gsm_try_sleep); //Go to Sleep
+            Tracker_sleep(DC_MODEM_ALL_OFF, DC_nextPeriod); //Go to Sleep
           }else{
             tryCounter_SendData = 0;
             UTC_send_time_before = globalUTC_time;
-            DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-            Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+            goToNextMode(DC_MODEM_ALL_OFF);
           }
           
         }
       }
+      
       //OK
       if (DC_taskCtrl.DC_exec.DC_flag == DC_FLAG_EXEC_OK)
       {
+        tryCounter_SendData = 0;
         UTC_send_time_before = globalUTC_time;
-        DC_nextPeriod = Tracker_getNextPeriodAndMode(&DC_taskCtrl.DC_modeCurrent); //Calculate next Period
-        Tracker_sleep(DC_taskCtrl.DC_modeCurrent, DC_nextPeriod); //Go to Sleep
+        goToNextMode(DC_MODEM_ALL_OFF);
       }
     }      
     
@@ -1116,6 +1147,7 @@ void vTracker_Task(void *pvParameters)
   
   //Start sample timer
   DC_startSampleTimer(1); //Sample timer 1ms
+  DC_startMonitorTimer(1000); //Monitor timer
 
   DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
   DC_taskCtrl.DC_modeBefore = DC_MODE_IDLE;
@@ -1137,45 +1169,6 @@ void vTracker_Task(void *pvParameters)
     if (DC_taskCtrl.DC_mes_status & (1<<DC_MES_INT_ACC))
     {
       DC_debugOut("Event ACC\r\n");
-    }
-    
-    //*************************************************************************************
-    //Repeated mode
-    if (DC_taskCtrl.DC_modeCurrent == DC_MODE_REPEATED)
-    {
-      if (DC_taskCtrl.DC_modeBefore == DC_MODE_IDLE)
-      {
-        DC_debugOut("***MODE: REPEATED***\r\n");
-        
-        DC_taskCtrl.DC_modeBefore = DC_MODE_REPEATED;
-        
-        DC_setModemMode(DC_MODEM_ALL_IN_ONE); //Set mode all in one
-        
-        //Try on modem
-        if(Tracker_seq_modem_on() == DC_OK) //On modem sequence
-        {
-          Tracker_BT_switchOn(); //On modem sequence
-        }
-        
-        //Get quality
-        if (MGT_getQuality(&DC_params.Cell_quality, NULL) == MC60_STD_OK)
-        {
-          DC_debugOut("Cell quality: %d\r\n", DC_params.Cell_quality);
-        }
-        
-        //Get sensors
-        if( xSemaphoreTake( ADC_mutex, portMAX_DELAY ) == pdTRUE )
-        {
-          DC_params.MCU_temper = DC_get_chip_temper();
-          DC_params.BAT_voltage = DC_get_bat_voltage();
-          xSemaphoreGive( ADC_mutex );
-        }
-        
-        UTC_repeat_time_before = globalUTC_time;
-        Tracker_setExeStatus(DC_FLAG_EXEC_OK, DC_FUNC_NONE, DC_ERROR_NO); 
-        DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-        goto IDLE;
-      }
     }
     
     //*************************************************************************************
@@ -1232,6 +1225,16 @@ void vTracker_Task(void *pvParameters)
             DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
             goto IDLE;
           }
+        }
+        
+        //Get IMEI
+        if(Tracker_getIMEI() != DC_OK) //On modem sequence
+        {
+          DC_debugOut("Can't get IMEI\r\n");
+          
+          Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_IMEI_GET, DC_ERROR_MODEM_CMD);
+          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+          goto IDLE;
         }
         
         //AGPS
@@ -1322,23 +1325,6 @@ void vTracker_Task(void *pvParameters)
       Tracker_setExeStatus(DC_FLAG_EXEC_OK, DC_FUNC_TIME_SYNCH, DC_ERROR_NO);        
       DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
       goto IDLE;
-      
-      //        //Synch time
-      //        if ((return_stat = Tracker_timeSynch()) != DC_OK)
-      //        {
-      //          DC_debugOut("Can't synch time\r\n");
-      //          
-      //          Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_TIME_SYNCH, DC_ERROR_TIME_SYNCH);           
-      //          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-      //          goto IDLE;
-      //          
-      //        }else if(return_stat == DC_OK)
-      //        {
-      //          Tracker_setExeStatus(DC_FLAG_EXEC_OK, DC_FUNC_TIME_SYNCH, DC_ERROR_NO);        
-      //          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-      //          goto IDLE;
-      //        }
-      
     }
     
     //*************************************************************************************
@@ -1348,8 +1334,17 @@ void vTracker_Task(void *pvParameters)
       if (DC_taskCtrl.DC_modeBefore == DC_MODE_IDLE)
       {
         DC_debugOut("***MODE: SEND DATA***\r\n");
-        
+
         DC_taskCtrl.DC_modeBefore = DC_MODE_SEND_DATA;
+        
+        //Check log len
+        if  (!(DC_taskCtrl.DC_mes_status & (1<<DC_MES_INT_ACC)) && (DC_params.notsended_log_len == 0))
+        {
+          Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_SEND_DATA, DC_ERROR_NOTHING);
+          DC_debugOut("GNSS not found\r\n");
+          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+          goto IDLE;
+        }
         
         DC_setModemMode(DC_MODEM_ALL_IN_ONE); //Set mode all in one
 
@@ -1362,16 +1357,6 @@ void vTracker_Task(void *pvParameters)
           DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
           goto IDLE;
           
-        }
-        
-        //Get IMEI
-        if(Tracker_getIMEI() != DC_OK) //On modem sequence
-        {
-          DC_debugOut("Can't get IMEI\r\n");
-          
-          Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_IMEI_GET, DC_ERROR_MODEM_CMD);
-          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-          goto IDLE;
         }
         
         //Connect to GPRS
@@ -1395,6 +1380,12 @@ void vTracker_Task(void *pvParameters)
             DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
             goto IDLE;
           }
+        }
+        
+        //Get quality
+        if (MGT_getQuality(&DC_params.Cell_quality, NULL) == MC60_STD_OK)
+        {
+          DC_debugOut("Cell quality: %d\r\n", DC_params.Cell_quality);
         }
         
         //Traccar server connection
@@ -1439,35 +1430,53 @@ void vTracker_Task(void *pvParameters)
           }       
         }
         
-        //Send data
-        
-        //Check log len
-        if (DC_params.notsended_log_len == 0)
+        //If ACC event
+        if  (DC_taskCtrl.DC_mes_status & (1<<DC_MES_INT_ACC))
         {
-          Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_SEND_DATA, DC_ERROR_NOTHING);
-          DC_debugOut("GNSS not found\r\n");
-          DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-          goto IDLE;
-        }
-        
-        if ((return_stat = Tracker_wialonSend()) != DC_OK)
-        {
-          //If error seq
-          if (return_stat == DC_ERROR)
+          //Send event
+          if ((return_stat = Tracker_wialonSendEvent()) != DC_OK)
           {
-            Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
-            DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-            goto IDLE;
+            //If error seq
+            if (return_stat == DC_ERROR)
+            {
+              Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
+              DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+              goto IDLE;
+            }
+            //If timeout seq
+            if (return_stat == DC_TIMEOUT)
+            {
+              Tracker_setExeStatus(DC_FLAG_EXEC_TIMEOUT, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
+              DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+              goto IDLE;
+            }       
           }
-          //If timeout seq
-          if (return_stat == DC_TIMEOUT)
+          
+          //Reset event
+          DC_taskCtrl.DC_mes_status &= ~(1<<DC_MES_INT_ACC);
+        }else{
+          
+          //Send data
+          if ((return_stat = Tracker_wialonSend()) != DC_OK)
           {
-            Tracker_setExeStatus(DC_FLAG_EXEC_TIMEOUT, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
-            DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
-            goto IDLE;
-          }       
-        }   
-        
+            //If error seq
+            if (return_stat == DC_ERROR)
+            {
+              Tracker_setExeStatus(DC_FLAG_EXEC_ERROR, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
+              DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+              goto IDLE;
+            }
+            //If timeout seq
+            if (return_stat == DC_TIMEOUT)
+            {
+              Tracker_setExeStatus(DC_FLAG_EXEC_TIMEOUT, DC_FUNC_LOGIN, DC_ERROR_SEND_DATA);
+              DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
+              goto IDLE;
+            }       
+          }   
+          
+        }
+
         Tracker_setExeStatus(DC_FLAG_EXEC_OK, DC_FUNC_SEND_DATA, DC_ERROR_NO);
         DC_taskCtrl.DC_modeCurrent = DC_MODE_IDLE;
         goto IDLE;

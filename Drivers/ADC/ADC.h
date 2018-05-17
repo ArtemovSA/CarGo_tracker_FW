@@ -14,8 +14,8 @@
 #define ADC_CH3         adcSingleInpCh3
 #define ADC_CH4         adcSingleInpCh4
 #define ADC_CH5         adcSingleInpCh5
-#define ADC_VOLTAGE     adcSingleInpCh6
-#define ADC_CURRENT     adcSingleInpCh7
+#define ADC_CURRENT     adcSingleInpCh6
+#define ADC_VOLTAGE     adcSingleInpCh7
 
 void ADC_init(uint8_t channel); //ADC initialization
 uint16_t ADC_getValue(uint8_t channel); //Get value in channel

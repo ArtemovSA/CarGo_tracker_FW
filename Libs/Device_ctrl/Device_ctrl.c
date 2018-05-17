@@ -31,9 +31,11 @@
 #include "Date_time.h"
 #include "Clock.h"
 #include "USB_ctrl.h"
+#include "ds18b20.h"
 
 //Timers
 TimerHandle_t DC_TimerSample_h; //Timer handle
+TimerHandle_t DC_TimerMonitor_h; //Timer monitor
 
 //Mutexs
 extern xSemaphoreHandle ADC_mutex; //Mutex
@@ -117,29 +119,32 @@ void DC_init()
   
   DC_debugOut("\r\nSTART\r\n");
   
-  DC_ledStatus_flash(3, 100);
+  //DC_ledStatus_flash(3, 100);
     
   if(EXT_Flash_init()) //Инициализация Flash
   {    
     DC_debugOut("Flash OK\r\n");
-    
+  }
+  
     DC_read_params();     //Read params
     DC_read_settings();   //Read settings
     DC_read_FW();         //Read FW inf
     DC_fw_image.imageCRC = 0;
-  }
   
   //Ring IRQ
-  GPIO_IntEnable(1 << RING_PIN);
-  GPIO_IntConfig(RING_PORT, RING_PIN, false, true, true);
+  //GPIO_IntEnable(1 << RING_PIN);
+  //GPIO_IntConfig(RING_PORT, RING_PIN, false, true, true);
   
   //ACC IRQ settings
   GPIO_IntEnable((1 << MMA_INT1_PIN)|(1 << MMA_INT2_PIN));
-  //GPIO_IntConfig(MMA_INT1_PORT, MMA_INT1_PIN, false, true, true);
+  GPIO_IntConfig(MMA_INT1_PORT, MMA_INT1_PIN, false, true, true);
   GPIO_IntConfig(MMA_INT2_PORT, MMA_INT2_PIN, false, true, true);
   
   NVIC_ClearPendingIRQ(GPIO_EVEN_IRQn);
   NVIC_EnableIRQ(GPIO_EVEN_IRQn);
+  
+  NVIC_ClearPendingIRQ(GPIO_ODD_IRQn);
+  NVIC_EnableIRQ(GPIO_ODD_IRQn);
   
   //Set UTC time
   globalUTC_time = DC_params.UTC_time;
@@ -216,10 +221,34 @@ float DC_get_chip_temper() {
   return ADC_Celsius(adcSample);
 }
 //--------------------------------------------------------------------------------------------------
+//Get sensor temper
+// Return count sensors
+// params point to Tempers
+uint8_t DC_get_sensor_temper(float *pTempers)
+{
+  uint8_t countTempers = 0;
+  
+  SWITCH_1WIRE_ON;
+  Ds18b20_Init(_1_WIRE_EFM_PORT, _1_WIRE_EFM_PIN);
+  Ds18b20_getTemperatures();
+  SWITCH_1WIRE_OFF;
+  
+  for (int i=0; i<_DS18B20_MAX_SENSORS; i++)
+  {
+    if (ds18b20[i].DataIsValid)
+    {
+      memcpy(((uint8_t*)pTempers+countTempers*sizeof(float)),(uint8_t*)&ds18b20[i].Temperature, sizeof(float));
+      countTempers++;
+    }
+  }
+  
+  return countTempers;
+}
+//--------------------------------------------------------------------------------------------------
 //Get bat voltage
 float DC_get_bat_voltage() { 
   uint16_t adcSample = ADC_getValue(ADC_VOLTAGE);
-  return ADC_mv(adcSample) * 0.00158;
+  return ADC_mv(adcSample) * 0.0021;
 }
 //--------------------------------------------------------------------------------------------------
 //Get bat current in mA
@@ -478,7 +507,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_MUX_GNSS_IN;
     SWITCH_OFF_GSM;
     SWITCH_OFF_GNSS;
-    DC_resetStatuses(DC_STATUS_RESET);
+    //DC_resetStatuses(DC_STATUS_RESET);
     DC_debugOut("Modem mode: ALL OFF\r\n");
   }   
   
@@ -491,7 +520,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     vTaskDelay(100);
     SWITCH_ON_GNSS;
     vTaskDelay(100);
-    DC_resetStatuses(DC_STATUS_MASK_ALL_IN_ONE);
+    //DC_resetStatuses(DC_STATUS_MASK_ALL_IN_ONE);
     DC_debugOut("Modem mode: ALL IN ONE\r\n");
   }
   
@@ -502,7 +531,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_ON_GSM;
     vTaskDelay(100);
     SWITCH_MUX_GNSS_IN;
-    DC_resetStatuses(DC_STATUS_MASK_GSM_SAVE_POWER_ON);
+    //DC_resetStatuses(DC_STATUS_MASK_GSM_SAVE_POWER_ON);
     DC_debugOut("Modem mode: SAVE POWER MODE GSM ON\r\n");
   }
   
@@ -513,7 +542,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_OFF_GSM;
     SWITCH_ON_GNSS;
     vTaskDelay(100);
-    DC_resetStatuses(DC_STATUS_MASK_ONLY_GNSS_ON);
+    //DC_resetStatuses(DC_STATUS_MASK_ONLY_GNSS_ON);
     DC_debugOut("Modem mode: GNSS ON\r\n");
   }    
   
@@ -552,6 +581,28 @@ void DC_sleep(uint32_t sec)
 //}
 //--------------------------------------------------------------------------------------------------
 //GPIO int
+void GPIO_ODD_IRQHandler(void)
+{
+  uint32_t gpio_int = GPIO_IntGet();
+  
+  if (gpio_int & (1 << MMA_INT2_PIN))
+  {
+    if (sleepMode == 1)
+    {
+      CL_incUTC(RTC_CounterGet()); //Add sleep counter
+      RTC_CounterReset();
+      RTC_IntDisable(RTC_IEN_COMP0);
+      RTC_IntEnable(RTC_IEN_COMP1);
+    }
+    
+    DC_debugOut("@ACC IRQ2\r\n");
+    DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_ACC);
+  }  
+  
+  GPIO_IntClear(gpio_int);
+}
+
+//GPIO int
 void GPIO_EVEN_IRQHandler(void)
 { 
   uint32_t gpio_int = GPIO_IntGet();
@@ -577,7 +628,7 @@ void GPIO_EVEN_IRQHandler(void)
 //    DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_ACC);
 //  }  
   
-  if (gpio_int & (1 << MMA_INT2_PIN))
+  if (gpio_int & (1 << MMA_INT1_PIN))
   {
     if (sleepMode == 1)
     {
@@ -587,7 +638,7 @@ void GPIO_EVEN_IRQHandler(void)
       RTC_IntEnable(RTC_IEN_COMP1);
     }
     
-    DC_debugOut("@ACC IRQ2\r\n");
+    DC_debugOut("@ACC IRQ1\r\n");
     DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_ACC);
   }  
   
@@ -663,4 +714,39 @@ void vDC_Timer_sample( TimerHandle_t xTimer )
 void DC_startSampleTimer(uint16_t period)
 {
   DC_startTimer(DC_TimerSample_h,"Tsample", period, vDC_Timer_sample);
+}
+
+
+//--------------------------------------------------------------------------------------------------
+//Monitor timer
+void vDC_Timer_monitor( TimerHandle_t xTimer )
+{
+  float sumVoltage;
+  float voltage;
+  
+  if( xSemaphoreTake( ADC_mutex, portMAX_DELAY ) == pdTRUE )
+  {
+    for (int i = 0; i<10; i++)
+    {
+      sumVoltage += DC_get_bat_voltage();
+    }
+    xSemaphoreGive( ADC_mutex );
+    voltage = (sumVoltage/10);
+    
+    if (voltage <= 2.1)
+    {
+      SWITCH_OFF_GSM;
+      SWITCH_OFF_GNSS;
+      SWITCH_MUX_GNSS_IN;
+      SWITCH_1WIRE_OFF;
+      DC_set_RTC_timer_s(30); //Set RTC timer
+      EMU_EnterEM2(true);
+    }
+  }
+}
+//--------------------------------------------------------------------------------------------------
+//Start monitor timer
+void DC_startMonitorTimer(uint16_t period)
+{
+  DC_startTimer(DC_TimerMonitor_h,"Tmonitor", period, vDC_Timer_monitor);
 }

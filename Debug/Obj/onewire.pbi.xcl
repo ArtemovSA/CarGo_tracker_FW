@@ -4,6 +4,10 @@
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW
 -I
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\inc
+-I
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\src
+-I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS\include
@@ -15,10 +19,6 @@ D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\CMSIS\Includ
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
--I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\inc
--I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\src
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\Device\SiliconLabs\EFM32LG
 -I
@@ -82,11 +82,17 @@ D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\DS18B20
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\OneWire
 -I
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\..\..\library\EFM32\emlib\inc
+-I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc\c
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW
+-I
+D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
+-I
+D:\JOB\ARM\EFM32\library\EFM32\emlib\src
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\RTOS
 -I
@@ -99,10 +105,6 @@ D:\JOB\ARM\EFM32\library\EFM32\CMSIS\Include
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
--I
-D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
--I
-D:\JOB\ARM\EFM32\library\EFM32\emlib\src
 -I
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG
 -I
@@ -165,6 +167,8 @@ D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\Monitor_task
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\DS18B20
 -I
 D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Drivers\OneWire
+-I
+D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
 -DEFM32LG330F128=1
 -DRTOS_DELAY=1
 -D__CHAR_BITS__=8

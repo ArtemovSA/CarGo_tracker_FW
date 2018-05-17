@@ -33,7 +33,6 @@ void MMA8452Q_setODR(MMA8452Q_ODR odr); //Установка сокрости вывода данных MMA84
 void MMA8452Q_init(MMA8452_cnf_t *config, uint8_t *status) {
   uint8_t data_mm;
 
-    
   I2C_readReg(MMA8452Q_ADRESS, WHO_AM_I, &data_mm);
   
   if (data_mm != 0x2A) {

@@ -66,7 +66,7 @@ typedef enum{
 //Prepare packages
 void WL_prepare_LOGIN(char *pack, char *imei, char *pass); //Create package LOGIN
 void WL_prepare_SHORT_DATA(char* pack, GNSS_data_t *data); //Create package SHORT_DATA
-void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint8_t status); //Create package DATA
+void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint8_t status, uint8_t count_temper, float *temper_sensors); //Create package DATA
 
 //Parce
 void WL_parce_LOGIN_ANS(char* pack, WL_ansvers_t *ans); //Login ansver

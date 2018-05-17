@@ -7,6 +7,8 @@
 #include "stdbool.h"
 #include "em_gpio.h"
 
+#define _DS18B20_MAX_SENSORS		    				7
+
 //###################################################################################
 typedef struct
 {
@@ -57,8 +59,9 @@ bool Ds18b20_ManualConvert();
 void Ds18b20_Search();
 //###################################################################################
 uint8_t 	DS18B20_Start(OneWire_t* OneWireStruct, uint8_t* ROM);
-void 			DS18B20_StartAll(OneWire_t* OneWireStruct);
-bool		 	DS18B20_Read(OneWire_t* OneWireStruct, uint8_t* ROM, float* destination);
+void            Ds18b20_getTemperatures();
+void 		DS18B20_StartAll(OneWire_t* OneWireStruct);
+bool		DS18B20_Read(OneWire_t* OneWireStruct, uint8_t* ROM, float* destination);
 uint8_t 	DS18B20_GetResolution(OneWire_t* OneWireStruct, uint8_t* ROM);
 uint8_t 	DS18B20_SetResolution(OneWire_t* OneWireStruct, uint8_t* ROM, DS18B20_Resolution_t resolution);
 uint8_t 	DS18B20_Is(uint8_t* ROM);

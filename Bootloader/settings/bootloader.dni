@@ -9,7 +9,7 @@ TriggerName=main
 LimitSize=0
 ByteLimit=50
 [DebugChecksum]
-Checksum=-1185519868
+Checksum=1064930346
 [CodeCoverage]
 Enabled=_ 0
 [Exceptions]
@@ -136,5 +136,6 @@ mode=0
 [Breakpoints2]
 Count=0
 [Aliases]
-Count=0
+A0=_ "D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\main.c" ""
+Count=1
 SuppressDialog=0

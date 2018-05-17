@@ -72,12 +72,15 @@ void vMonitor_Task(void *pvParameters)
       //Check disconnect event
       if ((task_msg.task == TT_MGT_TASK) && (task_msg.type == EVENT_TCP_CLOSE))
       {
+        
         //Main Disconnect
         if ((*(uint8_t *)task_msg.message) == 1)
           DC_resetStatus(DC_FLAG_MAIN_TCP);
+        
         //Service disconnect
         if ((*(uint8_t *)task_msg.message) == 0)
           DC_resetStatus(DC_FLAG_SERVICE_TCP);
+        
       }
       
       //Check undervoltage event

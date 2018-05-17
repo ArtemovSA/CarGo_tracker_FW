@@ -15,7 +15,7 @@ TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
 [DebugChecksum]
-Checksum=-567761931
+Checksum=-1325927084
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -117,7 +117,7 @@ ProbeSetup0=2 1 1 2 0 0
 [Disassemble mode]
 mode=0
 [Breakpoints2]
-Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Tasks\Tracker_task\Tracker_task.c}.905.7" 0 0 1 "" 0 "" 0
+Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\Tasks\Tracker_task\Tracker_task.c}.1363.28" 0 0 1 "" 0 "" 0
 Count=1
 [Aliases]
 Count=0

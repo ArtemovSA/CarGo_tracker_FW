@@ -307,7 +307,6 @@ void vMGT_Task(void *pvParameters) {
     }
     
     MGT_process(); //Process flow data
-    //vTaskDelay(5);
   }
   
 }  

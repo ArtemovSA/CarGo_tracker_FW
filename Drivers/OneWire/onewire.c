@@ -40,7 +40,7 @@ void ONEWIRE_INPUT(OneWire_t *gp)
 
 void ONEWIRE_OUTPUT(OneWire_t *gp)
 {
-  GPIO_PinModeSet(gp->GPIO_Port, gp->GPIO_Pin, gpioModeWiredAnd, 0);
+  GPIO_PinModeSet(gp->GPIO_Port, gp->GPIO_Pin, gpioModePushPull, 0);
   
 }
 

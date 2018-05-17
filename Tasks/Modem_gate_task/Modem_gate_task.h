@@ -12,7 +12,7 @@
 #include "task.h"
 #include "timers.h"
 
-#define MGT_SCAN_MS     10      //Scan period
+#define MGT_SCAN_MS     5      //Scan period
 
 //Parce status
 typedef enum{

@@ -72,7 +72,7 @@ void WL_prepare_SHORT_DATA(char* pack, GNSS_data_t *data)
 }
 //----------------------------------------------------------------------------------------------------------------------------
 //Create package DATA
-void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint8_t status)
+void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint8_t status, uint8_t count_temper, float *temper_sensors)
 {
   uint16_t crc_val = 0;
   char str_buf[16];
@@ -100,11 +100,11 @@ void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_vo
   WL_write_and_cat(";", pack);//adc
   WL_write_and_cat(";NA;", pack);//ibutton
 
-//  //Temper sensors
-//  for(int i=0; i<count_temper; i++)
-//  {
-//    snprintf(str_buf,16,"T%d:2:%.2f,", i, temper_sensors[i]); strcat(pack,str_buf);
-//  }
+  //Temper sensors
+  for(int i=0; i<count_temper; i++)
+  {
+    snprintf(str_buf,16,"T%d:2:%.2f,", i, temper_sensors[i]); strcat(pack,str_buf);
+  }
   
   snprintf(str_buf,16,"TM:2:%.2f", temp_mcu); strcat(pack,str_buf); strcat(pack,","); //Tmcu
   snprintf(str_buf,16,"UB:2:%.2f", bat_voltage); strcat(pack,str_buf); strcat(pack,","); //Ubat 
