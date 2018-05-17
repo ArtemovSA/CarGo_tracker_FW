@@ -7,7 +7,7 @@
 #include "stdbool.h"
 #include "em_gpio.h"
 
-#define _DS18B20_MAX_SENSORS		    				7
+#define _DS18B20_MAX_SENSORS		    				5
 
 //###################################################################################
 typedef struct

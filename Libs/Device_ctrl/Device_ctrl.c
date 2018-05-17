@@ -31,51 +31,91 @@
 #include "Date_time.h"
 #include "Clock.h"
 #include "USB_ctrl.h"
-#include "ds18b20.h"
+#include "Delay.h"
 
 //Timers
 TimerHandle_t DC_TimerSample_h; //Timer handle
-TimerHandle_t DC_TimerMonitor_h; //Timer monitor
+TimerHandle_t DC_TimerMonitor_h; //Timer handle
 
 //Mutexs
 extern xSemaphoreHandle ADC_mutex; //Mutex
 extern xSemaphoreHandle extFlash_mutex; //Mutex
 
+//Mode switch
 extern volatile void * volatile pxCurrentTCB; //Task number
-DC_settings_t DC_settings;//Settings
-DC_taskCtrl_t DC_taskCtrl; //Task control
-DC_params_t DC_params; //Params
-DC_log_t DC_log; //Log sample
 EXT_FLASH_image_t DC_fw_image; //Image descriptor
 uint32_t DC_nextPeriod; //Period for sleep
-uint16_t globalSleepPeriod = 0; //Sleep period
 uint8_t sleepMode = 0; //Sleep flag mode
 
 uint8_t DC_BT_connCount; //Count BT connections
 DC_BT_Status_t DC_BT_Status[DC_BT_CONN_MAX]; //Bluetooth status
 
-//Masks
-const uint32_t DC_STATUS_RESET = 0;
-const uint32_t DC_STATUS_MASK_ONLY_GNSS_ON = 0x3FF000;
-const uint32_t DC_STATUS_MASK_GSM_SAVE_POWER_ON = 0x381FFF;
-const uint32_t DC_STATUS_MASK_ALL_IN_ONE = 0xFFFFFF;
+//System parametrs
+DC_settings_t DC_settings;//Settings
+volatile DC_taskCtrl_t DC_taskCtrl; //Task control
+DC_params_t DC_params; //Params
+DC_dataLog_t DC_dataLog; //Data log
+volatile DC_debugLog_t DC_debugLog; //Debug log
+volatile DC_status_t DC_status; //Dev status
 
 const double DC_Power_const = 0.000000043741862;
 
+//--------------------------------------------------------------------------------------------------
+void LEUART1_sendBuffer(char* txBuffer, int bytesToSend)
+{
+  LEUART_TypeDef *uart = LEUART1;
+  int ii;
+
+  /* Sending the data */
+  for (ii = 0; ii < bytesToSend;  ii++)
+  {
+    /* Waiting for the usart to be ready */
+    while (!(uart->STATUS & LEUART_STATUS_TXBL)) ;
+
+    if (txBuffer != 0)
+    {
+      /* Writing next byte to USART */
+      uart->TXDATA = *txBuffer;
+      txBuffer++;
+    }
+    else
+    {
+      uart->TXDATA = 0;
+    }
+  }
+//  
+//  uint16_t try_counter = 1000;
+//  /*Waiting for transmission of last byte */
+//  while (try_counter--)
+//  {
+//    if (uart->STATUS & LEUART_STATUS_TXC)
+//      break;
+//    
+//    _delay_timer_ms(5);
+//  }
+//  
+}
 //--------------------------------------------------------------------------------------------------
 //Out debug data
 //arg: str - string for out
 void DC_debugOut(char *str, ...)
 {
+  char strBuffer[120];
+  
   va_list args;
   va_start(args, str);
   va_end(args);
   
+  vsprintf(strBuffer, str, args);
+  va_end(args);
+  
   if (DBG_Connected())
   {
-    vprintf(str, args);
-    va_end(args);
+    printf(strBuffer);
   }
+
+  LEUART1_sendBuffer(strBuffer, strlen(strBuffer));
+  va_end(args);
   
   if (CDC_Configured)
   {
@@ -94,7 +134,9 @@ void DC_reset_system()
 {
   DC_save_FW();
   DC_save_params(); //Save params
-  DC_ledStatus_flash(100,100);
+  DC_save_settings(); //Save settings
+  
+  DC_ledStatus_flash(50,100);
   
   NVIC_SystemReset();
 }   
@@ -104,36 +146,40 @@ void DC_ledStatus_flash(uint8_t count, uint16_t period)
 {
   while(count--)
   {
-    LED_STATUS_ON;
-    vTaskDelay(period/2);
     LED_STATUS_OFF;
-    vTaskDelay(period/2);
+    _delay_timer_ms(period/2);
+    LED_STATUS_ON;
+    _delay_timer_ms(period/2);
   }
 }
 //--------------------------------------------------------------------------------------------------
 //device init
 void DC_init()
-{    
-  NVIC_SetPriority(DebugMonitor_IRQn, 3);
-  NVIC_SetPriority(USART1_RX_IRQn, 1);
-  
+{     
   DC_debugOut("\r\nSTART\r\n");
+  DC_debugOut("FreeRTOS free Heap: %d words\r\n", xPortGetFreeHeapSize());
   
-  //DC_ledStatus_flash(3, 100);
+  DC_ledStatus_flash(10, 100);
     
   if(EXT_Flash_init()) //Инициализация Flash
   {    
     DC_debugOut("Flash OK\r\n");
   }
   
-    DC_read_params();     //Read params
-    DC_read_settings();   //Read settings
-    DC_read_FW();         //Read FW inf
-    DC_fw_image.imageCRC = 0;
+  DC_read_settings();   //Read settings
+  DC_read_params();     //Read params
+  DC_read_FW();         //Read FW inf
+  DC_fw_image.imageCRC = 0;
+ 
+#ifdef SW_RING_IRQ
   
   //Ring IRQ
-  //GPIO_IntEnable(1 << RING_PIN);
-  //GPIO_IntConfig(RING_PORT, RING_PIN, false, true, true);
+  GPIO_IntEnable(1 << RING_PIN);
+  GPIO_IntConfig(RING_PORT, RING_PIN, false, true, true);
+  
+#endif
+  
+#ifdef SW_ACC_IRQ
   
   //ACC IRQ settings
   GPIO_IntEnable((1 << MMA_INT1_PIN)|(1 << MMA_INT2_PIN));
@@ -146,42 +192,14 @@ void DC_init()
   NVIC_ClearPendingIRQ(GPIO_ODD_IRQn);
   NVIC_EnableIRQ(GPIO_ODD_IRQn);
   
+#endif
+  
   //Set UTC time
   globalUTC_time = DC_params.UTC_time;
   DC_RTC_init(); //RTC init
   DC_debugOut("System Date Time: %d\r\n", (uint64_t)DC_params.UTC_time);
-  
+
   INT_Enable(); //Enable global IRQ 
-}
-//--------------------------------------------------------------------------------------------------
-//Reset statuses
-void DC_resetStatuses(uint32_t mask)
-{
-  taskENTER_CRITICAL();
-  DC_taskCtrl.DC_status = (DC_taskCtrl.DC_status & mask);
-  taskEXIT_CRITICAL();
-}
-//--------------------------------------------------------------------------------------------------
-//Get status
-uint8_t DC_getStatus(uint8_t flag)
-{
-  return (DC_taskCtrl.DC_status >> flag) & 0x01;
-}
-//--------------------------------------------------------------------------------------------------
-//Reset status
-void DC_resetStatus(uint8_t flag)
-{
-  taskENTER_CRITICAL();
-  DC_taskCtrl.DC_status &= ~(1<<flag);
-  taskEXIT_CRITICAL();
-}
-//--------------------------------------------------------------------------------------------------
-//Set status
-void DC_setStatus(uint8_t flag)
-{
-  taskENTER_CRITICAL();
-  DC_taskCtrl.DC_status |= (1<<flag);
-  taskEXIT_CRITICAL();
 }
 //--------------------------------------------------------------------------------------------------
 //Switch power
@@ -228,11 +246,13 @@ uint8_t DC_get_sensor_temper(float *pTempers)
 {
   uint8_t countTempers = 0;
   
+  memset(&ds18b20, 0, sizeof(ds18b20));
+  
   SWITCH_1WIRE_ON;
   Ds18b20_Init(_1_WIRE_EFM_PORT, _1_WIRE_EFM_PIN);
   Ds18b20_getTemperatures();
   SWITCH_1WIRE_OFF;
-  
+
   for (int i=0; i<_DS18B20_MAX_SENSORS; i++)
   {
     if (ds18b20[i].DataIsValid)
@@ -296,83 +316,67 @@ void DC_set_RTC_timer_s(uint32_t sec)
 void DC_save_params()
 {
   DC_params_t temp = DC_params;
-  uint8_t crc8_value;
-  uint8_t magic_key = DC_PARAMS_MAGIC_CODE;
+  temp.magic_key = DC_PARAMS_MAGIC_CODE;
   
   EXT_Flash_erace_sector(EXT_FLASH_PARAMS);
-  EXT_Flash_writeData(EXT_FLASH_PARAMS, &magic_key, 1);
+  EXT_Flash_writeData(EXT_FLASH_PARAMS,(uint8_t*)&temp,sizeof(DC_params_t));
   
-  crc8_value = crc8((uint8_t*)&temp,sizeof(temp), 0);
-  EXT_Flash_writeData(EXT_FLASH_PARAMS+1, &crc8_value, 1);  
-  
-  EXT_Flash_writeData(EXT_FLASH_PARAMS+2,(uint8_t*)&temp,sizeof(DC_params_t));
+  DC_debugOut("Save params\r\n");
 }
 //--------------------------------------------------------------------------------------------------
 //Read params
 void DC_read_params()
-{
-  uint8_t magic_key;
-  uint8_t crc8_value;
+{  
+  EXT_Flash_readData(EXT_FLASH_PARAMS,(uint8_t*)&DC_params ,sizeof(DC_params_t));
   
-  EXT_Flash_readData(EXT_FLASH_PARAMS, &magic_key, 1);
-  
-  if (magic_key == DC_PARAMS_MAGIC_CODE)
+  if (DC_params.magic_key == DC_PARAMS_MAGIC_CODE)
   {
-    EXT_Flash_readData(EXT_FLASH_PARAMS+1, &crc8_value, 1);
-    EXT_Flash_readData(EXT_FLASH_PARAMS+2,(uint8_t*)&DC_params,sizeof(DC_params));
-    
-    //Check CRC
-    if (crc8_value != crc8((uint8_t*)&DC_params,sizeof(DC_params), 0))
-    {
-      //Try read more
-      EXT_Flash_readData(EXT_FLASH_PARAMS+1, &crc8_value, 1);
-      EXT_Flash_readData(EXT_FLASH_PARAMS+2,(uint8_t*)&DC_params,sizeof(DC_params));
-
-      if (crc8_value != crc8((uint8_t*)&DC_params,sizeof(DC_params), 0))
-      {
-        memset(&DC_params,0,sizeof(DC_params));
-        DC_save_params();
-      }
-    }
-    
+    DC_debugOut("Read params OK\r\n");
   }else{
-    memset(&DC_params,0,sizeof(DC_params));
+    memset((void*)&DC_params,0,sizeof(DC_params));
     DC_save_params();
   }
-  
-  DC_debugOut("Read params OK\r\n");
 }
 //--------------------------------------------------------------------------------------------------
 //Set default settings
 void DC_set_default_settings()
-{
-  DC_settings.acel_level_int = DC_SET_ACCEL_LEVEL;
+{  
+  //Try settings
   DC_settings.gnss_try_count = DC_SET_GNSS_TRY_COUNT;
-  DC_settings.gnss_try_time = DC_SET_GNSS_TRY_TIME;
-  DC_settings.gnss_try_sleep = DC_SET_GNSS_TRY_SLEEP_S;
-  DC_settings.gsm_try_count = DC_SET_GSM_TRY_COUNTS;
-  DC_settings.gsm_try_sleep = DC_SET_GSM_TRY_SLEEP_S;
+  DC_settings.collect_try_sleep = DC_SET_COLLECT_TRY_SLEEP;
+  DC_settings.send_try_sleep = DC_SET_SEND_TRY_SLEEP;
+  DC_settings.tcp_try_sleep = DC_SET_TCP_TRY_SLEEP;
   
   //Periods
   DC_settings.data_send_period = DC_SET_DATA_SEND_PERIOD;
-  DC_settings.data_gnss_period = DC_SET_DATA_GNSS_PERIOD;
+  DC_settings.data_gnss_period = DC_SET_DATA_COLLECT_PERIOD;
   DC_settings.AGPS_synch_period = DC_SET_AGPS_SYNCH_PERIOD;
   
+  //Periods
+  DC_settings.AGPSMode_try_count = DC_SET_AGPS_MODE_TRY;
+  DC_settings.collectMode_try_count = DC_SET_COLLECT_MODE_TRY;
+  DC_settings.sendMode_try_count = DC_SET_SEND_MODE_TRY;
+  
   //IP addresses
-  memcpy(DC_settings.ip_dataList[0], DC_SET_DATA_IP1, sizeof(DC_settings.ip_dataList));
-  memcpy(DC_settings.ip_dataList[1], DC_SET_DATA_IP2, sizeof(DC_settings.ip_dataList));
-  memcpy(DC_settings.ip_serviceList[0], DC_SET_SERVICE_IP1, sizeof(DC_settings.ip_serviceList));
-  memcpy(DC_settings.ip_serviceList[1], DC_SET_SERVICE_IP2, sizeof(DC_settings.ip_serviceList));
+  memcpy((void*)DC_settings.ip_dataList[0], DC_SET_DATA_IP1, sizeof(DC_settings.ip_dataList));
+  memcpy((void*)DC_settings.ip_dataList[1], DC_SET_DATA_IP2, sizeof(DC_settings.ip_dataList));
+  memcpy((void*)DC_settings.ip_serviceList[0], DC_SET_SERVICE_IP1, sizeof(DC_settings.ip_serviceList));
+  memcpy((void*)DC_settings.ip_serviceList[1], DC_SET_SERVICE_IP2, sizeof(DC_settings.ip_serviceList));
+  
+  DC_settings.servicePort = DC_SET_SERVICE_PORT;
+  DC_settings.ip_serviceListLen = DC_SET_SERVICE_IP_LEN;
   
   DC_settings.dataPort = DC_SET_DATA_PORT;
-  DC_settings.servicePort = DC_SET_SERVICE_PORT;
-  memcpy(DC_settings.BT_pass, DC_SET_BT_PASS, sizeof(DC_settings.BT_pass));
-  
-  memcpy(DC_settings.dataPass, DC_SET_DATA_PASS, sizeof(DC_settings.dataPass));
+  DC_settings.ip_dataListLen = DC_SET_DATA_IP_LEN;
+  memcpy((void*)DC_settings.dataPass, DC_SET_DATA_PASS, sizeof(DC_settings.dataPass));
   
   //Phone numbers
-  strcpy(DC_settings.phone_nums[0], DC_SET_PHONE_NUM1);
+  strcpy((void*)DC_settings.phone_nums[0], DC_SET_PHONE_NUM1);
   DC_settings.phone_count = 1;
+  
+  //Misc
+  DC_settings.acel_level_int = DC_SET_ACCEL_LEVEL;
+  memcpy((void*)DC_settings.BT_pass, DC_SET_BT_PASS, sizeof(DC_settings.BT_pass));
   
   DC_debugOut("Setted default settings\r\n");
 }
@@ -380,84 +384,88 @@ void DC_set_default_settings()
 //Save settings
 void DC_save_settings()
 {
-  uint8_t crc8_value;
-  uint8_t magic_key = DC_SET_MAGIC_CODE;
-  
+  DC_settings.magic_key = DC_SETTINGS_MAGIC_CODE;
   EXT_Flash_erace_sector(EXT_FLASH_SETTINGS);
-  EXT_Flash_writeData(EXT_FLASH_SETTINGS, &magic_key, 1);
-              
-  crc8_value = crc8((uint8_t*)&DC_settings,sizeof(DC_settings_t), 0);
-  EXT_Flash_writeData(EXT_FLASH_SETTINGS+1, &crc8_value, 1);  
   
-  EXT_Flash_writeData(EXT_FLASH_SETTINGS+2,(uint8_t*)&DC_settings,sizeof(DC_settings_t)); 
-  
+  EXT_Flash_writeData((EXT_FLASH_SETTINGS),(uint8_t*)&DC_settings, sizeof(DC_settings)); 
   DC_debugOut("Save settings\r\n");
 }
 //--------------------------------------------------------------------------------------------------
 //Read settings
 void DC_read_settings()
-{
-  uint8_t magic_key;
-  uint8_t crc8_value;
+{ 
+  EXT_Flash_readData(EXT_FLASH_SETTINGS,(uint8_t*)&DC_settings,sizeof(DC_settings));
   
-  EXT_Flash_readData(EXT_FLASH_SETTINGS, &magic_key, 1);
-  
-  if (magic_key == DC_SET_MAGIC_CODE)
+  if (DC_settings.magic_key == DC_PARAMS_MAGIC_CODE)
   {
-    EXT_Flash_readData(EXT_FLASH_SETTINGS+1, &crc8_value, 1);
-    EXT_Flash_readData(EXT_FLASH_SETTINGS+2,(uint8_t*)&DC_settings,sizeof(DC_settings_t));
-    
-    //Check CRC
-    if (crc8_value != crc8((uint8_t*)&DC_settings,sizeof(DC_settings_t), 0))
-    {
-      //Try read more
-      EXT_Flash_readData(EXT_FLASH_SETTINGS+1, &crc8_value, 1);
-      EXT_Flash_readData(EXT_FLASH_SETTINGS+2,(uint8_t*)&DC_settings,sizeof(DC_settings_t));
-    
-      if (crc8_value != crc8((uint8_t*)&DC_settings,sizeof(DC_settings_t), 0))
-      {
-        DC_set_default_settings();
-        DC_save_settings();
-      }
-    }
-          
+    DC_debugOut("Read settings OK\r\n");
   }else{
     DC_set_default_settings();
     DC_save_settings();
   }
-  DC_debugOut("Read settings OK\r\n");
 }
 //--------------------------------------------------------------------------------------------------
-//Save log data
-void DC_saveLog(DC_log_t log_data)
+//Add data log
+DC_return_t DC_addDataLog(DC_dataLog_t dataLog)
 {
-  uint16_t logSize = sizeof(DC_log_t);
-  uint32_t addresEndLog = EXT_FLASH_LOG_DATA+DC_params.log_len*logSize;
+  uint16_t logSize = sizeof(DC_dataLog_t);
+  uint32_t addresEndLog = EXT_FLASH_LOG_DATA+DC_params.dataLog_len*logSize;
 
   //Check end of log size
-  if (((addresEndLog+logSize) >= (EXT_FLASH_SECTOR_SIZE*EXT_FLASH_LOG_DATA_SIZE)) || (DC_params.log_len == 0))
+  if (((DC_params.dataLog_len+logSize) > EXT_FLASH_SECTOR_SIZE) || (DC_params.dataLog_len == 0))
   {
-    DC_debugOut("Log full. Erace start log data\r\n");
-    DC_params.log_len = 0;
-    DC_params.notsended_log_len = 0;
-    for (int i=0; i<EXT_FLASH_LOG_DATA_SIZE; i++)
-    {
-      EXT_Flash_erace_sector(EXT_FLASH_LOG_DATA+i*EXT_FLASH_SECTOR_SIZE);
-    }
-    addresEndLog = EXT_FLASH_LOG_DATA;
+    DC_debugOut("Erace log data\r\n");
+
+    EXT_Flash_erace_sector(EXT_FLASH_LOG_DATA);   
   }
     
-  EXT_Flash_writeData(addresEndLog, (uint8_t*)&log_data, logSize);
-  DC_params.log_len++;
+  dataLog.valid_key = DC_VALID_MAGIC_CODE;
+  EXT_Flash_writeData(addresEndLog, (uint8_t*)&dataLog, logSize);
+  
+  DC_params.dataLog_len++;
+  DC_save_params();
+  DC_debugOut("Add to data log #:%d\r\n", DC_params.dataLog_len);
+  
+  return DC_OK;
+}
+//--------------------------------------------------------------------------------------------------
+//Check log data
+DC_return_t DC_checkLogData(DC_dataLog_t *log_data)
+{
+  //Check magic key
+  if (log_data->valid_key != DC_VALID_MAGIC_CODE)
+    return DC_ERROR;
+  
+  //Check data time
+  if ((log_data->GNSS_data.date <= 0) || (log_data->GNSS_data.time <= 0))
+    return DC_ERROR;
+  
+  //Check
+  if ((log_data->GNSS_data.cource > 360) || (log_data->GNSS_data.lock != 1))
+    return DC_ERROR;
+  
+  return DC_OK;
 }
 //--------------------------------------------------------------------------------------------------
 //Read log data
-void DC_readLog(uint32_t log_num ,DC_log_t *log_data)
+DC_return_t DC_readDataLog(DC_dataLog_t *log_data)
 {
-  uint16_t logSize = sizeof(DC_log_t);
-  uint32_t addres = EXT_FLASH_LOG_DATA+log_num*logSize;
+  uint16_t logSize = sizeof(DC_dataLog_t);
   
-  EXT_Flash_readData(addres, (uint8_t*)log_data, logSize);
+  if (DC_params.dataLog_len > 0)
+  {
+    uint32_t address = EXT_FLASH_LOG_DATA+(DC_params.dataLog_len-1)*logSize;
+    DC_params.dataLog_len--;
+  
+    EXT_Flash_readData(address, (uint8_t*)log_data, logSize);
+
+    if (DC_checkLogData(log_data) != DC_OK)
+      return DC_ERROR;
+    
+    return DC_OK;
+  }
+  
+  return DC_ERROR;
 }
 //--------------------------------------------------------------------------------------------------
 //Save FW inf
@@ -478,6 +486,7 @@ void DC_read_FW()
   
   if ( DC_fw_image.statusCode != DC_FW_STATUS)
   {
+    
     DC_fw_image.imageVersion = DC_FW_VERSION;
     DC_fw_image.statusCode = DC_FW_STATUS;
     DC_fw_image.imageCRC = 0;
@@ -507,8 +516,9 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_MUX_GNSS_IN;
     SWITCH_OFF_GSM;
     SWITCH_OFF_GNSS;
-    //DC_resetStatuses(DC_STATUS_RESET);
+    DC_status.statusWord = 0;
     DC_debugOut("Modem mode: ALL OFF\r\n");
+    vTaskDelay(1000);
   }   
   
   //All in one
@@ -520,7 +530,6 @@ void DC_setModemMode(DC_modemMode_t mode)
     vTaskDelay(100);
     SWITCH_ON_GNSS;
     vTaskDelay(100);
-    //DC_resetStatuses(DC_STATUS_MASK_ALL_IN_ONE);
     DC_debugOut("Modem mode: ALL IN ONE\r\n");
   }
   
@@ -531,7 +540,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_ON_GSM;
     vTaskDelay(100);
     SWITCH_MUX_GNSS_IN;
-    //DC_resetStatuses(DC_STATUS_MASK_GSM_SAVE_POWER_ON);
+    DC_status.statusWord = 0;
     DC_debugOut("Modem mode: SAVE POWER MODE GSM ON\r\n");
   }
   
@@ -542,7 +551,7 @@ void DC_setModemMode(DC_modemMode_t mode)
     SWITCH_OFF_GSM;
     SWITCH_ON_GNSS;
     vTaskDelay(100);
-    //DC_resetStatuses(DC_STATUS_MASK_ONLY_GNSS_ON);
+    DC_status.statusWord = 0;
     DC_debugOut("Modem mode: GNSS ON\r\n");
   }    
   
@@ -595,8 +604,9 @@ void GPIO_ODD_IRQHandler(void)
       RTC_IntEnable(RTC_IEN_COMP1);
     }
     
+    DC_taskCtrl.DC_event.flags.event_ACC = true;
     DC_debugOut("@ACC IRQ2\r\n");
-    DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_ACC);
+
   }  
   
   GPIO_IntClear(gpio_int);
@@ -618,7 +628,7 @@ void GPIO_EVEN_IRQHandler(void)
     }
 
     DC_debugOut("@RING IRQ\r\n");
-    DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_RING);
+    
   }
   
 //  if (gpio_int & (1 << MMA_INT1_PIN))
@@ -632,6 +642,7 @@ void GPIO_EVEN_IRQHandler(void)
   {
     if (sleepMode == 1)
     {
+      DC_ledStatus_flash(5,200);
       CL_incUTC(RTC_CounterGet()); //Add sleep counter
       RTC_CounterReset();
       RTC_IntDisable(RTC_IEN_COMP0);
@@ -639,7 +650,7 @@ void GPIO_EVEN_IRQHandler(void)
     }
     
     DC_debugOut("@ACC IRQ1\r\n");
-    DC_taskCtrl.DC_mes_status |= (1<<DC_MES_INT_ACC);
+    DC_taskCtrl.DC_event.flags.event_ACC = true;
   }  
   
   GPIO_IntClear(gpio_int);
@@ -656,13 +667,13 @@ void RTC_IRQHandler(void)
     CL_incUTC(RTC_CounterGet()); //Add sleep counter
     
     RTC_CounterReset();
-    RTC_IntDisable(RTC_IEN_COMP0);
     RTC_IntEnable(RTC_IEN_COMP1);
     
     RTC_IntClear(RTC_IFC_COMP0);
     rtc_int = RTC_IntGet();
     
-    DC_debugOut("@RTC IRQ\r\n");
+    //DC_debugOut("@RTC IRQ\r\n");
+    RTC_IntDisable(RTC_IEN_COMP0);
   }
   
   //Time comparator
@@ -690,7 +701,7 @@ void DC_startTimer(TimerHandle_t DC_Timer_hp, char *pcTimerName, TickType_t Peri
 {
   DC_Timer_hp = xTimerCreate(pcTimerName, PeriodInTicks, pdTRUE, ( void * )0, pxCallbackFunction);
   xTimerStart(DC_Timer_hp, 0);
-  DC_debugOut("Started timer\r\n"); 
+  DC_debugOut("Started timer: %s\r\n", pcTimerName); 
 }
 //--------------------------------------------------------------------------------------------------
 //Sample timer
@@ -715,8 +726,6 @@ void DC_startSampleTimer(uint16_t period)
 {
   DC_startTimer(DC_TimerSample_h,"Tsample", period, vDC_Timer_sample);
 }
-
-
 //--------------------------------------------------------------------------------------------------
 //Monitor timer
 void vDC_Timer_monitor( TimerHandle_t xTimer )

@@ -72,7 +72,7 @@ void WL_prepare_SHORT_DATA(char* pack, GNSS_data_t *data)
 }
 //----------------------------------------------------------------------------------------------------------------------------
 //Create package DATA
-void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint8_t status, uint8_t count_temper, float *temper_sensors)
+void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_voltage, double power, uint8_t quality, uint32_t status, uint8_t count_temper, float *temper_sensors)
 {
   uint16_t crc_val = 0;
   char str_buf[16];
@@ -111,7 +111,7 @@ void WL_prepare_DATA(char* pack, GNSS_data_t *data, float temp_mcu, float bat_vo
   snprintf(str_buf,16,"P:2:%.2lf", power); strcat(pack,str_buf); strcat(pack,","); //Power
   snprintf(str_buf,16,"Q:1:%d", quality); strcat(pack,str_buf); strcat(pack,",");//Quality
   snprintf(str_buf,16,"S:1:%d", status); strcat(pack,str_buf); strcat(pack,",");//Status
-  snprintf(str_buf,16,"G:1:%d,;", data->GNSS_source); strcat(pack,str_buf); //Coordinate source
+  snprintf(str_buf,16,"G:1:%d,;", data->coordSource); strcat(pack,str_buf); //Coordinate source
   
   uint8_t head_len = strlen(wl_cmd_DATA);
   crc_val = crc16(pack+head_len,strlen(pack)-head_len); //calc crc

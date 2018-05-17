@@ -8,7 +8,6 @@
 
 float time, date, latitude, longitude, knots, cource;
 char valid, ns, ew, mode;
-GNSS_data_t globalGNSS_data;
  
 //--------------------------------------------------------------------------------------------------
 //Parce GNSS_RMC data

@@ -184,7 +184,7 @@ void MGT_process()
         
         switch(MC60_event) {
         case MC60_EVENT_NULL: break;
-        case MC60_EVENT_RDY: DC_setStatus(DC_FLAG_RDY); break; 
+        case MC60_EVENT_RDY: DC_debugOut("Modem ready\r\n"); break; 
         case MC60_EVENT_RECIVE: DC_returnMsg(EVENT_TCP_MSG, Tracker_con_Queue, &MC60_TCP_recive, EXEC_OK); break;
         case MC60_EVENT_TCP_CLOSE: DC_returnMsg(EVENT_TCP_CLOSE, MGT_event_queue, &MGT_TCP_ch_event, EXEC_OK); break;
         case MC60_EVENT_UNDER_VOLTAGE: DC_returnMsg(EVENT_UNDEVOLTAGE, MGT_event_queue, NULL, EXEC_OK); break;
@@ -307,6 +307,7 @@ void vMGT_Task(void *pvParameters) {
     }
     
     MGT_process(); //Process flow data
+    //vTaskDelay(5);
   }
   
 }  

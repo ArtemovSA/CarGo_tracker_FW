@@ -31,9 +31,9 @@ void ONEWIRE_OUTPUT(OneWire_t *gp);
 #define ONEWIRE_CMD_RECEEPROM			0xB8
 #define ONEWIRE_CMD_RPWRSUPPLY			0xB4
 #define ONEWIRE_CMD_SEARCHROM			0xF0
-#define ONEWIRE_CMD_READROM				0x33
+#define ONEWIRE_CMD_READROM			0x33
 #define ONEWIRE_CMD_MATCHROM			0x55
-#define ONEWIRE_CMD_SKIPROM				0xCC
+#define ONEWIRE_CMD_SKIPROM			0xCC
 
 //#######################################################################################################
 void OneWire_Init(OneWire_t* OneWireStruct, GPIO_Port_TypeDef GPIO_Port, uint16_t GPIO_Pin);

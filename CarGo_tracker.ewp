@@ -316,14 +316,14 @@
         <option>
           <name>CCIncludePath2</name>
           <state>$PROJ_DIR$</state>
-          <state>$PROJ_DIR$\..\..\library\EFM32\emlib\inc</state>
-          <state>$PROJ_DIR$\..\..\library\EFM32\emlib\src</state>
           <state>$PROJ_DIR$\RTOS</state>
           <state>$PROJ_DIR$\RTOS\include</state>
           <state>$PROJ_DIR$\RTOS\portable</state>
           <state>$PROJ_DIR$\..\..\library\EFM32\CMSIS\Include</state>
           <state>$PROJ_DIR$\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include</state>
           <state>$PROJ_DIR$\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR</state>
+          <state>$PROJ_DIR$\..\..\library\EFM32\emlib\inc</state>
+          <state>$PROJ_DIR$\..\..\library\EFM32\emlib\src</state>
           <state>$PROJ_DIR$\..\..\library\EFM32\Device\SiliconLabs\EFM32LG</state>
           <state>$PROJ_DIR$\Drivers\I2C</state>
           <state>$PROJ_DIR$\Libs\Delay</state>
@@ -355,7 +355,7 @@
           <state>$PROJ_DIR$\Tasks\Monitor_task</state>
           <state>$PROJ_DIR$\Libs\DS18B20</state>
           <state>$PROJ_DIR$\Drivers\OneWire</state>
-          <state>$PROJ_DIR$\..\..\library\EFM32\emlib\inc</state>
+          <state>$PROJ_DIR$\API\ModemAPI</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -766,7 +766,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\EFM32LG330F128.icf</state>
+          <state>D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\EFM32LG330F128.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -1970,6 +1970,21 @@
     </settings>
   </configuration>
   <group>
+    <name>API</name>
+    <group>
+      <name>Modem</name>
+      <file>
+        <name>$PROJ_DIR$\API\ModemAPI\ModemAPI.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\API\ModemAPI\ModemAPI.h</name>
+      </file>
+    </group>
+    <group>
+      <name>Sleep</name>
+    </group>
+  </group>
+  <group>
     <name>Device ctrl</name>
     <file>
       <name>$PROJ_DIR$\Libs\Device_ctrl\Device_ctrl.c</name>
@@ -2170,6 +2185,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\Libs\DS18B20\ds18b20.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\Libs\DS18B20\ds18b20Config.h</name>
       </file>
     </group>
     <group>

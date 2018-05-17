@@ -1,38 +1,38 @@
-"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\main.c"
+"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\main.c"
 -std=c99
 -ferror-limit=100
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\Drivers\Flash
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\Drivers\Flash
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\CMSIS\Include
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\CMSIS\Include
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\emlib\inc
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\emlib\inc
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\emlib\src
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\emlib\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\Drivers\I2C
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\Drivers\I2C
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\Libs\CRC8
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\Libs\CRC8
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\Delay
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\Delay
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\..\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc
 -I
 C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\inc\c
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\Flash
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Drivers\Flash
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader
 -I
 D:\JOB\ARM\EFM32\library\EFM32\CMSIS\Include
 -I
@@ -40,13 +40,13 @@ D:\JOB\ARM\EFM32\library\EFM32\emlib\inc
 -I
 D:\JOB\ARM\EFM32\library\EFM32\emlib\src
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Drivers\I2C
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Drivers\I2C
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Libs\CRC8
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Libs\CRC8
 -I
-D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.1\Bootloader\Delay
+D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\Delay
 -I
 D:\JOB\ARM\EFM32\library\EFM32\Device\SiliconLabs\EFM32LG\Include
 -I

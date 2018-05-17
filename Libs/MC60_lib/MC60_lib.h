@@ -17,6 +17,7 @@
 #define MC60_GSM_PWR_OFF GPIO_PinOutClear(MC60_GSM_PWR_PORT, MC60_GSM_PWR_PIN)
 
 //*****************************************APN settings*********************************************
+
 #define MC60_DEFAUL_APN              "internet"
 #define MC60_DEFAUL_LOGIN            "gdata"
 #define MC60_DEFAUL_PASS             "gdata"

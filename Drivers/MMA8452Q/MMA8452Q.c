@@ -33,6 +33,7 @@ void MMA8452Q_setODR(MMA8452Q_ODR odr); //Установка сокрости вывода данных MMA84
 void MMA8452Q_init(MMA8452_cnf_t *config, uint8_t *status) {
   uint8_t data_mm;
 
+    
   I2C_readReg(MMA8452Q_ADRESS, WHO_AM_I, &data_mm);
   
   if (data_mm != 0x2A) {
@@ -208,6 +209,6 @@ void MMA8452Q_setupTap(uint8_t xThs, uint8_t yThs, uint8_t zThs)
   I2C_writeReg(MMA8452Q_ADRESS, CTRL_REG4,  0x08); //0x1D 0x19
   
   //Enable pulse interrupt on INT1
-  I2C_writeReg(MMA8452Q_ADRESS, CTRL_REG5, 0x00); //0x0C 0x08
+  I2C_writeReg(MMA8452Q_ADRESS, CTRL_REG5, 0x08); //0x0C 0x08
   
 }

@@ -18,10 +18,11 @@ volatile circularBuffer_TX_t UART_txBuf = { {0}, 0, 0, 0, false };
 //--------------------------------------------------------------------------------------------------
 // Enable IRQ
 void UART_RxEnable() {
-  NVIC_SetPriority (DebugMonitor_IRQn, 2);
-  NVIC_SetPriority (USART1_RX_IRQn, 1);
   USART_IntDisable(uart, USART_IF_TXBL);
   USART_IntEnable(uart, USART_IF_RXDATAV);
+  
+  NVIC_EnableIRQ(USART1_RX_IRQn);
+  NVIC_EnableIRQ(USART1_TX_IRQn);
 }
 //--------------------------------------------------------------------------------------------------
 // Disable IRQ
@@ -81,7 +82,7 @@ void UART_SendData(char* dataPtr, uint16_t dataLen)
 
   /* Increment pending byte counter */
   UART_txBuf.pendingBytes += dataLen;
-  
+
   /* Enable interrupt on USART TX Buffer*/
   USART_IntEnable(uart, USART_IF_TXBL);
 }

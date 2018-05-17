@@ -63,7 +63,7 @@ void EXT_Flash_erace_sector(uint32_t address) {
   uint8_t command = EXT_FLASH_ERASE_SECTOR;
   
   EXT_Flash_write_enable(); //Разрешить запись
-  EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 200); //Ждем сигнала приема данных
+  EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 300); //Ждем сигнала приема данных
   
   addr[0] = (address & 0xFF0000) >> 16;
   addr[1] = (address & 0x00FF00) >> 8;
@@ -73,9 +73,9 @@ void EXT_Flash_erace_sector(uint32_t address) {
   SPI_sendBuffer(&command,1);
   SPI_sendBuffer(addr,3);
   EXT_FLASH_SPI_CS_SET;
-  _delay_ms(300);
+  _delay_ms(500);
   
-  EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 200); //Ждем завершения стирания
+  EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 300); //Ждем завершения стирания
 }
 //-------------------------------------------------------------------------------------------------------
 //Стереть блок 64 кб
@@ -103,10 +103,10 @@ void EXT_Flash_erace_block(uint32_t address) {
 //Разрешить запись
 void EXT_Flash_write_enable() {
   
-  uint8_t address = EXT_FLASH_WRITE_ENABLE;
+  uint8_t cmd = EXT_FLASH_WRITE_ENABLE;
 
   EXT_FLASH_SPI_CS_RESET;
-  SPI_sendBuffer(&address,1);
+  SPI_sendBuffer(&cmd,1);
   EXT_FLASH_SPI_CS_SET;
 }
 
@@ -225,23 +225,24 @@ void EXT_Flash_writeData(uint32_t address, uint8_t *data, uint16_t count) {
   //Записываем целые страницы
   for (int i=0; i<count_full; i++) {
     
-    EXT_Flash_write_enable(); //Разрешить запись
-    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 200); //Ждем флага приема данных
     
     addr[0] = (buf_addr & 0xFF0000) >> 16;
     addr[1] = (buf_addr & 0x00FF00) >> 8;
     addr[2] = (buf_addr & 0x0000FF);
     
-    memcpy(buf_flash,&data[EXT_FLASH_IO_SIZE*i],EXT_FLASH_IO_SIZE);
+    memcpy(buf_flash,data+(EXT_FLASH_IO_SIZE*i),EXT_FLASH_IO_SIZE);
+    
+    EXT_Flash_write_enable(); //Разрешить запись
+    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 300); //Ждем флага приема данных
     
     EXT_FLASH_SPI_CS_RESET;
     SPI_sendBuffer(&command, 1);
     SPI_sendBuffer(addr, 3);
     SPI_sendBuffer(buf_flash, EXT_FLASH_IO_SIZE);
     EXT_FLASH_SPI_CS_SET;
-    _delay_ms(5);
+    _delay_ms(10);
     
-    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 200); //Ждем завершения записи
+    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 300); //Ждем завершения записи
     
     buf_addr += EXT_FLASH_IO_SIZE;
   }
@@ -251,26 +252,26 @@ void EXT_Flash_writeData(uint32_t address, uint8_t *data, uint16_t count) {
   
   //Записываем остальные данные
   if (count_end > 0) {
-    
-    EXT_Flash_write_enable(); //Разрешить запись
-    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 200); //Ждем флага приема данных
-    
+
     addr[0] = (buf_addr & 0xFF0000) >> 16;
     addr[1] = (buf_addr & 0x00FF00) >> 8;
     addr[2] = (buf_addr & 0x0000FF);
     
-    memcpy(buf_flash,&data[EXT_FLASH_IO_SIZE*count_full],count_end);
+    memcpy(buf_flash,data+(EXT_FLASH_IO_SIZE*count_full),count_end);
+    
+    EXT_Flash_write_enable(); //Разрешить запись
+    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WEL, 1, 300); //Ждем флага приема данных
     
     EXT_FLASH_SPI_CS_RESET;
     SPI_sendBuffer(&command, 1);
     SPI_sendBuffer(addr, 3);
     SPI_sendBuffer(buf_flash, count_end);
     EXT_FLASH_SPI_CS_SET;
-    _delay_ms(5);
+    _delay_ms(10);
     
-    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 200); //Ждем завершения записи
+    EXT_Flash_waitStatusByte(EXT_FLASH_STATUS_WIP, 0, 300); //Ждем завершения записи
   }  
-  
+  _delay_ms(100);
 }
 //-------------------------------------------------------------------------------------------------------
 //Читать массив данных
@@ -280,6 +281,7 @@ void EXT_Flash_readData(uint32_t address, uint8_t *data, uint16_t count) {
   uint8_t command = EXT_FLASH_READ_DATA;
   uint8_t count_full = (uint32_t)(count/EXT_FLASH_IO_SIZE); //Найти количество пакетов
   uint32_t buf_addr = address;
+  uint16_t count_end;
     
   //Читаем целые пакеты
   for (int i=0; i<count_full; i++) {
@@ -292,15 +294,18 @@ void EXT_Flash_readData(uint32_t address, uint8_t *data, uint16_t count) {
     
     SPI_sendBuffer(&command, 1);
     SPI_sendBuffer(addr, 3);
-    SPI_reciveBuffer(&data[EXT_FLASH_IO_SIZE*i], EXT_FLASH_IO_SIZE);
+    SPI_reciveBuffer(data+(EXT_FLASH_IO_SIZE*i), EXT_FLASH_IO_SIZE);
     
     EXT_FLASH_SPI_CS_SET;
+    _delay_ms(5);
     
     buf_addr += EXT_FLASH_IO_SIZE;
   }
   
+  count_end = count-(count_full*EXT_FLASH_IO_SIZE);
+  
   //Получаем остальные данные
-  if (count-(count_full*EXT_FLASH_IO_SIZE) > 0) {
+  if (count_end > 0) {
     
     addr[0] = (buf_addr & 0xFF0000) >> 16;
     addr[1] = (buf_addr & 0x00FF00) >> 8;
@@ -310,9 +315,10 @@ void EXT_Flash_readData(uint32_t address, uint8_t *data, uint16_t count) {
     
     SPI_sendBuffer(&command, 1);
     SPI_sendBuffer(addr, 3);
-    SPI_reciveBuffer(&data[EXT_FLASH_IO_SIZE*count_full], count-(count_full*EXT_FLASH_IO_SIZE));
+    SPI_reciveBuffer(data+(EXT_FLASH_IO_SIZE*count_full), count_end);
     
     EXT_FLASH_SPI_CS_SET;
+    _delay_ms(5);
   }
 }
 //-------------------------------------------------------------------------------------------------------

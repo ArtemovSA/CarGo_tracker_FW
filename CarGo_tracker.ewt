@@ -2315,6 +2315,21 @@
     </settings>
   </configuration>
   <group>
+    <name>API</name>
+    <group>
+      <name>Modem</name>
+      <file>
+        <name>$PROJ_DIR$\API\ModemAPI\ModemAPI.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\API\ModemAPI\ModemAPI.h</name>
+      </file>
+    </group>
+    <group>
+      <name>Sleep</name>
+    </group>
+  </group>
+  <group>
     <name>Device ctrl</name>
     <file>
       <name>$PROJ_DIR$\Libs\Device_ctrl\Device_ctrl.c</name>
@@ -2515,6 +2530,9 @@
       </file>
       <file>
         <name>$PROJ_DIR$\Libs\DS18B20\ds18b20.h</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\Libs\DS18B20\ds18b20Config.h</name>
       </file>
     </group>
     <group>

@@ -32,13 +32,6 @@ void CL_set_Time(struct tm struct_Time)
   INT_Enable();
 }
 //--------------------------------------------------------------------------------------------------
-//Get for time and date format
-void CL_getDateTime(float *date, float *time)
-{
-  *date = globalTime.tm_mday * 10000 + globalTime.tm_mon * 100 + globalTime.tm_year;
-  *time = globalTime.tm_hour * 10000 + globalTime.tm_min * 100 + globalTime.tm_sec;
-}
-//--------------------------------------------------------------------------------------------------
 //Set for time and date format
 void CL_setDateTime(float date, float time)
 {
@@ -52,6 +45,13 @@ void CL_setDateTime(float date, float time)
   struct_Time.tm_year = (uint8_t)(date-struct_Time.tm_mday*10000-struct_Time.tm_mon*100);
   
   CL_set_Time(struct_Time);
+}
+//--------------------------------------------------------------------------------------------------
+//Get for time and date format
+void CL_getDateTime(float *date, float *time)
+{
+  *date = globalTime.tm_mday * 10000 + globalTime.tm_mon * 100 + globalTime.tm_year;
+  *time = globalTime.tm_hour * 10000 + globalTime.tm_min * 100 + globalTime.tm_sec;
 }
 //--------------------------------------------------------------------------------------------------
 //Get struct data

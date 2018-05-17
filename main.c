@@ -30,7 +30,6 @@
 #include "USB_ctrl.h"
 #include "Add_func.h"
 #include "Device_ctrl.h"
-#include "Delay.h"
 
 //Tasks
 #include "I2C_gate_task.h"
@@ -79,6 +78,8 @@ int main()
   
   enter_DefaultMode_from_RESET(); //Inint perefery
   
+  CMU_ClockSelectSet(cmuClock_HF, cmuSelect_HFXO);
+  
   //Semaphores
   vSemaphoreCreateBinary( xBinarySemaphore );
   
@@ -96,11 +97,12 @@ int main()
   //Tasks create
   xTaskCreate(vI2C_gate_Task,(char*)"I2CG_Task", 100, NULL, tskIDLE_PRIORITY+2, &xHandle_I2C);
   xTaskCreate(vDebug_Task,(char*)"Debug_Task", 100, NULL, tskIDLE_PRIORITY, &xDebug_Task);
-  xTaskCreate(vMGT_Task,(char*)"MGT_Task", 170, NULL, tskIDLE_PRIORITY+2, &xHandle_MGT);
-  xTaskCreate(vTracker_Task,(char*)"Tracker_Task", 170, NULL, tskIDLE_PRIORITY+1, &xHandle_Tracker);
-  xTaskCreate(vMonitor_Task,(char*)"Mon_Task", 165, NULL, tskIDLE_PRIORITY+1, &xHandle_Monitor);
+  xTaskCreate(vMGT_Task,(char*)"MGT_Task", 180, NULL, tskIDLE_PRIORITY+2, &xHandle_MGT);
+  xTaskCreate(vTracker_Task,(char*)"Tracker_Task", 180, NULL, tskIDLE_PRIORITY+1, &xHandle_Tracker);
+  xTaskCreate(vMonitor_Task,(char*)"Mon_Task", 180, NULL, tskIDLE_PRIORITY+1, &xHandle_Monitor);
 
   TT_init(); //Task transfer inint
+
   
   vTaskStartScheduler(); //Start
   

@@ -43,7 +43,7 @@ void vMonitor_Task(void *pvParameters)
           if (DC_BT_connCount < DC_BT_CONN_MAX)
           {
             //Accept pairing
-            if (MGT_acceptPairingBT(DC_settings.BT_pass, &DC_BT_Status[DC_BT_connCount].connStatus, &DC_BT_Status[DC_BT_connCount].ID, DC_BT_Status[DC_BT_connCount].connName, &BT_ErrorCode) == MC60_STD_OK)
+            if (MGT_acceptPairingBT((void*)DC_settings.BT_pass, &DC_BT_Status[DC_BT_connCount].connStatus, &DC_BT_Status[DC_BT_connCount].ID, DC_BT_Status[DC_BT_connCount].connName, &BT_ErrorCode) == MC60_STD_OK)
             {
               DC_debugOut("###BT pairing###\r\n");
             }
@@ -72,22 +72,19 @@ void vMonitor_Task(void *pvParameters)
       //Check disconnect event
       if ((task_msg.task == TT_MGT_TASK) && (task_msg.type == EVENT_TCP_CLOSE))
       {
-        
         //Main Disconnect
         if ((*(uint8_t *)task_msg.message) == 1)
-          DC_resetStatus(DC_FLAG_MAIN_TCP);
-        
+          DC_status.flags.flag_MAIN_TCP = false;
         //Service disconnect
         if ((*(uint8_t *)task_msg.message) == 0)
-          DC_resetStatus(DC_FLAG_SERVICE_TCP);
-        
+          DC_status.flags.flag_SERVICE_TCP = false;
       }
       
       //Check undervoltage event
       if ((task_msg.task == TT_MGT_TASK) && (task_msg.type == EVENT_UNDEVOLTAGE))
       {
         DC_debugOut("Undervoltage\r\n");
-        DC_reset_system(); //System reset
+        //DC_reset_system(); //System reset
       }
       
       //Check undervoltage event
