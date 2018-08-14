@@ -63,7 +63,7 @@
           
           
           
-        <item>wait</item><item>spi</item><item>cycle_delay</item><item>id</item><item>booloader</item><item>flash_buffer</item><item>flash_buffer</item><item></item></expressions>
+        <item>wait</item><item>spi</item><item>cycle_delay</item><item>id</item><item>booloader</item><item>flash_buffer</item><item>flash_buffer</item><item/></expressions>
         <col-names>
           
           

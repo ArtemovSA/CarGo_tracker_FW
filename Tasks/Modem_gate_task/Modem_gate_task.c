@@ -6,7 +6,7 @@
 
 #include "Delay.h"
 #include "UART.h"
-#include "MC60_lib.h"
+#include "Modem.h"
 #include "cdc.h"
 
 #include "FreeRTOS.h"
@@ -48,8 +48,8 @@ uint16_t data_count; //Counter
 //Variables
 MGT_cmd_auto_t MGT_cmd_auto = MGT_CMD_WAIT; //Automat for cmd execution
 MGT_event_auto_t MGT_event_auto = MGT_EVENT_WAIT; //Automat for event reciving
-MC60_event_t MC60_event = MC60_EVENT_NULL; //Current event
-MC60_std_ans_t MGT_std_ans = MC60_STD_NULL; //Current standart ansver
+Modem_event_t Modem_event = Modem_EVENT_NULL; //Current event
+Modem_std_ans_t MGT_std_ans = Modem_STD_NULL; //Current standart ansver
 TT_mes_type MGT_cmd_msg; //Connection gate message
 TT_mes_type MGT_event_msg; //Event message
 uint8_t status; //Status execute
@@ -57,11 +57,11 @@ uint8_t MGT_ansver_step = 0; //Step of ansver
 uint8_t MGT_event_step = 0; //Step of event
 uint16_t MGT_status; //Status byte
 char str_end_char[2]; //Char for detect end of string
-const MGT_cmd_event_t MGT_event[MC60_EVENT_COUNT]; //Event list
+const MGT_cmd_event_t MGT_event[Modem_EVENT_COUNT]; //Event list
 MGT_parce_t MGT_parce; //Parce event
-MC60_TCP_recive_t MC60_TCP_recive; //TCP recive type
-MC60_BT_event_t MC60_BT_event; //BT event
-MC60_SMS_event_t MC60_SMS_event; //SMS event
+Modem_TCP_recive_t Modem_TCP_recive; //TCP recive type
+Modem_BT_event_t Modem_BT_event; //BT event
+Modem_SMS_event_t Modem_SMS_event; //SMS event
 uint16_t MGT_TCP_ch_event; //Disconnect ch
 
 //Prototypes
@@ -129,7 +129,7 @@ void MGT_process()
       //MGT_recive[data_count+1] = 0;
       
       //Check, Parce ansver
-      if (MGT_cmd[MC60_current_cmd].parce_func(MGT_recive, MGT_cmd_msg.message) == MGT_PARCE_OK)
+      if (MGT_cmd[Modem_current_cmd].parce_func(MGT_recive, MGT_cmd_msg.message) == MGT_PARCE_OK)
       {
         xTimerStop(Timeout_Timer_cmd, 0);
         MGT_cmd_auto = MGT_CMD_WAIT;
@@ -146,7 +146,7 @@ void MGT_process()
     {
       if (MGT_parce == MGT_PARCE_NULL)
       {
-        for(int i=1; i<MC60_EVENT_COUNT; i++ )
+        for(int i=1; i<Modem_EVENT_COUNT; i++ )
         {
           MGT_parce = MGT_PARCE_NULL;
           MGT_event_step = 0;
@@ -155,13 +155,13 @@ void MGT_process()
           
           if (MGT_parce == MGT_PARCE_OK)
           {
-            MC60_event = (MC60_event_t)i; //Get current event
+            Modem_event = (Modem_event_t)i; //Get current event
             break;
           }
           
           if (MGT_parce == MGT_PARCE_NEXT)
           {
-            MC60_event = (MC60_event_t)i; //Get current event
+            Modem_event = (Modem_event_t)i; //Get current event
             if (MGT_cmd[i].wait_ms>0) 
               xTimerChangePeriod(Timeout_Timer_event, MGT_event[i].wait_ms, 0); //Change timer
             else
@@ -174,7 +174,7 @@ void MGT_process()
       }
       else if (MGT_parce == MGT_PARCE_NEXT)
       {
-        MGT_parce = MGT_event[MC60_event].parce_func(MGT_recive);
+        MGT_parce = MGT_event[Modem_event].parce_func(MGT_recive);
       }
       
       //If parce ok
@@ -182,14 +182,14 @@ void MGT_process()
       {
         xTimerStop(Timeout_Timer_event, 0);
         
-        switch(MC60_event) {
-        case MC60_EVENT_NULL: break;
-        case MC60_EVENT_RDY: DC_debugOut("Modem ready\r\n"); break; 
-        case MC60_EVENT_RECIVE: DC_returnMsg(EVENT_TCP_MSG, Tracker_con_Queue, &MC60_TCP_recive, EXEC_OK); break;
-        case MC60_EVENT_TCP_CLOSE: DC_returnMsg(EVENT_TCP_CLOSE, MGT_event_queue, &MGT_TCP_ch_event, EXEC_OK); break;
-        case MC60_EVENT_UNDER_VOLTAGE: DC_returnMsg(EVENT_UNDEVOLTAGE, MGT_event_queue, NULL, EXEC_OK); break;
-        case MC60_EVENT_BT_EVENT: DC_returnMsg(EVENT_BT_EVENT, MGT_event_queue, &MC60_BT_event, EXEC_OK); break;
-        case MC60_EVENT_SMS_RECIVE: DC_returnMsg(EVENT_SMS_MES, MGT_event_queue, &MC60_SMS_event, EXEC_OK); break;
+        switch(Modem_event) {
+        case Modem_EVENT_NULL: break;
+        case Modem_EVENT_RDY: DC_debugOut("Modem ready\r\n"); break; 
+        case Modem_EVENT_RECIVE: DC_returnMsg(EVENT_TCP_MSG, Tracker_con_Queue, &Modem_TCP_recive, EXEC_OK); break;
+        case Modem_EVENT_TCP_CLOSE: DC_returnMsg(EVENT_TCP_CLOSE, MGT_event_queue, &MGT_TCP_ch_event, EXEC_OK); break;
+        case Modem_EVENT_UNDER_VOLTAGE: DC_returnMsg(EVENT_UNDEVOLTAGE, MGT_event_queue, NULL, EXEC_OK); break;
+        case Modem_EVENT_BT_EVENT: DC_returnMsg(EVENT_BT_EVENT, MGT_event_queue, &Modem_BT_event, EXEC_OK); break;
+        case Modem_EVENT_SMS_RECIVE: DC_returnMsg(EVENT_SMS_MES, MGT_event_queue, &Modem_SMS_event, EXEC_OK); break;
         }
         
         MGT_parce = MGT_PARCE_NULL;
@@ -212,8 +212,8 @@ void MGT_process()
     data_count = 0;
     
     //Cancel cmd
-    if ((((MC60_str_query_t*)(MGT_cmd_msg.message))->cmd_id == MC60_CMD_QISEND) || (((MC60_str_query_t*)(MGT_cmd_msg.message))->cmd_id == MC60_CMD_CMGS))
-      MC60_sendCR(); //Send CR
+    if ((((Modem_str_query_t*)(MGT_cmd_msg.message))->cmd_id == Modem_CMD_QISEND) || (((Modem_str_query_t*)(MGT_cmd_msg.message))->cmd_id == Modem_CMD_CMGS))
+      Modem_sendCR(); //Send CR
   }
   
   //Process cmd timeout
@@ -252,8 +252,8 @@ void MGT_switch_off_echo()
 void MGT_switch_on_modem()
 {
   //DC_switch_power(DC_DEV_GSM, 1);//Power
-  ///MC60_GSM_EN_ON; 
-  MC60_on_seq();
+  ///Modem_GSM_EN_ON; 
+  Modem_on_seq();
   _delay_ms(2000);
 }
 //--------------------------------------------------------------------------------------------------
@@ -261,13 +261,13 @@ void MGT_switch_on_modem()
 void MGT_init(QueueHandle_t *MGT_event_queue_in)
 {
   MGT_event_queue = *MGT_event_queue_in; //Return queue point
-  MC60_TCP_recive.data = MGT_event_buf;
+  Modem_TCP_recive.data = MGT_event_buf;
   
   Timeout_Timer_cmd = xTimerCreate("Timeout1", 1000, pdTRUE, ( void * )0, vTimerTimeout_cmd);
   Timeout_Timer_event = xTimerCreate("Timeout2", 1000, pdTRUE, ( void * )0, vTimerTimeout_event);
   
-  str_end_char[0] = '\n'; //End of recived string
-  str_end_char[1] = 0; //End of recived string
+  str_end_char[0] = MGT_END_RCV_CH1; //End of recived string
+  str_end_char[1] = MGT_END_RCV_CH2; //End of recived string
 }
 //**************************************************************************************************
 //Modem gate task
@@ -289,14 +289,15 @@ void vMGT_Task(void *pvParameters) {
           MGT_cmd_auto = MGT_CMD_EXEC; //Executing CMD
           
           //Switch str end
-          if (((MC60_str_query_t*)(MGT_cmd_msg.message))->cmd_id == MC60_CMD_QISEND)
+          if (((Modem_str_query_t*)(MGT_cmd_msg.message))->cmd_id == Modem_CMD_QISEND)
           {
-            str_end_char[1] = '>';
+            str_end_char[1] = MGT_INVITE_CH;
           }
           
+          ((Modem_str_query_t*)(MGT_cmd_msg.message))->cmd_str = MGT_cmd[((Modem_str_query_t*)(MGT_cmd_msg.message))->cmd_id].str;
           MGT_cmd_msg.func( MGT_cmd_msg.message ); //Make process and return data
-          if (MGT_cmd[MC60_current_cmd].wait_ms>0) 
-            xTimerChangePeriod(Timeout_Timer_cmd, MGT_cmd[MC60_current_cmd].wait_ms, 0); //Change timer
+          if (MGT_cmd[Modem_current_cmd].wait_ms>0) 
+            xTimerChangePeriod(Timeout_Timer_cmd, MGT_cmd[Modem_current_cmd].wait_ms, 0); //Change timer
           else
             xTimerChangePeriod(Timeout_Timer_cmd, 1000, 0); //Change timer
           xTimerStart(Timeout_Timer_cmd, 0); //Start timer
@@ -338,9 +339,9 @@ MGT_parce_t MGT_event_parce_Recive(char *data)
   //Parce message
   if (MGT_event_step == 1)
   {
-    sprintf(str_buf, event_text_Recive_TCP_data, MC60_TCP_recive.len);
+    sprintf(str_buf, event_text_Recive_TCP_data, Modem_TCP_recive.len);
     
-    if ( sscanf( data, str_buf, &len, MC60_TCP_recive.data, &n, &c), n )
+    if ( sscanf( data, str_buf, &len, Modem_TCP_recive.data, &n, &c), n )
     {
       return MGT_PARCE_OK;
     }
@@ -352,8 +353,8 @@ MGT_parce_t MGT_event_parce_Recive(char *data)
     //Parce TCP pack
     if ( sscanf( data, event_text_Recive_TCP, &index, &len, &n, &c), n )
     {
-      MC60_TCP_recive.index = index;
-      MC60_TCP_recive.len = len;
+      Modem_TCP_recive.index = index;
+      Modem_TCP_recive.len = len;
       MGT_event_step = 1;
       return MGT_PARCE_NEXT;
     }
@@ -412,29 +413,29 @@ MGT_parce_t MGT_event_parce_BT_event(char *data)
   char BT_event_param1_str[20];
   char BT_event_param2_str[20];
   char BT_event_param3_str[20];
-  MC60_BT_event.type = BT_NONE_TYPE;
+  Modem_BT_event.type = BT_NONE_TYPE;
   
   if ((sscanf( data, event_text_Recive_BT_event, BT_event_type_str, BT_event_param1_str, BT_event_param2_str, BT_event_param3_str,&n), n ))
   {
     if (strcmp(BT_event_type_str, "pair") == 0)
     {
-      MC60_BT_event.type = BT_PAIR;
-      strcpy(MC60_BT_event.name, BT_event_param1_str);
-      sscanf(BT_event_param2_str,"%llx", &MC60_BT_event.addr);
-      sscanf(BT_event_param3_str,"%d", &MC60_BT_event.numericcompare);
+      Modem_BT_event.type = BT_PAIR;
+      strcpy(Modem_BT_event.name, BT_event_param1_str);
+      sscanf(BT_event_param2_str,"%llx", &Modem_BT_event.addr);
+      sscanf(BT_event_param3_str,"%d", &Modem_BT_event.numericcompare);
     }
     else if (strcmp(BT_event_type_str, "disc") == 0)
     {
-      MC60_BT_event.type = BT_DISCONN;
+      Modem_BT_event.type = BT_DISCONN;
       int id;
       sscanf(BT_event_param1_str,"%d", &id);
-      MC60_BT_event.id = id;
+      Modem_BT_event.id = id;
     }
     else if (strcmp(BT_event_type_str, "conn") == 0)
     {
-      MC60_BT_event.type = BT_CONN;
-      strcpy(MC60_BT_event.name, BT_event_param1_str);
-      sscanf(BT_event_param2_str,"%lu", (long*)&MC60_BT_event.addr);
+      Modem_BT_event.type = BT_CONN;
+      strcpy(Modem_BT_event.name, BT_event_param1_str);
+      sscanf(BT_event_param2_str,"%lu", (long*)&Modem_BT_event.addr);
     }
 
     return MGT_PARCE_OK;
@@ -448,7 +449,7 @@ MGT_parce_t MGT_event_parce_SMS_event(char *data)
 {
   int n = 0; 
   
-  if ((sscanf( data, event_text_Recive_SMS, MC60_SMS_event.SMS_event_place, &MC60_SMS_event.SMS_event_count, &n), n ))
+  if ((sscanf( data, event_text_Recive_SMS, Modem_SMS_event.SMS_event_place, &Modem_SMS_event.SMS_event_count, &n), n ))
   {
     return MGT_PARCE_OK;
   }
@@ -459,25 +460,25 @@ MGT_parce_t MGT_event_parce_SMS_event(char *data)
 //                                      Parce functions
 //**************************************************************************************************
 //Parce standart ansvers
-MC60_std_ans_t MGT_parce_std_ans(char *data)
+Modem_std_ans_t MGT_parce_std_ans(char *data)
 {
   char c;
   int n = 0;
   
-  n=0; if ( sscanf( data, " OK%n%c", &n, &c), n) return MC60_STD_OK;
-  n=0; if ( sscanf( data, " ERROR%n%c", &n, &c), n) return MC60_STD_ERROR;
+  n=0; if ( sscanf( data, " OK%n%c", &n, &c), n) return Modem_STD_OK;
+  n=0; if ( sscanf( data, " ERROR%n%c", &n, &c), n) return Modem_STD_ERROR;
  
- return MC60_STD_NULL;
+ return Modem_STD_NULL;
 }
 //--------------------------------------------------------------------------------------------------
 //Parse standart cmd
-MGT_parce_t MGT_cmd_std_parce(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_std_parce(char *data, Modem_str_query_t *query)
 {
-  MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+  Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
   char c;
   int n, dig = 0;
   
-  if (std_ans != MC60_STD_NULL)
+  if (std_ans != Modem_STD_NULL)
   {
     *(query->std_ans) = std_ans;
     return MGT_PARCE_OK;
@@ -486,7 +487,7 @@ MGT_parce_t MGT_cmd_std_parce(char *data, MC60_str_query_t *query)
     n = 0;
     if (sscanf( data, " +CME ERROR: %d%n%c", &dig ,&n, &c), n){
       if ((query->std_ans) > (void*)RAM_MEM_BASE)
-        *(query->std_ans) = MC60_STD_ERROR;
+        *(query->std_ans) = Modem_STD_ERROR;
       if ((query->ans1) > (void*)RAM_MEM_BASE)
         *(uint16_t*)(query->ans1) = dig;
       return MGT_PARCE_OK;
@@ -497,7 +498,7 @@ MGT_parce_t MGT_cmd_std_parce(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CREG_Q cmd
-MGT_parce_t MGT_cmd_parce_CREG_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CREG_Q(char *data, Modem_str_query_t *query)
 {
   char c;
   int n, dig = 0;
@@ -505,9 +506,9 @@ MGT_parce_t MGT_cmd_parce_CREG_Q(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -518,7 +519,7 @@ MGT_parce_t MGT_cmd_parce_CREG_Q(char *data, MC60_str_query_t *query)
   {
     n = 0;
     if (sscanf( data, " +CREG: %c,%d%n%c", &c, &dig, &n, &c),n) {
-      *(MC60_CREG_Q_ans_t*)(query->ans1) = (MC60_CREG_Q_ans_t)dig;
+      *(Modem_CREG_Q_ans_t*)(query->ans1) = (Modem_CREG_Q_ans_t)dig;
       MGT_ansver_step = 1;
       return MGT_PARCE_NEXT;
     }
@@ -528,7 +529,7 @@ MGT_parce_t MGT_cmd_parce_CREG_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CSQ_Q cmd
-MGT_parce_t MGT_cmd_parce_CSQ_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CSQ_Q(char *data, Modem_str_query_t *query)
 {
   char c;
   int n, dig = 0;
@@ -536,9 +537,9 @@ MGT_parce_t MGT_cmd_parce_CSQ_Q(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -559,7 +560,7 @@ MGT_parce_t MGT_cmd_parce_CSQ_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CGACT_Q cmd
-MGT_parce_t MGT_cmd_parce_CGACT_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CGACT_Q(char *data, Modem_str_query_t *query)
 {
   char c;
   int n, dig = 0;
@@ -567,9 +568,9 @@ MGT_parce_t MGT_cmd_parce_CGACT_Q(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -590,7 +591,7 @@ MGT_parce_t MGT_cmd_parce_CGACT_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CGPADDR cmd
-MGT_parce_t MGT_cmd_parce_CGPADDR(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CGPADDR(char *data, Modem_str_query_t *query)
 {
   char c;
   int n = 0;
@@ -598,9 +599,9 @@ MGT_parce_t MGT_cmd_parce_CGPADDR(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -620,7 +621,7 @@ MGT_parce_t MGT_cmd_parce_CGPADDR(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QIOPEN cmd
-MGT_parce_t MGT_cmd_parce_QIOPEN(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QIOPEN(char *data, Modem_str_query_t *query)
 {
   char c;
   int n, dig = 0;
@@ -628,9 +629,9 @@ MGT_parce_t MGT_cmd_parce_QIOPEN(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step ==0)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       MGT_ansver_step = 1;
       return MGT_PARCE_NEXT;
@@ -642,26 +643,26 @@ MGT_parce_t MGT_cmd_parce_QIOPEN(char *data, MC60_str_query_t *query)
   {
     n = 0;
     if ( sscanf( data, " %d, CONNECT OK%n%c", &dig, &n, &c), n) {
-      *(MC60_con_type_t*)(query->ans1) = MC60_CON_OK;
+      *(Modem_con_type_t*)(query->ans1) = Modem_CON_OK;
       *(uint8_t*)(query->ans2) = (uint8_t)dig;
       return MGT_PARCE_OK;
     }
     n = 0;
     if ( sscanf( data, " %d, CONNECT FAIL%n%c", &dig, &n, &c), n) {
-      *(MC60_con_type_t*)(query->ans1) = MC60_CON_FAIL;
+      *(Modem_con_type_t*)(query->ans1) = Modem_CON_FAIL;
       *(uint8_t*)(query->ans2) = (uint8_t)dig;
       return MGT_PARCE_OK;
     }
     n = 0;
     if ( sscanf( data, " %d, ALREADY CONNECT%n%c", &dig, &n, &c), n) {
-      *(MC60_con_type_t*)(query->ans1) = MC60_CON_ALREADY;
+      *(Modem_con_type_t*)(query->ans1) = Modem_CON_ALREADY;
       *(uint8_t*)(query->ans2) = (uint8_t)dig;
       return MGT_PARCE_OK;
     }
     
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -671,7 +672,7 @@ MGT_parce_t MGT_cmd_parce_QIOPEN(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QISTAT_Q cmd
-MGT_parce_t MGT_cmd_parce_QISTAT_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QISTAT_Q(char *data, Modem_str_query_t *query)
 {
   char c;
   int n = 0;
@@ -680,9 +681,9 @@ MGT_parce_t MGT_cmd_parce_QISTAT_Q(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -715,7 +716,7 @@ MGT_parce_t MGT_cmd_parce_QISTAT_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QISEND cmd
-MGT_parce_t MGT_cmd_parce_QISEND(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QISEND(char *data, Modem_str_query_t *query)
 {
   char c;
   int n = 0;
@@ -725,15 +726,15 @@ MGT_parce_t MGT_cmd_parce_QISEND(char *data, MC60_str_query_t *query)
   {
     //Parce SEND OK
     if (sscanf( data, " SEND OK%n%c", &n, &c), n) {
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_TCP_send_t*)(query->ans1) = MC60_SEND_OK;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_TCP_send_t*)(query->ans1) = Modem_SEND_OK;
       return MGT_PARCE_OK;      
     }
     
     //Parce SEND FAIL
     if (sscanf( data, " SEND FAIL%n%c", &n, &c), n) {
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_TCP_send_t*)(query->ans1) = MC60_SEND_FAIL;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_TCP_send_t*)(query->ans1) = Modem_SEND_FAIL;
       return MGT_PARCE_OK;      
     }
   }
@@ -747,15 +748,15 @@ MGT_parce_t MGT_cmd_parce_QISEND(char *data, MC60_str_query_t *query)
       int str_len = 0;
       str_end_char[1] = 0; //Switch off second character
       sscanf((char*)(query->str2),"%d", &str_len);
-      MC60_sendStr(query->str3, str_len);//Send message
+      Modem_sendStr(query->str3, str_len);//Send message
       MGT_ansver_step = 1;
       return MGT_PARCE_NEXT;
     }
     //Parce Error
     if (sscanf( data, " ERROR%n%c", &n, &c), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_TCP_send_t*)(query->ans1) = MC60_CONNECT_ERR;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_TCP_send_t*)(query->ans1) = Modem_CONNECT_ERR;
       return MGT_PARCE_OK;      
     }
   }
@@ -764,16 +765,16 @@ MGT_parce_t MGT_cmd_parce_QISEND(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //GSN cmd
-MGT_parce_t MGT_cmd_parce_GSN(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_GSN(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -793,16 +794,16 @@ MGT_parce_t MGT_cmd_parce_GSN(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QGNSSRD cmd
-MGT_parce_t MGT_cmd_parce_QGNSSRD(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QGNSSRD(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -819,7 +820,7 @@ MGT_parce_t MGT_cmd_parce_QGNSSRD(char *data, MC60_str_query_t *query)
     
     n = 0;
     if (sscanf( data, " +CME ERROR%n", &n), n){
-      *(query->std_ans) = MC60_STD_ERROR;
+      *(query->std_ans) = Modem_STD_ERROR;
       return MGT_PARCE_OK;
     }
   }
@@ -828,7 +829,7 @@ MGT_parce_t MGT_cmd_parce_QGNSSRD(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QGNSSTS_Q cmd
-MGT_parce_t MGT_cmd_parce_QGNSSTS_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QGNSSTS_Q(char *data, Modem_str_query_t *query)
 {
   int n = 0;
   int dig = 0;
@@ -836,9 +837,9 @@ MGT_parce_t MGT_cmd_parce_QGNSSTS_Q(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -859,16 +860,16 @@ MGT_parce_t MGT_cmd_parce_QGNSSTS_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QGNSSC_Q cmd
-MGT_parce_t MGT_cmd_parce_QGNSSC_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QGNSSC_Q(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -888,16 +889,16 @@ MGT_parce_t MGT_cmd_parce_QGNSSC_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QCELLLOC cmd
-MGT_parce_t MGT_cmd_parce_QCELLLOC(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QCELLLOC(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -914,7 +915,7 @@ MGT_parce_t MGT_cmd_parce_QCELLLOC(char *data, MC60_str_query_t *query)
     
     n = 0;
     if (sscanf( data, " +CME ERROR%n", &n), n){
-      *(query->std_ans) = MC60_STD_ERROR;
+      *(query->std_ans) = Modem_STD_ERROR;
       return MGT_PARCE_OK;
     }
   }
@@ -923,16 +924,16 @@ MGT_parce_t MGT_cmd_parce_QCELLLOC(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CCLK cmd
-MGT_parce_t MGT_cmd_parce_CCLK(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CCLK(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK)
+    if (std_ans == Modem_STD_OK)
     {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
@@ -954,14 +955,14 @@ MGT_parce_t MGT_cmd_parce_CCLK(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QICLOSE cmd
-MGT_parce_t MGT_cmd_parce_QICLOSE(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QICLOSE(char *data, Modem_str_query_t *query)
 {
   int n = 0;
   char c;
 
   if (sscanf( data, " %c, CLOSE OK%n\n", &c,&n) , n )
   {
-    *(query->std_ans) = MC60_STD_OK;
+    *(query->std_ans) = Modem_STD_OK;
     return MGT_PARCE_OK;
   }
 
@@ -969,16 +970,16 @@ MGT_parce_t MGT_cmd_parce_QICLOSE(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QBTPWR_Q cmd
-MGT_parce_t MGT_cmd_parce_QBTPWR_Q(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QBTPWR_Q(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
     }
@@ -998,14 +999,14 @@ MGT_parce_t MGT_cmd_parce_QBTPWR_Q(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QBTPAIRCNF cmd
-MGT_parce_t MGT_cmd_parce_QBTPAIRCNF(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QBTPAIRCNF(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
     if (sscanf( data, " +QBTPAIRCNF: %1s,%3[^,],%*s,%20[^,],%*s%n\n", (char*)(query->ans1),(char*)(query->ans2),(char*)(query->ans3),&n),n) {
       *(query->std_ans) = std_ans;
@@ -1016,9 +1017,9 @@ MGT_parce_t MGT_cmd_parce_QBTPAIRCNF(char *data, MC60_str_query_t *query)
   //Recive main ansver
   if (MGT_ansver_step == 0)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       MGT_ansver_step = 1;
       
@@ -1029,7 +1030,7 @@ MGT_parce_t MGT_cmd_parce_QBTPAIRCNF(char *data, MC60_str_query_t *query)
     //Parce Error
     if (sscanf( data, " +CME ERROR: %s%n", (char*)(query->ans1), &n), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
+      *(query->std_ans) = Modem_STD_OK;
       return MGT_PARCE_OK;      
     }
   }
@@ -1038,7 +1039,7 @@ MGT_parce_t MGT_cmd_parce_QBTPAIRCNF(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QSPPSEND cmd
-MGT_parce_t MGT_cmd_parce_QSPPSEND(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QSPPSEND(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
@@ -1047,16 +1048,16 @@ MGT_parce_t MGT_cmd_parce_QSPPSEND(char *data, MC60_str_query_t *query)
   {
     //Parce SEND OK
     if (sscanf( data, " OK%n", &n), n) {
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_BT_send_t*)(query->ans1) = MC60_BT_SEND_OK;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_BT_send_t*)(query->ans1) = Modem_BT_SEND_OK;
       return MGT_PARCE_OK;      
     }
     
     //Parce Error
     if (sscanf( data, " +CME ERROR: %s%n", (char*)(query->ans2), &n), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_BT_send_t*)(query->ans1) = MC60_BT_CONNECT_ERR;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_BT_send_t*)(query->ans1) = Modem_BT_CONNECT_ERR;
       return MGT_PARCE_OK;      
     }
   }
@@ -1070,7 +1071,7 @@ MGT_parce_t MGT_cmd_parce_QSPPSEND(char *data, MC60_str_query_t *query)
       int str_len = 0;
       str_end_char[1] = 0; //Switch off second character
       sscanf((char*)(query->str2),"%d", &str_len);
-      MC60_sendStr(query->str3, str_len);//Send message
+      Modem_sendStr(query->str3, str_len);//Send message
       MGT_ansver_step = 1;
       return MGT_PARCE_NEXT;
     }
@@ -1080,14 +1081,14 @@ MGT_parce_t MGT_cmd_parce_QSPPSEND(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //QBTPAIRCNF cmd
-MGT_parce_t MGT_cmd_parce_QBTCONN(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_QBTCONN(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
     if (sscanf( data, " +QBTCONN: %s,%3[^,]%n\n", (char*)(query->ans1),(char*)(query->ans2),&n),n) {
       *(query->std_ans) = std_ans;
@@ -1098,9 +1099,9 @@ MGT_parce_t MGT_cmd_parce_QBTCONN(char *data, MC60_str_query_t *query)
   //Recive main ansver
   if (MGT_ansver_step == 0)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       MGT_ansver_step = 1;
       
@@ -1111,7 +1112,7 @@ MGT_parce_t MGT_cmd_parce_QBTCONN(char *data, MC60_str_query_t *query)
     //Parce Error
     if (sscanf( data, " +CME ERROR: %s%n", (char*)(query->ans1), &n), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
+      *(query->std_ans) = Modem_STD_OK;
       return MGT_PARCE_OK;      
     }
     
@@ -1121,14 +1122,14 @@ MGT_parce_t MGT_cmd_parce_QBTCONN(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CUSD cmd
-MGT_parce_t MGT_cmd_parce_CUSD(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CUSD(char *data, Modem_str_query_t *query)
 {
   int n = 0;
 
   //Recive std ansver
   if (MGT_ansver_step == 1)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
     if (sscanf( data, " +CUSD: %*s,\"%100[^\"]%n\n", (char*)(query->ans1),&n),n) {
       *(query->std_ans) = std_ans;
@@ -1139,9 +1140,9 @@ MGT_parce_t MGT_cmd_parce_CUSD(char *data, MC60_str_query_t *query)
   //Recive main ansver
   if (MGT_ansver_step == 0)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK) {
+    if (std_ans == Modem_STD_OK) {
       *(query->std_ans) = std_ans;
       MGT_ansver_step = 1;
       
@@ -1152,7 +1153,7 @@ MGT_parce_t MGT_cmd_parce_CUSD(char *data, MC60_str_query_t *query)
     //Parce Error
     if (sscanf( data, " +CME ERROR: %s%n", (char*)(query->ans1), &n), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
+      *(query->std_ans) = Modem_STD_OK;
       return MGT_PARCE_OK;      
     }
     
@@ -1162,7 +1163,7 @@ MGT_parce_t MGT_cmd_parce_CUSD(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CMGC cmd
-MGT_parce_t MGT_cmd_parce_CMGS(char *data, MC60_str_query_t *query)
+MGT_parce_t MGT_cmd_parce_CMGS(char *data, Modem_str_query_t *query)
 {
   char c;
   int n = 0;
@@ -1170,9 +1171,9 @@ MGT_parce_t MGT_cmd_parce_CMGS(char *data, MC60_str_query_t *query)
   //Recive std ansver
   if (MGT_ansver_step == 2)
   {
-    MC60_std_ans_t std_ans = MGT_parce_std_ans(data);  
+    Modem_std_ans_t std_ans = MGT_parce_std_ans(data);  
     
-    if (std_ans == MC60_STD_OK)
+    if (std_ans == Modem_STD_OK)
     {
       *(query->std_ans) = std_ans;
       return MGT_PARCE_OK;
@@ -1184,8 +1185,8 @@ MGT_parce_t MGT_cmd_parce_CMGS(char *data, MC60_str_query_t *query)
   {
     //Parce OK
     if (sscanf( data, " +CMGS%n%c", &n, &c), n) {
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_TCP_send_t*)(query->ans1) = MC60_SEND_OK;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_TCP_send_t*)(query->ans1) = Modem_SEND_OK;
       MGT_ansver_step = 2;
       return MGT_PARCE_NEXT;      
     }
@@ -1199,15 +1200,15 @@ MGT_parce_t MGT_cmd_parce_CMGS(char *data, MC60_str_query_t *query)
     if (sscanf( data, " >%n%c", &n, &c), n) {
       int str_len = 0;
       str_end_char[1] = 0; //Switch off second character
-      MC60_sendStr(query->str2, str_len);//Send message
+      Modem_sendStr(query->str2, str_len);//Send message
       MGT_ansver_step = 1;
       return MGT_PARCE_NEXT;
     }
     //Parce Error
     if (sscanf( data, " ERROR%n%c", &n, &c), n) {
       str_end_char[1] = 0; //Switch off second character
-      *(query->std_ans) = MC60_STD_OK;
-      *(MC60_TCP_send_t*)(query->ans1) = MC60_CONNECT_ERR;
+      *(query->std_ans) = Modem_STD_OK;
+      *(Modem_TCP_send_t*)(query->ans1) = Modem_CONNECT_ERR;
       return MGT_PARCE_OK;      
     }
   }
@@ -1216,7 +1217,7 @@ MGT_parce_t MGT_cmd_parce_CMGS(char *data, MC60_str_query_t *query)
 }
 //--------------------------------------------------------------------------------------------------
 //CMD list
-const MGT_cmd_event_t MGT_cmd[MC60_CMD_COUNT] = {
+const MGT_cmd_event_t MGT_cmd[Modem_CMD_COUNT] = {
   {(char*)cmd_text_NULL,                MGT_cmd_std_parce,              1000},
   {(char*)cmd_text_AT,                  MGT_cmd_std_parce,              1000},
   {(char*)cmd_text_ATI,                 MGT_cmd_std_parce,              1000},
@@ -1266,7 +1267,7 @@ const MGT_cmd_event_t MGT_cmd[MC60_CMD_COUNT] = {
 };
 //--------------------------------------------------------------------------------------------------
 //Event list
-const MGT_cmd_event_t MGT_event[MC60_EVENT_COUNT] = {
+const MGT_cmd_event_t MGT_event[Modem_EVENT_COUNT] = {
   {(char*)event_text_NULL,              NULL,                           200},
   {(char*)event_text_Recive_TCP,        MGT_event_parce_Recive,         200},
   {(char*)event_text_RDY,               MGT_event_parce_RDY,            200},
@@ -1279,21 +1280,21 @@ const MGT_cmd_event_t MGT_event[MC60_EVENT_COUNT] = {
 //                                      MGT functions
 //**************************************************************************************************
 //Send request
-TT_status_type MGT_send_req(MC60_str_query_t *query)
+TT_status_type MGT_send_req(Modem_str_query_t *query)
 {
   uint8_t currentTaskID = getCurrentTaskID()-1; //User function Get Current task ID
   
-  return TT_send_query((TT_taskID)currentTaskID, MGT_con_Queue, tasksDesc[currentTaskID].conQueue, query, MC60_PrepareAndSendCmd);
+  return TT_send_query((TT_taskID)currentTaskID, MGT_con_Queue, tasksDesc[currentTaskID].conQueue, query, Modem_PrepareAndSendCmd);
 }
 //--------------------------------------------------------------------------------------------------
 //Check modem
-MC60_std_ans_t MGT_modem_check()
+Modem_std_ans_t MGT_modem_check()
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   uint16_t ans;
 
-  query.cmd_id = MC60_CMD_AT;
+  query.cmd_id = Modem_CMD_AT;
   query.std_ans = &std_ans;
   query.ans1 = &ans;
   
@@ -1304,12 +1305,12 @@ MC60_std_ans_t MGT_modem_check()
 }
 //--------------------------------------------------------------------------------------------------
 //Get regmodem
-MC60_std_ans_t MGT_getReg(MC60_CREG_Q_ans_t *reg)
+Modem_std_ans_t MGT_getReg(Modem_CREG_Q_ans_t *reg)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
     
-  query.cmd_id = MC60_CMD_CREG_Q;
+  query.cmd_id = Modem_CMD_CREG_Q;
   query.std_ans = &std_ans;
   query.ans1 = reg;
   
@@ -1320,12 +1321,12 @@ MC60_std_ans_t MGT_getReg(MC60_CREG_Q_ans_t *reg)
 }
 //--------------------------------------------------------------------------------------------------
 //Get quality
-MC60_std_ans_t MGT_getQuality(uint8_t *level, TT_status_type* status)
+Modem_std_ans_t MGT_getQuality(uint8_t *level, TT_status_type* status)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   
-  query.cmd_id = MC60_CMD_CSQ_Q;
+  query.cmd_id = Modem_CMD_CSQ_Q;
   query.std_ans = &std_ans;
   query.ans1 = level;
   
@@ -1336,12 +1337,12 @@ MC60_std_ans_t MGT_getQuality(uint8_t *level, TT_status_type* status)
 }
 //--------------------------------------------------------------------------------------------------
 //setAPN
-MC60_std_ans_t MGT_setAPN(char *APN, uint16_t* error_n)
+Modem_std_ans_t MGT_setAPN(char *APN, uint16_t* error_n)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   
-  query.cmd_id = MC60_CMD_CGDCONT;
+  query.cmd_id = Modem_CMD_CGDCONT;
   query.str1 = APN;
   query.std_ans = &std_ans;
   query.ans1 = error_n;
@@ -1352,12 +1353,12 @@ MC60_std_ans_t MGT_setAPN(char *APN, uint16_t* error_n)
 }
 //--------------------------------------------------------------------------------------------------
 //activate GPRS
-MC60_std_ans_t MGT_setGPRS(uint8_t active)
+Modem_std_ans_t MGT_setGPRS(uint8_t active)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_CGACT;
+  query.cmd_id = Modem_CMD_CGACT;
   
   if (active)
     query.str1 = "1";
@@ -1371,12 +1372,12 @@ MC60_std_ans_t MGT_setGPRS(uint8_t active)
 }
 //--------------------------------------------------------------------------------------------------
 //Get status GPRS
-MC60_std_ans_t MGT_getGPRS(uint8_t *status)
+Modem_std_ans_t MGT_getGPRS(uint8_t *status)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_CGACT_Q;
+  query.cmd_id = Modem_CMD_CGACT_Q;
   query.std_ans = &std_ans;
   query.ans1 = status;
   
@@ -1386,12 +1387,12 @@ MC60_std_ans_t MGT_getGPRS(uint8_t *status)
 }
 //--------------------------------------------------------------------------------------------------
 //get IP
-MC60_std_ans_t MGT_getIP(char *ip)
+Modem_std_ans_t MGT_getIP(char *ip)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   
-  query.cmd_id = MC60_CMD_CGPADDR;
+  query.cmd_id = Modem_CMD_CGPADDR;
   query.std_ans = &std_ans;
   query.ans1 = ip;
   
@@ -1401,14 +1402,14 @@ MC60_std_ans_t MGT_getIP(char *ip)
 }
 //--------------------------------------------------------------------------------------------------
 //activate GPRS
-MC60_std_ans_t MGT_setAdrType(MC60_adr_type_t type)
+Modem_std_ans_t MGT_setAdrType(Modem_adr_type_t type)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QIDNSIP;
+  query.cmd_id = Modem_CMD_QIDNSIP;
   
-  if (type ==  MC60_ADR_TYPE_DOMEN)
+  if (type ==  Modem_ADR_TYPE_DOMEN)
     query.str1 = "1";
   else
     query.str1 = "0";
@@ -1420,15 +1421,15 @@ MC60_std_ans_t MGT_setAdrType(MC60_adr_type_t type)
 }
 //--------------------------------------------------------------------------------------------------
 //make GPRS connection
-MC60_std_ans_t MGT_openConn(MC60_con_type_t *conn_ans, uint8_t index, MC60_ip_con_type_t con_type, char *domen_or_ip, uint16_t port)
+Modem_std_ans_t MGT_openConn(Modem_con_type_t *conn_ans, uint8_t index, Modem_ip_con_type_t con_type, char *domen_or_ip, uint16_t port)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   uint8_t index_conn;
   char port_str[6];
   char index_str[3];
   
-  query.cmd_id = MC60_CMD_QIOPEN;
+  query.cmd_id = Modem_CMD_QIOPEN;
   
   //Convert data
   sprintf(port_str,"%d", port);
@@ -1436,7 +1437,7 @@ MC60_std_ans_t MGT_openConn(MC60_con_type_t *conn_ans, uint8_t index, MC60_ip_co
   
   query.str1 = index_str;
 
-  if (con_type ==  MC60_CON_TCP)
+  if (con_type ==  Modem_CON_TCP)
     query.str2 = "TCP";
   else
     query.str2 = "UDP";
@@ -1454,12 +1455,12 @@ MC60_std_ans_t MGT_openConn(MC60_con_type_t *conn_ans, uint8_t index, MC60_ip_co
 }
 //--------------------------------------------------------------------------------------------------
 //Setting multiple TCP/IP
-MC60_std_ans_t MGT_setMUX_TCP(uint8_t mux)
+Modem_std_ans_t MGT_setMUX_TCP(uint8_t mux)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QIMUX;
+  query.cmd_id = Modem_CMD_QIMUX;
   
   if (mux ==  1)
     query.str1 = "1";
@@ -1474,16 +1475,16 @@ MC60_std_ans_t MGT_setMUX_TCP(uint8_t mux)
 }
 //--------------------------------------------------------------------------------------------------
 //Get connection statuses
-MC60_std_ans_t MGT_getConnectStat(uint8_t index, uint8_t *status)
+Modem_std_ans_t MGT_getConnectStat(uint8_t index, uint8_t *status)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char index_str[5];
   char status_str[5];
 
   sprintf(index_str,"%d", index);
   
-  query.cmd_id = MC60_CMD_QISTAT_Q;
+  query.cmd_id = Modem_CMD_QISTAT_Q;
   query.std_ans = &std_ans;
   query.str1 = index_str;
   query.ans1 = status_str;
@@ -1502,18 +1503,18 @@ MC60_std_ans_t MGT_getConnectStat(uint8_t index, uint8_t *status)
 }
 //--------------------------------------------------------------------------------------------------
 // Send TCP/UDP package index,len
-MC60_std_ans_t MGT_sendTCP(uint8_t index, char *str, uint16_t len, MC60_TCP_send_t *TCP_send_status)
+Modem_std_ans_t MGT_sendTCP(uint8_t index, char *str, uint16_t len, Modem_TCP_send_t *TCP_send_status)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char index_str[5];
   char len_str[5];
-  *TCP_send_status = MC60_SEND_FAIL;
+  *TCP_send_status = Modem_SEND_FAIL;
 
   sprintf(index_str,"%d", index);
   sprintf(len_str,"%d", len);
   
-  query.cmd_id = MC60_CMD_QISEND;
+  query.cmd_id = Modem_CMD_QISEND;
   query.std_ans = &std_ans;
   query.str1 = index_str;
   query.str2 = len_str;
@@ -1526,12 +1527,12 @@ MC60_std_ans_t MGT_sendTCP(uint8_t index, char *str, uint16_t len, MC60_TCP_send
 }
 //--------------------------------------------------------------------------------------------------
 //Request IMEI
-MC60_std_ans_t MGT_getIMEI(char* IMEI)
+Modem_std_ans_t MGT_getIMEI(char* IMEI)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_GSN;
+  query.cmd_id = Modem_CMD_GSN;
   query.std_ans = &std_ans;
   query.ans1 = IMEI;
   
@@ -1541,13 +1542,13 @@ MC60_std_ans_t MGT_getIMEI(char* IMEI)
 }
 //--------------------------------------------------------------------------------------------------
 //Set qihead
-MC60_std_ans_t MGT_set_qihead()
+Modem_std_ans_t MGT_set_qihead()
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   uint16_t ans;
 
-  query.cmd_id = MC60_CMD_QIHEAD;
+  query.cmd_id = Modem_CMD_QIHEAD;
   query.std_ans = &std_ans;
   query.ans1 = &ans;
   
@@ -1557,16 +1558,16 @@ MC60_std_ans_t MGT_set_qihead()
 }
 //--------------------------------------------------------------------------------------------------
 //Get GNSS data
-MC60_std_ans_t MGT_get_GNSS(MC60_GNSS_data_type_t GNSS_data_type,char* GNSS_str)
+Modem_std_ans_t MGT_get_GNSS(Modem_GNSS_data_type_t GNSS_data_type,char* GNSS_str)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
 
   if (GNSS_data_type == RMC)
-    query.cmd_id = MC60_CMD_QGNSSRD_RMC;
+    query.cmd_id = Modem_CMD_QGNSSRD_RMC;
   
   if (GNSS_data_type == GGA)
-    query.cmd_id = MC60_CMD_QGNSSRD_GGA;
+    query.cmd_id = Modem_CMD_QGNSSRD_GGA;
   
   query.std_ans = &std_ans;
   query.ans1 = GNSS_str;
@@ -1577,12 +1578,12 @@ MC60_std_ans_t MGT_get_GNSS(MC60_GNSS_data_type_t GNSS_data_type,char* GNSS_str)
 }
 //--------------------------------------------------------------------------------------------------
 //Switch GNSS
-MC60_std_ans_t MGT_switch_GNSS(uint8_t on, uint16_t *error_n)
+Modem_std_ans_t MGT_switch_GNSS(uint8_t on, uint16_t *error_n)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QGNSSC;
+  query.cmd_id = Modem_CMD_QGNSSC;
   
   if (on == 1)
     query.str1 = "1";
@@ -1598,12 +1599,12 @@ MC60_std_ans_t MGT_switch_GNSS(uint8_t on, uint16_t *error_n)
 }
 //--------------------------------------------------------------------------------------------------
 //Read time synchronization
-MC60_std_ans_t  MGT_getTimeSynch(uint8_t *synch_status)
+Modem_std_ans_t  MGT_getTimeSynch(uint8_t *synch_status)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
     
-  query.cmd_id = MC60_CMD_QGNSSTS_Q;
+  query.cmd_id = Modem_CMD_QGNSSTS_Q;
   query.std_ans = &std_ans;
   query.ans1 = synch_status;
   
@@ -1613,17 +1614,17 @@ MC60_std_ans_t  MGT_getTimeSynch(uint8_t *synch_status)
 }
 //--------------------------------------------------------------------------------------------------
 // Set reference location information for QuecFastFix Online
-MC60_std_ans_t MGT_set_ref_coord_GNSS(float lat, float lon)
+Modem_std_ans_t MGT_set_ref_coord_GNSS(float lat, float lon)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char lat_str[15];
   char lon_str[15];
   
   snprintf(lat_str,sizeof(lat_str),"%.6f",lat);
   snprintf(lon_str,sizeof(lon_str),"%.6f",lon);
 
-  query.cmd_id = MC60_CMD_QGREFLOC;
+  query.cmd_id = Modem_CMD_QGREFLOC;
   
   query.str1 = lat_str;
   query.str2 = lon_str;
@@ -1636,12 +1637,12 @@ MC60_std_ans_t MGT_set_ref_coord_GNSS(float lat, float lon)
 }
 //--------------------------------------------------------------------------------------------------
 //Switch EPO
-MC60_std_ans_t MGT_switch_EPO(uint8_t on , uint16_t *error_n)
+Modem_std_ans_t MGT_switch_EPO(uint8_t on , uint16_t *error_n)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QGNSSEPO;
+  query.cmd_id = Modem_CMD_QGNSSEPO;
   
   if (on == 1)
     query.str1 = "1";
@@ -1657,12 +1658,12 @@ MC60_std_ans_t MGT_switch_EPO(uint8_t on , uint16_t *error_n)
 }
 //--------------------------------------------------------------------------------------------------
 //Switch SLEEP
-MC60_std_ans_t MGT_switch_Sleep_mode(uint8_t mode)
+Modem_std_ans_t MGT_switch_Sleep_mode(uint8_t mode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QSCLK;
+  query.cmd_id = Modem_CMD_QSCLK;
   
   if (mode == 0)
     query.str1 = "0";
@@ -1679,12 +1680,12 @@ MC60_std_ans_t MGT_switch_Sleep_mode(uint8_t mode)
 }
 //--------------------------------------------------------------------------------------------------
 //Switch FUN mode
-MC60_std_ans_t MGT_switch_FUN_mode(uint8_t mode)
+Modem_std_ans_t MGT_switch_FUN_mode(uint8_t mode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_CFUN;
+  query.cmd_id = Modem_CMD_CFUN;
 
   if (mode == 0)
     query.str1 = "0";
@@ -1701,14 +1702,14 @@ MC60_std_ans_t MGT_switch_FUN_mode(uint8_t mode)
 }
 //--------------------------------------------------------------------------------------------------
 //Get GNSS power
-MC60_std_ans_t MGT_getPowerGNSS(uint8_t *on)
+Modem_std_ans_t MGT_getPowerGNSS(uint8_t *on)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char on_str[5];
   int on_int;
 
-  query.cmd_id = MC60_CMD_QGNSSC_Q;
+  query.cmd_id = Modem_CMD_QGNSSC_Q;
   query.std_ans = &std_ans;
   query.ans1 = on_str;
   
@@ -1722,12 +1723,12 @@ MC60_std_ans_t MGT_getPowerGNSS(uint8_t *on)
 }
 //--------------------------------------------------------------------------------------------------
 //Trigger EPO
-MC60_std_ans_t MGT_EPO_trig()
+Modem_std_ans_t MGT_EPO_trig()
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
 
-  query.cmd_id = MC60_CMD_QGEPOAID;
+  query.cmd_id = Modem_CMD_QGEPOAID;
   query.std_ans = &std_ans;
   
   MGT_send_req(&query);
@@ -1736,12 +1737,12 @@ MC60_std_ans_t MGT_EPO_trig()
 }
 //--------------------------------------------------------------------------------------------------
 // Set APN, login, pass
-MC60_std_ans_t MGT_set_apn_login_pass(char* apn, char* login, char* pass)
+Modem_std_ans_t MGT_set_apn_login_pass(char* apn, char* login, char* pass)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
 
-  query.cmd_id = MC60_CMD_QIREGAPP;
+  query.cmd_id = Modem_CMD_QIREGAPP;
   query.std_ans = &std_ans;
   query.str1 = apn;
   query.str2 = login;
@@ -1753,20 +1754,20 @@ MC60_std_ans_t MGT_set_apn_login_pass(char* apn, char* login, char* pass)
 }
 //--------------------------------------------------------------------------------------------------
 // Get cell lock
-MC60_std_ans_t MGT_get_cell_loc(float *lat, float *lon)
+Modem_std_ans_t MGT_get_cell_loc(float *lat, float *lon)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   char lat_str[12];
   char lon_str[12];
 
-  query.cmd_id = MC60_CMD_QCELLLOC;
+  query.cmd_id = Modem_CMD_QCELLLOC;
   query.std_ans = &std_ans;
   query.ans1 = lon_str;
   query.ans2 = lat_str;
   
   if (MGT_send_req(&query) == EXEC_OK)
-    if (std_ans == MC60_STD_OK)
+    if (std_ans == Modem_STD_OK)
     {
       sscanf(lon_str,"%f",lon);
       sscanf(lat_str,"%f",lat);
@@ -1776,14 +1777,14 @@ MC60_std_ans_t MGT_get_cell_loc(float *lat, float *lon)
 }
 //--------------------------------------------------------------------------------------------------
 // Get time synch
-MC60_std_ans_t MGT_get_time_network(float *time, float *date)
+Modem_std_ans_t MGT_get_time_network(float *time, float *date)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   char time_str[25];
   int yy,MM,dd,hh,mm,ss;
 
-  query.cmd_id = MC60_CMD_CCLK;
+  query.cmd_id = Modem_CMD_CCLK;
   query.std_ans = &std_ans;
   query.ans1 = time_str;
   
@@ -1798,12 +1799,12 @@ MC60_std_ans_t MGT_get_time_network(float *time, float *date)
 }
 //--------------------------------------------------------------------------------------------------
 // Set GSM time
-MC60_std_ans_t MGT_setGSM_time_synch()
+Modem_std_ans_t MGT_setGSM_time_synch()
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
 
-  query.cmd_id = MC60_CMD_QNITZ;
+  query.cmd_id = Modem_CMD_QNITZ;
   query.std_ans = &std_ans;
   
   MGT_send_req(&query);
@@ -1812,15 +1813,15 @@ MC60_std_ans_t MGT_setGSM_time_synch()
 }
 //--------------------------------------------------------------------------------------------------
 // Close TCP
-MC60_std_ans_t MGT_close_TCP_by_index(uint8_t index)
+Modem_std_ans_t MGT_close_TCP_by_index(uint8_t index)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   char index_str[5];
   
   sprintf(index_str, "%d", index);
 
-  query.cmd_id = MC60_CMD_QICLOSE;
+  query.cmd_id = Modem_CMD_QICLOSE;
   query.std_ans = &std_ans;
   query.str1 = index_str;
   
@@ -1832,12 +1833,12 @@ MC60_std_ans_t MGT_close_TCP_by_index(uint8_t index)
 //                                      Bluetooth functions
 //**************************************************************************************************
 //Power on bluetooth
-MC60_std_ans_t MGT_powerBT(uint8_t on)
+Modem_std_ans_t MGT_powerBT(uint8_t on)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QBTPWR;
+  query.cmd_id = Modem_CMD_QBTPWR;
   
   if (on ==  1)
     query.str1 = "1";
@@ -1851,12 +1852,12 @@ MC60_std_ans_t MGT_powerBT(uint8_t on)
 }
 //--------------------------------------------------------------------------------------------------
 //Get bluetooth power on status 
-MC60_std_ans_t MGT_getStatusBT(uint8_t *status)
+Modem_std_ans_t MGT_getStatusBT(uint8_t *status)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QBTPWR_Q;
+  query.cmd_id = Modem_CMD_QBTPWR_Q;
   query.std_ans = &std_ans;
   query.ans1 = status;
   
@@ -1866,12 +1867,12 @@ MC60_std_ans_t MGT_getStatusBT(uint8_t *status)
 }
 //--------------------------------------------------------------------------------------------------
 //Set BT name
-MC60_std_ans_t MGT_setNameBT(char *name)
+Modem_std_ans_t MGT_setNameBT(char *name)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QBTNAME;
+  query.cmd_id = Modem_CMD_QBTNAME;
   query.str1 = name;
   query.std_ans = &std_ans;
   
@@ -1881,12 +1882,12 @@ MC60_std_ans_t MGT_setNameBT(char *name)
 }
 //--------------------------------------------------------------------------------------------------
 //Set bluetooth visibility
-MC60_std_ans_t MGT_setVisibilityBT(uint8_t on)
+Modem_std_ans_t MGT_setVisibilityBT(uint8_t on)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QBTVISB;
+  query.cmd_id = Modem_CMD_QBTVISB;
   
   if (on ==  1)
     query.str1 = "1";
@@ -1900,14 +1901,14 @@ MC60_std_ans_t MGT_setVisibilityBT(uint8_t on)
 }
 //--------------------------------------------------------------------------------------------------
 //Accept pairing
-MC60_std_ans_t MGT_acceptPairingBT(char* password, bool *pairStatus, uint8_t *pairID, char* pairName, uint16_t *ErrorCode)
+Modem_std_ans_t MGT_acceptPairingBT(char* password, bool *pairStatus, uint8_t *pairID, char* pairName, uint16_t *ErrorCode)
 {
-  MC60_str_query_t query;
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
+  Modem_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
   char pairStatus_str[3];
   char pairID_str[3];
 
-  query.cmd_id = MC60_CMD_QBTPAIRCNF;
+  query.cmd_id = Modem_CMD_QBTPAIRCNF;
   query.std_ans = &std_ans;
   query.str1 = password;
   query.ans1 = pairStatus_str;
@@ -1931,18 +1932,18 @@ MC60_std_ans_t MGT_acceptPairingBT(char* password, bool *pairStatus, uint8_t *pa
 }
 //--------------------------------------------------------------------------------------------------
 // Send BT
-MC60_std_ans_t MGT_sendBT(uint8_t index, char *str, uint16_t len, MC60_BT_send_t *BT_send_status, uint16_t *ErrorCode)
+Modem_std_ans_t MGT_sendBT(uint8_t index, char *str, uint16_t len, Modem_BT_send_t *BT_send_status, uint16_t *ErrorCode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char index_str[5];
   char len_str[5];
-  *BT_send_status = MC60_BT_SEND_FAIL;
+  *BT_send_status = Modem_BT_SEND_FAIL;
 
   sprintf(index_str,"%d", index);
   sprintf(len_str,"%d", len);
   
-  query.cmd_id = MC60_CMD_QISEND;
+  query.cmd_id = Modem_CMD_QISEND;
   query.std_ans = &std_ans;
   query.str1 = index_str;
   query.str2 = len_str;
@@ -1956,10 +1957,10 @@ MC60_std_ans_t MGT_sendBT(uint8_t index, char *str, uint16_t len, MC60_BT_send_t
 }
 //--------------------------------------------------------------------------------------------------
 // Connect BT
-MC60_std_ans_t MGT_connectBT(uint8_t id, MC60_BT_profile_t profile, MC60_BT_mode_t mode, uint16_t *ErrorCode)
+Modem_std_ans_t MGT_connectBT(uint8_t id, Modem_BT_profile_t profile, Modem_BT_mode_t mode, uint16_t *ErrorCode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   char id_str[5];
   char profile_str[5];
   char mode_str[5];
@@ -1968,7 +1969,7 @@ MC60_std_ans_t MGT_connectBT(uint8_t id, MC60_BT_profile_t profile, MC60_BT_mode
   sprintf(profile_str,"%d", profile);
   sprintf(mode_str,"%d", mode);
   
-  query.cmd_id = MC60_CMD_QBTCONN;
+  query.cmd_id = Modem_CMD_QBTCONN;
   query.std_ans = &std_ans;
   query.str1 = id_str;
   query.str2 = profile_str;
@@ -1981,12 +1982,12 @@ MC60_std_ans_t MGT_connectBT(uint8_t id, MC60_BT_profile_t profile, MC60_BT_mode
 }
 //--------------------------------------------------------------------------------------------------
 //Network Time Synchronization and Update the RTC
-MC60_std_ans_t MGT_setTimeSynchGSM_mode(uint8_t mode)
+Modem_std_ans_t MGT_setTimeSynchGSM_mode(uint8_t mode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_QBTVISB;
+  query.cmd_id = Modem_CMD_QBTVISB;
   
   switch(mode)
   {
@@ -2005,13 +2006,13 @@ MC60_std_ans_t MGT_setTimeSynchGSM_mode(uint8_t mode)
 }
 //--------------------------------------------------------------------------------------------------
 //Set charecter set
-MC60_std_ans_t MGT_setCharacterSet(char *characterSet)
+Modem_std_ans_t MGT_setCharacterSet(char *characterSet)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   uint16_t ErrorCode;
 
-  query.cmd_id = MC60_CMD_CSCS;
+  query.cmd_id = Modem_CMD_CSCS;
   
   query.str1 = characterSet;
   query.ans1 = &ErrorCode;
@@ -2024,12 +2025,12 @@ MC60_std_ans_t MGT_setCharacterSet(char *characterSet)
 }
 //--------------------------------------------------------------------------------------------------
 //Get USSD query
-MC60_std_ans_t MGT_returnUSSD(char *USSD, char* returnStr)
+Modem_std_ans_t MGT_returnUSSD(char *USSD, char* returnStr)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
 
-  query.cmd_id = MC60_CMD_CUSD;
+  query.cmd_id = Modem_CMD_CUSD;
   
   query.str1 = USSD;
   query.ans1 = returnStr;
@@ -2042,13 +2043,13 @@ MC60_std_ans_t MGT_returnUSSD(char *USSD, char* returnStr)
 }
 //--------------------------------------------------------------------------------------------------
 //Set USSD mode
-MC60_std_ans_t MGT_setUSSD_mode(char *mode)
+Modem_std_ans_t MGT_setUSSD_mode(char *mode)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   uint16_t ErrorCode;
 
-  query.cmd_id = MC60_CMD_MODECUSD;
+  query.cmd_id = Modem_CMD_MODECUSD;
   
   query.str1 = mode;
   query.ans1 = &ErrorCode;
@@ -2061,13 +2062,13 @@ MC60_std_ans_t MGT_setUSSD_mode(char *mode)
 }
 //--------------------------------------------------------------------------------------------------
 //SMS Message Format 0 PDU mode 1 Text mode
-MC60_std_ans_t MGT_setSMS_Format(char *format)
+Modem_std_ans_t MGT_setSMS_Format(char *format)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   uint16_t ErrorCode;
 
-  query.cmd_id = MC60_CMD_CMGF;
+  query.cmd_id = Modem_CMD_CMGF;
   
   query.str1 = format;
   query.ans1 = &ErrorCode;
@@ -2080,13 +2081,13 @@ MC60_std_ans_t MGT_setSMS_Format(char *format)
 }
 //--------------------------------------------------------------------------------------------------
 //Send SMS
-MC60_std_ans_t MGT_sendSMS(char *phone, char* message)
+Modem_std_ans_t MGT_sendSMS(char *phone, char* message)
 {
-  MC60_std_ans_t std_ans = MC60_STD_NULL;
-  MC60_str_query_t query;
+  Modem_std_ans_t std_ans = Modem_STD_NULL;
+  Modem_str_query_t query;
   uint16_t ErrorCode;
 
-  query.cmd_id = MC60_CMD_CMGF;
+  query.cmd_id = Modem_CMD_CMGF;
   
   query.str1 = phone;
   query.str2 = message;

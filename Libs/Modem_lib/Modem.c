@@ -1,6 +1,5 @@
 
-#include "MC60_lib.h"
-#include "Modem_gate_task.h"
+#include "Modem.h"
 #include "Delay.h"
 #include "em_gpio.h"
 #include "Task_transfer.h"
@@ -70,39 +69,33 @@ const char event_text_UNDER_VOLTAGE[]           = " UNDER_VOLTAGE WARNING%n"; //
 const char event_text_Recive_BT_event[]         = " +QBTIND: \"%10[^\"]\",\"%20[^\"]\",%20[^,],%20[^\r]\r%n"; //BT pair
 const char event_text_Recive_SMS[]              = " +CMTI: \"[^\"]\",%d%n"; //Recive SMS indicator
 
-MC60_cmd_t MC60_current_cmd; //Curent exec cmd
 extern QueueHandle_t MGT_con_Queue;
-char MC60_buf[120];
+char Modem_buf[120];
+Modem_cmd_t Modem_current_cmd; //Curent exec cmd
 
 //--------------------------------------------------------------------------------------------------
 //Send CR
-void MC60_sendCR()
+void Modem_sendCR()
 {
   char cr = 0x0d;
   UART_SendData(&cr, 1);
 }
 //--------------------------------------------------------------------------------------------------
 //Send str
-void MC60_sendStr(char* str, uint16_t len)
+void Modem_sendStr(char* str, uint16_t len)
 {
   UART_SendData(str, len);
 }
 //--------------------------------------------------------------------------------------------------
 //PrepareAndSendCmd
-void MC60_PrepareAndSendCmd(MC60_str_query_t *data)
-{
-  MC60_current_cmd = data->cmd_id;
-  
-  if (MC60_current_cmd < MC60_CMD_COUNT)
-  {
-    sprintf(MC60_buf, MGT_cmd[MC60_current_cmd].str, data->str1, data->str2, data->str3, data->str4);
-    
-    UART_SendData(MC60_buf, strlen(MC60_buf));
-  }
+void Modem_PrepareAndSendCmd(Modem_str_query_t *data)
+{  
+  sprintf(Modem_buf, data->cmd_str, data->str1, data->str2, data->str3, data->str4);
+  UART_SendData(Modem_buf, strlen(Modem_buf));
 }
 //--------------------------------------------------------------------------------------------------
 //Check IMEI
-uint8_t  MC60_check_IMEI(char *IMEI)
+uint8_t  Modem_check_IMEI(char *IMEI)
 {
   const int m[] = {0,2,4,6,8,1,3,5,7,9}; // mapping for rule 3
   int i, odd = 1, sum = 0;
@@ -120,20 +113,20 @@ uint8_t  MC60_check_IMEI(char *IMEI)
 }
 //--------------------------------------------------------------------------------------------------
 //Включить модем
-void MC60_on_seq() {
-  MC60_GSM_PWR_OFF;
+void Modem_on_seq() {
+  Modem_GSM_PWR_OFF;
   _delay_ms(200);
-  MC60_GSM_PWR_ON;
+  Modem_GSM_PWR_ON;
   _delay_ms(1200);
-  MC60_GSM_PWR_OFF;
+  Modem_GSM_PWR_OFF;
 }
 //--------------------------------------------------------------------------------------------------
 //Выключить модем
-void MC60_off_seq() {
-  MC60_GSM_PWR_ON;
+void Modem_off_seq() {
+  Modem_GSM_PWR_ON;
   _delay_ms(100);
-  MC60_GSM_PWR_OFF;
+  Modem_GSM_PWR_OFF;
   _delay_ms(500);
-  MC60_GSM_PWR_ON;
+  Modem_GSM_PWR_ON;
   _delay_ms(100);
 }

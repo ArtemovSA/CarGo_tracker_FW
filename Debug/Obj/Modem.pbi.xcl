@@ -1,4 +1,4 @@
-"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Tasks\I2C_gate_task\I2C_gate_task.c"
+"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Libs\Modem_lib\Modem.c"
 -std=c99
 -ferror-limit=100
 -I

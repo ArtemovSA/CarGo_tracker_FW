@@ -15,7 +15,7 @@ TraceBufferSize=0x00010000
 TraceStallIfFIFOFull=0x00000000
 TracePortSize=0x00000004
 [DebugChecksum]
-Checksum=-1214252189
+Checksum=-1421341777
 [Exceptions]
 StopOnUncaught=_ 0
 StopOnThrow=_ 0
@@ -133,5 +133,6 @@ mode=0
 Bp0=_ 1 "EMUL_CODE" "{$PROJ_DIR$\..\..\library\EFM32\Device\SiliconLabs\EFM32LG\Source\IAR\startup_efm32lg.c}.59.3" 0 0 1 "" 0 "" 0
 Count=1
 [Aliases]
-Count=0
+A0=_ "D:\JOB\ARM\EFM32\IAR workspace\MicroGo_tracker_v1.1\RTOS\portable\portasm.s" ""
+Count=1
 SuppressDialog=0

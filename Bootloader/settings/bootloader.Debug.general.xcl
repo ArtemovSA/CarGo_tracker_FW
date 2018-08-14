@@ -2,7 +2,7 @@
 
 "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\bin\armjlink2.dll" 
 
-"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\Bootloader\Debug\Exe\bootloader.out" 
+"D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\Bootloader\Debug\Exe\bootloader.out" 
 
 --plugin "C:\Program Files (x86)\IAR Systems\Embedded Workbench 7.5\arm\bin\armbat.dll" 
 

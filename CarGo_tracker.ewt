@@ -2545,12 +2545,12 @@
       </file>
     </group>
     <group>
-      <name>MC60_lib</name>
+      <name>Modem</name>
       <file>
-        <name>$PROJ_DIR$\Libs\MC60_lib\MC60_lib.c</name>
+        <name>$PROJ_DIR$\Libs\Modem_lib\Modem.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\Libs\MC60_lib\MC60_lib.h</name>
+        <name>$PROJ_DIR$\Libs\Modem_lib\Modem.h</name>
       </file>
     </group>
     <group>

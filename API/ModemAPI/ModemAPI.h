@@ -3,7 +3,7 @@
 #define MODEM_API_H
 
 #include "Device_ctrl.h"
-#include "MC60_lib.h"
+#include "Modem.h"
 #include "Clock.h"
 #include "Modem_gate_task.h"
 

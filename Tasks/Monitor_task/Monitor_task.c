@@ -37,13 +37,13 @@ void vMonitor_Task(void *pvParameters)
       //BT event
       if ((task_msg.task == TT_MGT_TASK) && (task_msg.type == EVENT_BT_EVENT))
       {
-        switch(((MC60_BT_event_t*)task_msg.message)->type)
+        switch(((Modem_BT_event_t*)task_msg.message)->type)
         {
         case BT_PAIR:
           if (DC_BT_connCount < DC_BT_CONN_MAX)
           {
             //Accept pairing
-            if (MGT_acceptPairingBT((void*)DC_settings.BT_pass, &DC_BT_Status[DC_BT_connCount].connStatus, &DC_BT_Status[DC_BT_connCount].ID, DC_BT_Status[DC_BT_connCount].connName, &BT_ErrorCode) == MC60_STD_OK)
+            if (MGT_acceptPairingBT((void*)DC_settings.BT_pass, &DC_BT_Status[DC_BT_connCount].connStatus, &DC_BT_Status[DC_BT_connCount].ID, DC_BT_Status[DC_BT_connCount].connName, &BT_ErrorCode) == Modem_STD_OK)
             {
               DC_debugOut("###BT pairing###\r\n");
             }
@@ -51,12 +51,12 @@ void vMonitor_Task(void *pvParameters)
           break;
         case BT_CONN:
           // Connect BT
-          if (MGT_connectBT(DC_BT_Status[DC_BT_connCount-1].ID, BT_SPP_PROFILE, BT_MODE_AT, &BT_ErrorCode) == MC60_STD_OK)
+          if (MGT_connectBT(DC_BT_Status[DC_BT_connCount-1].ID, BT_SPP_PROFILE, BT_MODE_AT, &BT_ErrorCode) == Modem_STD_OK)
           {
             //Check connection status
             if (DC_BT_Status[DC_BT_connCount].connStatus == true)
             {
-              DC_BT_Status[DC_BT_connCount].addr = ((MC60_BT_event_t*)task_msg.message)->addr; //Copy address
+              DC_BT_Status[DC_BT_connCount].addr = ((Modem_BT_event_t*)task_msg.message)->addr; //Copy address
               DC_BT_connCount++;
               DC_debugOut("###BT connect###\r\n");
             }

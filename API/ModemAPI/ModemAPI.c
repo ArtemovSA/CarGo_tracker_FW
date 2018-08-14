@@ -22,24 +22,24 @@ DC_return_t MAPI_init(QueueHandle_t queue)
 //Registration
 DC_return_t MAPI_cellReg()
 {
-  MC60_CREG_Q_ans_t reg;
-  MC60_std_ans_t modem_ans;
+  Modem_CREG_Q_ans_t reg;
+  Modem_std_ans_t modem_ans;
   uint8_t reg_try_count = MAPI_REG_TRY_SEC;
   
   while(reg_try_count--)
   {
     modem_ans = MGT_getReg(&reg); //Get Registration
     
-    if (modem_ans == MC60_STD_OK) //Check registration in net
+    if (modem_ans == Modem_STD_OK) //Check registration in net
     {
       switch(reg) //What make
       {
-      case MC60_CREG_Q_REGISTERED: DC_debugOut("Reg OK\r\n"); DC_status.flags.flag_REG_OK = true; return DC_OK;
-      case MC60_CREG_Q_ROAMING: DC_debugOut("Reg roaming\r\n"); DC_status.flags.flag_REG_OK = true; return DC_OK;
-      case MC60_CREG_Q_SEARCH: DC_debugOut("Reg Search\r\n"); break;
-      case MC60_CREG_Q_NOT_REG: DC_debugOut("Reg NOT\r\n"); return DC_ERROR;
-      case MC60_CREG_Q_UNKNOWN: DC_debugOut("Reg UKN\r\n"); return DC_ERROR;
-      case MC60_CREG_Q_DENIED: DC_debugOut("Reg Denied\r\n"); return DC_ERROR;
+      case Modem_CREG_Q_REGISTERED: DC_debugOut("Reg OK\r\n"); DC_status.flags.flag_REG_OK = true; return DC_OK;
+      case Modem_CREG_Q_ROAMING: DC_debugOut("Reg roaming\r\n"); DC_status.flags.flag_REG_OK = true; return DC_OK;
+      case Modem_CREG_Q_SEARCH: DC_debugOut("Reg Search\r\n"); break;
+      case Modem_CREG_Q_NOT_REG: DC_debugOut("Reg NOT\r\n"); return DC_ERROR;
+      case Modem_CREG_Q_UNKNOWN: DC_debugOut("Reg UKN\r\n"); return DC_ERROR;
+      case Modem_CREG_Q_DENIED: DC_debugOut("Reg Denied\r\n"); return DC_ERROR;
       default: return DC_ERROR;
       };
     }
@@ -56,7 +56,7 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
 {
   uint16_t error_n;
   uint8_t GPRS_status = 0;
-  MC60_std_ans_t modem_ans;
+  Modem_std_ans_t modem_ans;
   DC_return_t DC_return;
   
   //Registration sequence
@@ -68,15 +68,15 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
   //Setting GPRS
   if (!DC_status.flags.flag_GPRS_SETTED)
   {
-    modem_ans = MGT_setAPN(MC60_DEFAUL_APN, &error_n);
+    modem_ans = MGT_setAPN(Modem_DEFAUL_APN, &error_n);
     
-    if (modem_ans == MC60_STD_OK)
+    if (modem_ans == Modem_STD_OK)
     {
       //Check APN setted
       if (!DC_settings.settingFlags.flags.flag_APN_SETTED)
       {
         // Set APN, login, pass
-        if (MGT_set_apn_login_pass(MC60_DEFAUL_APN, MC60_DEFAUL_LOGIN, MC60_DEFAUL_PASS) == MC60_STD_OK)
+        if (MGT_set_apn_login_pass(Modem_DEFAUL_APN, Modem_DEFAUL_LOGIN, Modem_DEFAUL_PASS) == Modem_STD_OK)
         {
           DC_settings.settingFlags.flags.flag_APN_SETTED = true;
           DC_debugOut("Setted APN settings, wait reboot\r\n");
@@ -85,7 +85,7 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
       }
     }
     
-    if (MGT_setMUX_TCP(1) == MC60_STD_OK) //Setting multiple TCP/IP
+    if (MGT_setMUX_TCP(1) == Modem_STD_OK) //Setting multiple TCP/IP
     {
       DC_status.flags.flag_GPRS_SETTED = true;
       DC_debugOut("Check APN: OK\r\n");
@@ -95,15 +95,15 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
   //Make GPRS connection
   if (!DC_status.flags.flag_GPRS_CONNECTED)
   {
-    if (MGT_getGPRS(&GPRS_status) == MC60_STD_OK) //Get status
+    if (MGT_getGPRS(&GPRS_status) == Modem_STD_OK) //Get status
       
       if (GPRS_status == 0) //Not connected
       {
         
-        if (MGT_setGPRS(1) == MC60_STD_OK) //activate GPRS
-          if (MGT_getIP(deviceIP) == MC60_STD_OK) //get IP
-            if (MGT_setAdrType(MC60_ADR_TYPE_IP) == MC60_STD_OK) //Set type addr
-              if ( MGT_set_qihead() == MC60_STD_OK) //Set qihead
+        if (MGT_setGPRS(1) == Modem_STD_OK) //activate GPRS
+          if (MGT_getIP(deviceIP) == Modem_STD_OK) //get IP
+            if (MGT_setAdrType(Modem_ADR_TYPE_IP) == Modem_STD_OK) //Set type addr
+              if ( MGT_set_qihead() == Modem_STD_OK) //Set qihead
               {
                 DC_status.flags.flag_GPRS_CONNECTED = true;
                 DC_debugOut("GPRS OK\r\n");
@@ -113,9 +113,9 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
         
       }else{ //Already connected
         
-        if (MGT_getIP(deviceIP) == MC60_STD_OK) //get IP
-          if (MGT_setAdrType(MC60_ADR_TYPE_IP) == MC60_STD_OK) //Set type addr
-            if (MGT_set_qihead() == MC60_STD_OK) //Set qihead
+        if (MGT_getIP(deviceIP) == Modem_STD_OK) //get IP
+          if (MGT_setAdrType(Modem_ADR_TYPE_IP) == Modem_STD_OK) //Set type addr
+            if (MGT_set_qihead() == Modem_STD_OK) //Set qihead
             {
               DC_status.flags.flag_GPRS_CONNECTED = true;
               DC_debugOut("GPRS OK\r\n");
@@ -125,7 +125,7 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
       }
   }else{
     
-    if (MGT_getIP(deviceIP) == MC60_STD_OK) //get IP
+    if (MGT_getIP(deviceIP) == Modem_STD_OK) //get IP
     {
       DC_debugOut("GPRS ALREADY OK\r\n");
       DC_debugOut("IP address: %s\r\n", deviceIP);
@@ -141,7 +141,7 @@ DC_return_t MAPI_GPRS_connect(char* deviceIP)
 //Get celloc
 DC_return_t MAPI_getCelloc(float *cellLat, float* cellLon)
 {
-  if (MGT_get_cell_loc(cellLat, cellLon) == MC60_STD_OK) // Get cell lock
+  if (MGT_get_cell_loc(cellLat, cellLon) == Modem_STD_OK) // Get cell lock
   {    
     return DC_OK;
   }
@@ -159,7 +159,7 @@ DC_return_t MAPI_setCellRef_loc()
   if (MAPI_getCelloc(&cellLat, &cellLon) == DC_OK)//Get celloc
   {
     //Set ref coord
-    if (MGT_set_ref_coord_GNSS(cellLat, cellLon) == MC60_STD_OK) // Set reference location information for QuecFastFix Online
+    if (MGT_set_ref_coord_GNSS(cellLat, cellLon) == Modem_STD_OK) // Set reference location information for QuecFastFix Online
     {
       DC_debugOut("Coord referent OK\r\n");
     }else{
@@ -182,13 +182,13 @@ DC_return_t MAPI_switch_on_GNSS()
   uint8_t status = 0;
   uint8_t try_count = DC_settings.gnss_try_count;
   uint16_t error_n = 0;
-  MC60_std_ans_t ansver;
+  Modem_std_ans_t ansver;
   
   while(try_count--)
   {
     status = 0;
     
-    if (MGT_getPowerGNSS(&status) == MC60_STD_OK) //Get GNSS power
+    if (MGT_getPowerGNSS(&status) == Modem_STD_OK) //Get GNSS power
     {
       if (status == 1) //Already on
       {
@@ -198,9 +198,9 @@ DC_return_t MAPI_switch_on_GNSS()
       if (status == 0) //Switched off
       {
         ansver = MGT_switch_GNSS(1, &error_n);
-        if (ansver == MC60_STD_OK) { //Switch GNSS
+        if (ansver == Modem_STD_OK) { //Switch GNSS
           return DC_OK;
-        }else if(ansver == MC60_STD_ERROR)
+        }else if(ansver == Modem_STD_ERROR)
         {
           if (error_n == 7101)
             MGT_switch_GNSS(0, &error_n);
@@ -223,7 +223,7 @@ DC_return_t MAPI_switch_on_Modem()
 
   UART_RxEnable(); //Enale recive data
   
-  if (MGT_modem_check() != MC60_STD_OK) //Check AT
+  if (MGT_modem_check() != Modem_STD_OK) //Check AT
   {
     MGT_reset(); //Reset gate task
     UART_RxDisable(); //Disable RX data
@@ -238,13 +238,13 @@ DC_return_t MAPI_switch_on_Modem()
   {        
     while(try_set_counter--)
     {
-      if (MGT_modem_check() == MC60_STD_OK) //Check AT
-        if (MGT_switch_Sleep_mode(1) == MC60_STD_OK) //Switch SLEEP in
+      if (MGT_modem_check() == Modem_STD_OK) //Check AT
+        if (MGT_switch_Sleep_mode(1) == Modem_STD_OK) //Switch SLEEP in
         {
           DC_debugOut("AT OK\r\n");
           
           // Set GSM time
-          if(MGT_setGSM_time_synch() == MC60_STD_OK)
+          if(MGT_setGSM_time_synch() == Modem_STD_OK)
             DC_debugOut("GSM time synch setted\r\n");
           
           return DC_OK;
@@ -266,12 +266,12 @@ DC_return_t MAPI_switch_on_Modem()
 DC_return_t MAPI_get_GNSS(GNSS_data_t* data)
 {  
   uint8_t try_count = DC_settings.gnss_try_count;
-  MC60_std_ans_t ansver;
+  Modem_std_ans_t ansver;
   
   while(try_count--)
   {
     ansver = MGT_get_GNSS(RMC, gStr_buf); //Get GNSS data
-    if (ansver == MC60_STD_OK)
+    if (ansver == Modem_STD_OK)
     {
       GNSS_parce_RMC(gStr_buf, data);
       
@@ -279,7 +279,7 @@ DC_return_t MAPI_get_GNSS(GNSS_data_t* data)
       if ((data->lat1 > 0) && (data->lon1 > 0))
       {
         ansver = MGT_get_GNSS(GGA, gStr_buf); //Get GNSS data
-        if (ansver == MC60_STD_OK)
+        if (ansver == Modem_STD_OK)
         {
           GNSS_parce_GGA(gStr_buf, data);
         }
@@ -298,9 +298,9 @@ DC_return_t MAPI_get_GNSS(GNSS_data_t* data)
 //Get IMEI
 DC_return_t MAPI_getIMEI(char* retIMEI)
 {
-  if ( MGT_getIMEI(retIMEI) == MC60_STD_OK ) //Get IMEI
+  if ( MGT_getIMEI(retIMEI) == Modem_STD_OK ) //Get IMEI
   {
-    if (MC60_check_IMEI(retIMEI))  //Check IMEI
+    if (Modem_check_IMEI(retIMEI))  //Check IMEI
     {
       DC_debugOut("IMEI: %s\r\n", DC_settings.IMEI);
       return DC_OK;
@@ -313,10 +313,10 @@ DC_return_t MAPI_getIMEI(char* retIMEI)
 //Send TCP str
 DC_return_t MAPI_sendTCP(uint8_t index, char *str)
 {
-  MC60_TCP_send_t TCP_send_status = MC60_SEND_FAIL;
+  Modem_TCP_send_t TCP_send_status = Modem_SEND_FAIL;
   
-  if ( MGT_sendTCP(index, str, strlen(str), &TCP_send_status) == MC60_STD_OK) // Send TCP/UDP package index,len
-    if (TCP_send_status == MC60_SEND_OK)
+  if ( MGT_sendTCP(index, str, strlen(str), &TCP_send_status) == Modem_STD_OK) // Send TCP/UDP package index,len
+    if (TCP_send_status == Modem_SEND_OK)
     {
       DC_debugOut("TCP message sended\r\n");
       return DC_OK;
@@ -344,14 +344,14 @@ DC_return_t MAPI_sendWialonPack(uint8_t index, char *pack, char* ansver, uint16_
           xQueueReceive( MAPI_queue, &tcp_task_msg, 0 );
         
         if (tcp_task_msg.type == EVENT_TCP_MSG) //If event message from TCP
-          if (((MC60_TCP_recive_t*)(tcp_task_msg.message))->index == index)
+          if (((Modem_TCP_recive_t*)(tcp_task_msg.message))->index == index)
           {
             
-            memcpy(ansver, ((MC60_TCP_recive_t*)(tcp_task_msg.message))->data, ((MC60_TCP_recive_t*)(tcp_task_msg.message))->len);
+            memcpy(ansver, ((Modem_TCP_recive_t*)(tcp_task_msg.message))->data, ((Modem_TCP_recive_t*)(tcp_task_msg.message))->len);
             DC_debugOut("Wialon recive pack\r\n");
             return DC_OK;
             
-          }else if(((MC60_TCP_recive_t*)(tcp_task_msg.message))->index == 0)
+          }else if(((Modem_TCP_recive_t*)(tcp_task_msg.message))->index == 0)
           {
             DC_debugOut("Data send fail\r\n"); //Recived other data
           }
@@ -393,13 +393,13 @@ DC_return_t MAPI_wialonLogin(char* IMEI, char* pass)
 DC_return_t MAPI_TCP_connect(uint8_t index, uint8_t ipList_Len, char* ipList, uint16_t port)
 {
   uint8_t try_count = MAPI_SERVER_CONNECT_TRY;
-  MC60_con_type_t conn_ans;
+  Modem_con_type_t conn_ans;
   uint8_t status_connect = 0;
   char buf_IP[16];
   
   while (try_count--){
     
-    if (MGT_getConnectStat(index, &status_connect) == MC60_STD_OK) //Get connection statuses
+    if (MGT_getConnectStat(index, &status_connect) == Modem_STD_OK) //Get connection statuses
     {
       if (status_connect == 0) //No connected
       {
@@ -409,9 +409,9 @@ DC_return_t MAPI_TCP_connect(uint8_t index, uint8_t ipList_Len, char* ipList, ui
           //Get IP
           memcpy(buf_IP, (ipList+i*16), 16);
           
-          if (MGT_openConn(&conn_ans, index, MC60_CON_TCP, buf_IP, port) == MC60_STD_OK) //make GPRS connection
+          if (MGT_openConn(&conn_ans, index, Modem_CON_TCP, buf_IP, port) == Modem_STD_OK) //make GPRS connection
           {
-            if (conn_ans == MC60_CON_OK)
+            if (conn_ans == Modem_CON_OK)
             {
               DC_params.current_data_IP = i;
               if (index == TCP_CONN_ID_MAIN)
@@ -424,7 +424,7 @@ DC_return_t MAPI_TCP_connect(uint8_t index, uint8_t ipList_Len, char* ipList, ui
               return DC_OK;
             }
             
-            if (conn_ans == MC60_CON_ALREADY)
+            if (conn_ans == Modem_CON_ALREADY)
             {
               DC_params.current_data_IP = i;
               
@@ -438,9 +438,9 @@ DC_return_t MAPI_TCP_connect(uint8_t index, uint8_t ipList_Len, char* ipList, ui
               return DC_OK;
             }
             
-            if (conn_ans == MC60_CON_FAIL)
+            if (conn_ans == Modem_CON_FAIL)
             {
-              if (MGT_setGPRS(0) == MC60_STD_OK) //deactivate GPRS
+              if (MGT_setGPRS(0) == Modem_STD_OK) //deactivate GPRS
               {
                 if (index == TCP_CONN_ID_MAIN)
                   DC_status.flags.flag_MAIN_TCP = false;
@@ -487,7 +487,7 @@ DC_return_t MAPI_TCP_connect(uint8_t index, uint8_t ipList_Len, char* ipList, ui
 DC_return_t MAPI_getQuality(uint8_t* retQuality)
 {
   //Get quality
-  if (MGT_getQuality(retQuality, NULL) == MC60_STD_OK)
+  if (MGT_getQuality(retQuality, NULL) == Modem_STD_OK)
   {
     return DC_OK;
   }
@@ -509,10 +509,10 @@ DC_return_t MAPI_set_AGPS()
     return DC_ERROR;
   
   //AGPS
-  if (MGT_switch_EPO(1, &error_n) == MC60_STD_OK) //Switch EPO
+  if (MGT_switch_EPO(1, &error_n) == Modem_STD_OK) //Switch EPO
   {
     
-    if (MGT_EPO_trig() == MC60_STD_OK) //Trigger EPO
+    if (MGT_EPO_trig() == Modem_STD_OK) //Trigger EPO
     {
       return DC_OK;
     }
@@ -535,7 +535,7 @@ DC_return_t MAPI_ModuleSynchTime()
   while (try_counter --)
   {
     if (!DC_status.flags.flag_TYME_MODULE_SYNCH)
-      if (MGT_getTimeSynch(&status) == MC60_STD_OK)
+      if (MGT_getTimeSynch(&status) == Modem_STD_OK)
         if (status == 1)
         {
           DC_debugOut("Time sync ok\r\n");
@@ -558,7 +558,7 @@ DC_return_t MAPI_SynchTime()
   if(!DC_status.flags.flag_TYME_MODULE_SYNCH)//It not synch
   {
     //Try get cell time
-    if(MGT_get_time_network(&time, &date) == MC60_STD_OK)
+    if(MGT_get_time_network(&time, &date) == Modem_STD_OK)
     {
       CL_setDateTime(date, time);
       DC_params.UTC_time = globalUTC_time;
@@ -601,7 +601,7 @@ DC_return_t MAPI_BT_switchOn()
   //Try BT power
   while(try_counter--)
   {  
-    if (MGT_getStatusBT(&status) == MC60_STD_OK) //Get bluetooth power on status 
+    if (MGT_getStatusBT(&status) == Modem_STD_OK) //Get bluetooth power on status 
     {
       //Switched on
       if (status == '1')
@@ -626,8 +626,8 @@ DC_return_t MAPI_BT_switchOn()
 //Send USSD message
 DC_return_t MAPI_sendUSSD(char* USSD_mes, char* USSD_ans)
 {
-  if (MGT_setCharacterSet("IRA") == MC60_STD_OK) //Set charecter set
-    if (MGT_setUSSD_mode("1") == MC60_STD_OK) //Set USSD mode
+  if (MGT_setCharacterSet("IRA") == Modem_STD_OK) //Set charecter set
+    if (MGT_setUSSD_mode("1") == Modem_STD_OK) //Set USSD mode
     {
       MGT_returnUSSD(USSD_mes, USSD_ans); //Get USSD query
       MGT_setUSSD_mode("2"); //Set USSD mode

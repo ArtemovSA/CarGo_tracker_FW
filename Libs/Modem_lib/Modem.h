@@ -1,105 +1,105 @@
-#ifndef MC60_LIB
-#define MC60_LIB
+#ifndef Modem_LIB
+#define Modem_LIB
 
 #include "stdint.h"
 #include "InitDevice.h"
 
-#define MC60_GSM_EN_PORT V_GSM_EN_PORT
-#define MC60_GSM_EN_PIN V_GSM_EN_PIN
+#define Modem_GSM_EN_PORT V_GSM_EN_PORT
+#define Modem_GSM_EN_PIN V_GSM_EN_PIN
 
-#define MC60_GSM_EN_ON GPIO_PinOutSet(MC60_GSM_EN_PORT, MC60_GSM_EN_PIN)
-#define MC60_GSM_EN_OFF GPIO_PinOutClear(MC60_GSM_EN_PORT, MC60_GSM_EN_PIN)
+#define Modem_GSM_EN_ON GPIO_PinOutSet(Modem_GSM_EN_PORT, Modem_GSM_EN_PIN)
+#define Modem_GSM_EN_OFF GPIO_PinOutClear(Modem_GSM_EN_PORT, Modem_GSM_EN_PIN)
 
-#define MC60_GSM_PWR_PORT GSM_PWR_KEY_PORT
-#define MC60_GSM_PWR_PIN GSM_PWR_KEY_PIN
+#define Modem_GSM_PWR_PORT GSM_PWR_KEY_PORT
+#define Modem_GSM_PWR_PIN GSM_PWR_KEY_PIN
 
-#define MC60_GSM_PWR_ON GPIO_PinOutSet(MC60_GSM_PWR_PORT, MC60_GSM_PWR_PIN)
-#define MC60_GSM_PWR_OFF GPIO_PinOutClear(MC60_GSM_PWR_PORT, MC60_GSM_PWR_PIN)
+#define Modem_GSM_PWR_ON GPIO_PinOutSet(Modem_GSM_PWR_PORT, Modem_GSM_PWR_PIN)
+#define Modem_GSM_PWR_OFF GPIO_PinOutClear(Modem_GSM_PWR_PORT, Modem_GSM_PWR_PIN)
 
 //*****************************************APN settings*********************************************
 
-#define MC60_DEFAUL_APN              "internet"
-#define MC60_DEFAUL_LOGIN            "gdata"
-#define MC60_DEFAUL_PASS             "gdata"
+#define Modem_DEFAUL_APN              "internet"
+#define Modem_DEFAUL_LOGIN            "gdata"
+#define Modem_DEFAUL_PASS             "gdata"
 
 //*****************************************Return statuses******************************************
 //Std ansvers
 typedef enum {
-  MC60_STD_NULL = 0,
-  MC60_STD_OK,
-  MC60_STD_ERROR
-} MC60_std_ans_t;
+  Modem_STD_NULL = 0,
+  Modem_STD_OK,
+  Modem_STD_ERROR
+} Modem_std_ans_t;
 
 //Return
 typedef enum {
-  MC60_ERROR_ANS = 0x00,
-  MC60_TIMEOUT,
-  MC60_OK
-} MC60_ans_t;
+  Modem_ERROR_ANS = 0x00,
+  Modem_TIMEOUT,
+  Modem_OK
+} Modem_ans_t;
 
 //CREG_Q ansvers
 typedef enum {
-  MC60_CREG_Q_NOT_REG = 0,
-  MC60_CREG_Q_REGISTERED,
-  MC60_CREG_Q_SEARCH,
-  MC60_CREG_Q_DENIED,
-  MC60_CREG_Q_UNKNOWN,
-  MC60_CREG_Q_ROAMING
-} MC60_CREG_Q_ans_t;
+  Modem_CREG_Q_NOT_REG = 0,
+  Modem_CREG_Q_REGISTERED,
+  Modem_CREG_Q_SEARCH,
+  Modem_CREG_Q_DENIED,
+  Modem_CREG_Q_UNKNOWN,
+  Modem_CREG_Q_ROAMING
+} Modem_CREG_Q_ans_t;
 
 
 //*****************************************Commands*************************************************
 //ID command
 typedef enum {
-  MC60_CMD_NULL = 0,
-  MC60_CMD_AT,
-  MC60_CMD_ATI,
-  MC60_CMD_CREG_Q,
-  MC60_CMD_CSQ_Q,
-  MC60_CMD_CGDCONT,
-  MC60_CMD_CGACT,
-  MC60_CMD_CGACT_Q,
-  MC60_CMD_CGPADDR,
-  MC60_CMD_QIDNSIP,
-  MC60_CMD_QIOPEN,
-  MC60_CMD_QIMUX,
-  MC60_CMD_QISTAT_Q,
-  MC60_CMD_QISEND,
-  MC60_CMD_GSN,
-  MC60_CMD_QIHEAD,
-  MC60_CMD_QGNSSRD_RMC,
-  MC60_CMD_QGNSSRD_GGA,
-  MC60_CMD_QGNSSC,
-  MC60_CMD_QGNSSC_Q,
-  MC60_CMD_QGNSSTS_Q,
-  MC60_CMD_QGREFLOC,
-  MC60_CMD_QGNSSEPO,
-  MC60_CMD_QGEPOAID,
-  MC60_CMD_QSCLK,
-  MC60_CMD_CFUN,
-  MC60_CMD_QIREGAPP,
-  MC60_CMD_QCELLLOC,
-  MC60_CMD_CTZU,
-  MC60_CMD_CCLK,
-  MC60_CMD_QNITZ,
-  MC60_CMD_QICLOSE,
-  MC60_CMD_CUSD,
-  MC60_CMD_CSCS,
-  MC60_CMD_MODECUSD,
-  MC60_CMD_CMGF,
-  MC60_CMD_CMGS,
+  Modem_CMD_NULL = 0,
+  Modem_CMD_AT,
+  Modem_CMD_ATI,
+  Modem_CMD_CREG_Q,
+  Modem_CMD_CSQ_Q,
+  Modem_CMD_CGDCONT,
+  Modem_CMD_CGACT,
+  Modem_CMD_CGACT_Q,
+  Modem_CMD_CGPADDR,
+  Modem_CMD_QIDNSIP,
+  Modem_CMD_QIOPEN,
+  Modem_CMD_QIMUX,
+  Modem_CMD_QISTAT_Q,
+  Modem_CMD_QISEND,
+  Modem_CMD_GSN,
+  Modem_CMD_QIHEAD,
+  Modem_CMD_QGNSSRD_RMC,
+  Modem_CMD_QGNSSRD_GGA,
+  Modem_CMD_QGNSSC,
+  Modem_CMD_QGNSSC_Q,
+  Modem_CMD_QGNSSTS_Q,
+  Modem_CMD_QGREFLOC,
+  Modem_CMD_QGNSSEPO,
+  Modem_CMD_QGEPOAID,
+  Modem_CMD_QSCLK,
+  Modem_CMD_CFUN,
+  Modem_CMD_QIREGAPP,
+  Modem_CMD_QCELLLOC,
+  Modem_CMD_CTZU,
+  Modem_CMD_CCLK,
+  Modem_CMD_QNITZ,
+  Modem_CMD_QICLOSE,
+  Modem_CMD_CUSD,
+  Modem_CMD_CSCS,
+  Modem_CMD_MODECUSD,
+  Modem_CMD_CMGF,
+  Modem_CMD_CMGS,
   
   //Bluetooth
-  MC60_CMD_QBTPWR,
-  MC60_CMD_QBTPWR_Q,
-  MC60_CMD_QBTNAME,
-  MC60_CMD_QBTVISB,
-  MC60_CMD_QBTPAIRCNF,
-  MC60_CMD_QSPPSEND,
-  MC60_CMD_QBTCONN,
+  Modem_CMD_QBTPWR,
+  Modem_CMD_QBTPWR_Q,
+  Modem_CMD_QBTNAME,
+  Modem_CMD_QBTVISB,
+  Modem_CMD_QBTPAIRCNF,
+  Modem_CMD_QSPPSEND,
+  Modem_CMD_QBTCONN,
 
-  MC60_CMD_COUNT
-} MC60_cmd_t;
+  Modem_CMD_COUNT
+} Modem_cmd_t;
 
 
 //Cmd texts
@@ -151,15 +151,15 @@ extern const char cmd_text_CMGS[];
 //*****************************************Events***************************************************
 //Events
 typedef enum{
-  MC60_EVENT_NULL = 0,
-  MC60_EVENT_RECIVE,
-  MC60_EVENT_RDY,
-  MC60_EVENT_TCP_CLOSE,
-  MC60_EVENT_UNDER_VOLTAGE,
-  MC60_EVENT_BT_EVENT,
-  MC60_EVENT_SMS_RECIVE,
-  MC60_EVENT_COUNT
-}MC60_event_t;
+  Modem_EVENT_NULL = 0,
+  Modem_EVENT_RECIVE,
+  Modem_EVENT_RDY,
+  Modem_EVENT_TCP_CLOSE,
+  Modem_EVENT_UNDER_VOLTAGE,
+  Modem_EVENT_BT_EVENT,
+  Modem_EVENT_SMS_RECIVE,
+  Modem_EVENT_COUNT
+}Modem_event_t;
 
 //Events texts
 extern const char event_text_NULL[]; //NULL data
@@ -174,40 +174,41 @@ extern const char event_text_Recive_SMS[]; //Recive SMS indicator
 //**************************************************************************************************
 //Connection type
 typedef enum {
-  MC60_CON_FAIL = 0,
-  MC60_CON_OK,
-  MC60_CON_ALREADY
-} MC60_con_type_t;
+  Modem_CON_FAIL = 0,
+  Modem_CON_OK,
+  Modem_CON_ALREADY
+} Modem_con_type_t;
 
 //IP conn type
 typedef enum {
-  MC60_CON_TCP = 0,
-  MC60_CON_UDP
-} MC60_ip_con_type_t;
+  Modem_CON_TCP = 0,
+  Modem_CON_UDP
+} Modem_ip_con_type_t;
 
 //TCP send type
 typedef enum {
-  MC60_SEND_FAIL = 0,
-  MC60_CONNECT_ERR,
-  MC60_SEND_OK
-} MC60_TCP_send_t;
+  Modem_SEND_FAIL = 0,
+  Modem_CONNECT_ERR,
+  Modem_SEND_OK
+} Modem_TCP_send_t;
 
 //BT send type
 typedef enum {
-  MC60_BT_SEND_FAIL = 0,
-  MC60_BT_CONNECT_ERR,
-  MC60_BT_SEND_OK
-} MC60_BT_send_t;
+  Modem_BT_SEND_FAIL = 0,
+  Modem_BT_CONNECT_ERR,
+  Modem_BT_SEND_OK
+} Modem_BT_send_t;
 
 //Adr type
 typedef enum {
-  MC60_ADR_TYPE_IP = 0,
-  MC60_ADR_TYPE_DOMEN
-} MC60_adr_type_t;
+  Modem_ADR_TYPE_IP = 0,
+  Modem_ADR_TYPE_DOMEN
+} Modem_adr_type_t;
 
 //One str param
 typedef struct{
-  MC60_cmd_t cmd_id;
+  uint8_t cmd_id;
+  char *cmd_str;
   char *str1;
   char *str2;
   char *str3;
@@ -216,21 +217,21 @@ typedef struct{
   void *ans2;
   void *ans3;
   void *ans4;
-  MC60_std_ans_t *std_ans;
-} MC60_str_query_t;
+  Modem_std_ans_t *std_ans;
+} Modem_str_query_t;
 
 //Recive TCP message
 typedef struct {
   uint8_t index;
   uint16_t len;
   char *data;
-} MC60_TCP_recive_t;
+} Modem_TCP_recive_t;
 
 //GNSS data type
 typedef enum{
   RMC = 0,
   GGA
-}MC60_GNSS_data_type_t;
+}Modem_GNSS_data_type_t;
 
 //BT event type
 typedef enum{
@@ -238,47 +239,47 @@ typedef enum{
   BT_PAIR,
   BT_CONN,
   BT_DISCONN
-}MC60_BT_event_type_t;
+}Modem_BT_event_type_t;
 
 //BT event
 typedef struct {
-  MC60_BT_event_type_t type;
+  Modem_BT_event_type_t type;
   char name[20];
   uint32_t numericcompare;
   uint64_t addr;
   uint8_t id;
-}MC60_BT_event_t;
+}Modem_BT_event_t;
 
 //SMS event
 typedef struct {
   char SMS_event_place[5];
   uint16_t SMS_event_count;
-}MC60_SMS_event_t;
+}Modem_SMS_event_t;
 
 //BT modes
 typedef enum{
   BT_MODE_AT = 0,
   BT_MODE_BUF_ACCESS,
   BT_MODE_TRANSPARENT
-}MC60_BT_mode_t;
+}Modem_BT_mode_t;
 
 //BT profiles
 typedef enum{
   BT_SPP_PROFILE = 0,
   BT_HF_PROFILE = 5,
   BT_GHF_PROFILE
-}MC60_BT_profile_t;
+}Modem_BT_profile_t;
 
 //*****************************************Functions************************************************
-extern MC60_cmd_t MC60_current_cmd; //Curent exec cmd
+extern Modem_cmd_t Modem_current_cmd; //Curent exec cmd
 
-void MC60_on_seq(); //¬ключить модем
-uint8_t MC60_check_IMEI(char *IMEI); //Check IMEI
-void MC60_sendCR(); //Send CR
+void Modem_on_seq(); //¬ключить модем
+uint8_t Modem_check_IMEI(char *IMEI); //Check IMEI
+void Modem_sendCR(); //Send CR
 
 //*****************************************Task Functions*******************************************
 //Task functions
-void MC60_PrepareAndSendCmd(MC60_str_query_t *data); //PrepareAndSendCmd
-void MC60_sendStr(char* str, uint16_t len); //Send str
+void Modem_PrepareAndSendCmd(Modem_str_query_t *data); //PrepareAndSendCmd
+void Modem_sendStr(char* str, uint16_t len); //Send str
 
 #endif

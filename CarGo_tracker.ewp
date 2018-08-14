@@ -343,7 +343,6 @@
           <state>$PROJ_DIR$\Drivers\USB_VCP\usb\src</state>
           <state>$PROJ_DIR$\Drivers\USB_VCP</state>
           <state>$PROJ_DIR$\Tasks\Modem_gate_task</state>
-          <state>$PROJ_DIR$\Libs\MC60_lib</state>
           <state>$PROJ_DIR$\Drivers\UART</state>
           <state>$PROJ_DIR$\Tasks\Main_task</state>
           <state>$PROJ_DIR$\Tasks\Monitor_task</state>
@@ -356,6 +355,7 @@
           <state>$PROJ_DIR$\Libs\DS18B20</state>
           <state>$PROJ_DIR$\Drivers\OneWire</state>
           <state>$PROJ_DIR$\API\ModemAPI</state>
+          <state>$PROJ_DIR$\Libs\Modem_lib</state>
         </option>
         <option>
           <name>CCStdIncCheck</name>
@@ -766,7 +766,7 @@
         </option>
         <option>
           <name>IlinkIcfFile</name>
-          <state>D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_v2.11\EFM32LG330F128.icf</state>
+          <state>D:\JOB\ARM\EFM32\IAR workspace\CarGo_tracker_FW\EFM32LG330F128.icf</state>
         </option>
         <option>
           <name>IlinkIcfFileSlave</name>
@@ -2200,12 +2200,12 @@
       </file>
     </group>
     <group>
-      <name>MC60_lib</name>
+      <name>Modem</name>
       <file>
-        <name>$PROJ_DIR$\Libs\MC60_lib\MC60_lib.c</name>
+        <name>$PROJ_DIR$\Libs\Modem_lib\Modem.c</name>
       </file>
       <file>
-        <name>$PROJ_DIR$\Libs\MC60_lib\MC60_lib.h</name>
+        <name>$PROJ_DIR$\Libs\Modem_lib\Modem.h</name>
       </file>
     </group>
     <group>

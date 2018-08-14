@@ -28,7 +28,7 @@
 //Libs
 #include "Device_ctrl.h"
 #include "Delay.h"
-#include "MC60_lib.h"
+#include "Modem.h"
 #include "GNSS.h"
 #include "wialon_ips2.h"
 #include "ADC.h"
@@ -757,7 +757,7 @@ void Tracker_exec_Send_mode()
   }
   
   //Get IMEI
-  if (!MC60_check_IMEI((char*)DC_settings.IMEI))
+  if (!Modem_check_IMEI((char*)DC_settings.IMEI))
   {
     if (MAPI_getIMEI((char*)DC_settings.IMEI) != DC_OK)
     {
@@ -946,7 +946,7 @@ void Tracker_exec_ACC_event()
   DC_dataLog.Event |= (1 << DC_WIALON_STAT_ACC);
   
   //Get IMEI
-  if (!MC60_check_IMEI((char*)DC_settings.IMEI))
+  if (!Modem_check_IMEI((char*)DC_settings.IMEI))
   {
     if (MAPI_getIMEI((char*)DC_settings.IMEI) != DC_OK)
     {
